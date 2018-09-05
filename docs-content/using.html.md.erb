@@ -1,15 +1,112 @@
 ---
-title: Using YOUR-PRODUCT-NAME
+title: Overriding Default Configuration
 owner: Partners
 ---
 
-This topic describes how to use YOUR-PRODUCT-NAME.
+## <a id='overide-nozzle-cf'></a>Overriding Default Nozzle Configuration
 
-##<a id='using'></a> Using YOUR-PRODUCT-NAME
 
-**This topic should include any instructions for how to use the service or dashboard created by the tile. 
-Give procedures for how to perform the different functions offered by your product and provide screenshots where necessary.** 
+The Nozzle is shipped to work with basic configuration input using Tile forms. However, most of the configuration can be overriden.
+If the CF command line tool installed in your enviorment, you can override the Default Nozzle configuration by setting the environment variables and restaging the application:
 
-**You can also use this section to include information about Architecture and Troubleshooting for known errors. 
-If you include a Troubleshooting section, follow the Symptom/Explanation format used in the 
-[Okta Troubleshooting](http://docs.pivotal.io/p-identity/okta/troubleshooting.html) topic**.
+<pre class='terminal'>
+$ cf set-env appdnozzle <ENVNAME> <NEW ENV VALUE>
+$ cf restage appdnozzle-{version}
+</pre>
+
+The table below summarizes the environment variables, their default and allowed values, and the description.
+
+<table class="nice">
+    <th>Environment Variable</th>
+    <th>Purpose</th>
+    <th>Allowed Values</th>
+    <th>Default</th>
+    <tr>
+        <td>APPD_NOZZLE_APP</td>
+        <td>Name of the Nozzle Application under which the metrics are recorded</td>
+        <td>Any string</td>
+        <td>appd-nozzle</td>
+    </tr>
+    <tr>
+        <td>APPD_NOZZLE_TIER</td>
+        <td>Name of the Nozzle Tier under which the metrics are recorded</td>
+        <td>Any string</td>
+        <td>appd-nozzle-tier</td>
+    </tr>
+    <tr>
+      <td>APPD_NOZZLE_Node</td>
+      <td>Name of the Nozzle Node under which the metrics are recorded</td>
+      <td>Any string</td>
+      <td>appd-nozzle-node</td>
+    </tr>
+    <tr>
+        <td>APPD_SSL_ENABLED</td>
+        <td>Enable/Disable SSL to Controller</td>
+        <td>true / false</td>
+        <td>false</td>
+    </tr>
+    <tr>
+      <td>APPD_CONTROLLER_HOST</td>
+      <td>Hostname of the Appdynamics Controller</td>
+      <td>host.appd.com</td>
+      <td>none</td>
+    </tr>
+    <tr>
+      <td>APPD_CONTROLLER_PORT</td>
+      <td>Port on which Appdynamics Controller is listening</td>
+      <td>Any port number</td>
+      <td>8090</td>
+    </tr>
+    <tr>
+      <td>APPD_ACCOUNT</td>
+      <td>Account name for the above Controller</td>
+      <td>An Account name</td>
+      <td>none</td>
+    </tr>
+    <tr>
+      <td>APPD_ACCESS_KEY</td>
+      <td>Name of the Nozzle Node under which the metrics are recorded</td>
+      <td>Access Key</td>
+      <td>none</td>
+    </tr>
+    <tr>
+      <td>APPD_SINK</td>
+      <td>Sink to which the metrics are to be pushed</td>
+      <td>stdout/Controller</td>
+      <td>Controller</td>
+    </tr>
+    <tr>
+      <td>APPD_SAMPLING_RATE</td>
+      <td>Polling Interval in secs to Firehose Nozzle</td>
+      <td>number of seconds</td>
+      <td>2 seconds</td>
+    </tr>
+    <tr>
+      <td>NOZZLE_UAA_URL</td>
+      <td>UAA API endpoint URL</td>
+      <td>Run cf curl /v2/info and record the UAA endpoint</td>
+      <td>none</td>
+    </tr>
+    <tr>
+      <td>NOZZLE_TRAFFIC_CONTROLLER_URL</td>
+      <td>Doppler end point URL</td>
+      <td>Run cf curl /v2/info and record doppler api url</td>
+      <td>none</td>
+    </tr>
+    <tr>
+      <td>NOZZLE_USERNAME</td>
+      <td>Name of the Nozzle Node under which the metrics are recorded</td>
+      <td>User name of account belonging to doppler.firehose group</td>
+      <td>none</td>
+    </tr>
+    <tr>
+      <td>NOZZLE_PASSWORD</td>
+      <td>Password for the above account</td>
+      <td>none</td>
+      <td>none</td>
+    </tr>
+</table>
+
+## <a id='troubleshooting'></a> Troubleshooting
+
+Follow the steps in the [extensions troubleshooting document](https://community.appdynamics.com/t5/Knowledge-Base/How-to-troubleshoot-missing-custom-metrics-or-extensions-metrics/ta-p/28695) in order to troubleshoot your issue. These are a set of common issues that you might face during the installation of the extension. If taking these steps does not solve your issue, follow the last step in the troubleshooting document to contact the support team.
