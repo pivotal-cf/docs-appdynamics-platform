@@ -16,8 +16,8 @@ public_host: hello
 sections:
   - repository:
       name: docs-content
-    directory: appdynamics
-    subnav_template: appdynamics_subnav.erb       
+    directory: appdynamics-platform
+    subnav_template: appdynamics-platform_subnav.erb       
 
 template_variables:                             # optional
 
