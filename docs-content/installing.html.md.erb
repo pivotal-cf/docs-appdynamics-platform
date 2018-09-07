@@ -1,30 +1,87 @@
 ---
-title: Installing and Configuring YOUR-PRODUCT-NAME
+title: Installing and Configuring AppDynamics Platform Monitoring
 owner: Partners
 ---
 
-This topic describes how to install and configure YOUR-PRODUCT-NAME.
+This topic describes how to install and configure Appdynamics Platform Metrics in Pivotal Cloud Foundry (PCF).
+## <a id='overview-appd-nozzle'></a> Overview
 
-##<a id='install'></a> Install and Configure YOUR-PRODUCT-NAME
+AppDynamics Nozzle aggregates and forwards logs and metrics from the Loggregator Firehose to the AppDynamics Controller. The Controller process that data and provides the performance metrics of the underlying infrastructure of apps running on PCF. You can view them in the Metric Browser corresponding to the Nozzle application.
 
-To install the YOUR-PRODUCT-NAME file on the Ops Manager Installation Dashboard, do the following:
+When you successfully configure AppDynamics Nozzle on PCF, a default application named appd-nozzle, is created on the AppDynamics Controller. Additionally, a default tier named appd-nozzle-tier and a default node named appd-nozzle-node are created under which corresponding metrics are recorded.
 
-1. Download the product file from Pivotal Network.
+## <a id='before-you-start'></a> Before You Start
 
-1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file. 
+Do the following:
 
-1. Under the **Import a Product** button, click **+** next to the version number of YOUR-PRODUCT-NAME. 
-This adds the tile to your staging area.
+1. Create a [Pivotal Network](https://network.pivotal.io) account if you do not have one.
 
-1. Click the newly added **YOUR-PRODUCT-NAME** tile.
+1. [Set up the AppDynamics Controller](https://docs.appdynamics.com/display/PRO45/Controller+Deployment).
 
-1. **This portion of the procedure should tell the users how to configure the newly added tile by
-walking them through the sections. Which fields should they fill out? What are the different
-checkboxes? Include relevant screenshots here.** 
+1. Acquire atleast one Go SDK Agent License.
 
-1. Click **Save**.
 
-1. Return to the Ops Manager Installation Dashboard and click **Apply changes** to install YOUR-PRODUCT-NAME tile.
+## <a id='set-up-appd-nozzle'></a> Configuring AppDynamics Nozzle
 
-**If needed, include additional configuration information below. For example, maybe there are
-configuration options not required for installation but which could be useful for certain users.**
+1. Log in to the Ops Manager.
+
+1. If the AppDynamics Platform Monitoring tile does not appear in the Installation Dashboard, click **Import a Product** in the left-side menu and import the AppDynamics Platform Monitoring tile.
+
+1. Double-click the **AppDynamics Platform Monitoring for PCF** tile in the Installation Dashboard.
+   The Settings tab is displayed.
+
+1. In the **Settings** tab, select **AppDynamics Nozzle Configuration**.
+![](./images/appd-nozzle-config.png)
+
+1. Specify the following Nozzle configuration settings and click **Save**. All the fields are mandatory. You cannot add multiple Nozzle configurations.
+
+  * **UAA token_endpoint URL**: The authentication token endpoint URL of the User Account and Authentication Service (UAA) API.
+  * **Doppler Traffic Controller URL**: The doppler firehose endpoint.
+
+    
+    * Run the  cf command to `cf curl /v2/info`. The UAA token_endpoint and Doppler Traffic Controller URL are the values of `token_endpoint` and `doppler_logging_endpoint` respectively
+
+<pre class='terminal'>
+$ cf curl /v2/info
+{
+...
+"token_endpoint": "https://uaa.sys.pie-multi-az-blue.cfplatformeng.com",
+...
+"doppler_logging_endpoint": "wss://doppler.sys.pie-multi-az-blue.cfplatformeng.com:443",
+}
+</pre>
+
+
+
+  * **Username**: Username for a member account belonging to **doppler.firehose** group. This is the authorized UAA user that AppDynamics Nozzle uses to access the Loggregator. For more information, see [How to Find Credentials](https://github.com/Appdynamics/appdynamics-firehose-nozzle#how-to-find-credentials).
+  * **Password**: The password for the above account.
+
+
+    <b><i>Do one of the following to get the credentials</i></b>
+      * CF environments usually ship with **opentsdb-firehose-nozzle** account which already belongs to the doppler.firehose group. Use an existing account shipped with CloudFoundry, log in to the OPS Manager and select the PAS tile. Navigate to credentials > UAA > Opentsdb Nozzle Credentials. Copy the username and password.
+      * (or) Create a new one in the doppler.firehose group with necessary permissions. For more information, see [UAA Client](https://github.com/cf-platform-eng/firehose-nozzle#option-2-uaa-client).
+  
+  * **Controller Account Name**: The name of the account in the AppDynamics Controller. Access the account name in the AppDynamics Controller UI on the Account tab under License.
+  * **Account Access Key**: The access key for the above Controller account. Access the account key in the AppDynamics Controller UI on the Account tab under License.
+  * **Controller Host**: Hostname of the AppDynamics Controller.
+  * **Controller Port**: The port on which the AppDynamics Controller listens for Nozzle traffic.
+  * **Enable Controller SSL**: Establishes secures communication with the Controller.
+  * **Username for Reporting Custom Dashboard**: Username of an account with custom dashboard creation permissions.
+  * **Password**: Password for the above Account.
+
+### <a id='overide-nozzle-ops-manager'></a> Advanced Configuration of AppDynamics Application
+
+This configuration is optional for 4.5.x Controllers. The Application, Tier, Node name on the Controller are created as `appd-nozzle`, `appd-nozzle-tier`, and `appd-nozzle-node` respectively on the fly.
+This can be overriden by setting the below configuration. Note that the Application and Tier need not be precreated here. Just enter the names you want the metrics under.
+
+However, for the 4.4.x Controllers, this setting is mandatory. You have to pre-create the Application and Tier on the AppDynamics Controller and enter the configuration. Note that the Tier must be `Go SDK` tier.
+
+
+1. In the **Advanced Configuration (Optional for 4.5.x Controllers)** tab, specify the following settings and click **Save**.
+   ![](./images/nozzle-adv-config.png)
+  * **Nozzle Application Name**: Enter a name to identify the Nozzle application on the Controller.
+  * **Nozzle Tier Name**: Enter the tier name for the Nozzle application you defined previously. This MUST be Go SDK Tier
+  * **Nozzle Tier ID**: Enter the component ID you identified previously.
+  * **Nozzle Node Name**: Enter a name for the node that corresponds to the Application Name, such as **_app-name_-node**.
+
+1. In the Installation Dashboard, click **Apply Changes** and wait for all the changes to be applied.
