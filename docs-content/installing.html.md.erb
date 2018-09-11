@@ -38,7 +38,7 @@ Do the following:
   * **UAA token_endpoint URL**: The authentication token endpoint URL of the User Account and Authentication Service (UAA) API.
   * **Doppler Traffic Controller URL**: The doppler firehose endpoint.
 
-    
+
     * Run the  cf command to `cf curl /v2/info`. The UAA token_endpoint and Doppler Traffic Controller URL are the values of `token_endpoint` and `doppler_logging_endpoint` respectively
 
 <pre class='terminal'>
@@ -60,7 +60,7 @@ $ cf curl /v2/info
     <b><i>Do one of the following to get the credentials</i></b>
       * CF environments usually ship with **opentsdb-firehose-nozzle** account which already belongs to the doppler.firehose group. Use an existing account shipped with CloudFoundry, log in to the OPS Manager and select the PAS tile. Navigate to credentials > UAA > Opentsdb Nozzle Credentials. Copy the username and password.
       * (or) Create a new one in the doppler.firehose group with necessary permissions. For more information, see [UAA Client](https://github.com/cf-platform-eng/firehose-nozzle#option-2-uaa-client).
-  
+
   * **Controller Account Name**: The name of the account in the AppDynamics Controller. Access the account name in the AppDynamics Controller UI on the Account tab under License.
   * **Account Access Key**: The access key for the above Controller account. Access the account key in the AppDynamics Controller UI on the Account tab under License.
   * **Controller Host**: Hostname of the AppDynamics Controller.
@@ -69,7 +69,7 @@ $ cf curl /v2/info
   * **Username for Reporting Custom Dashboard**: Username of an account with custom dashboard creation permissions.
   * **Password**: Password for the above Account.
 
-### <a id='overide-nozzle-ops-manager'></a> Advanced Configuration of AppDynamics Application
+## <a id='overide-nozzle-ops-manager'></a> Advanced Configuration of AppDynamics Application
 
 This configuration is optional for 4.5.x Controllers. The Application, Tier, Node name on the Controller are created as `appd-nozzle`, `appd-nozzle-tier`, and `appd-nozzle-node` respectively on the fly.
 This can be overriden by setting the below configuration. Note that the Application and Tier need not be precreated here. Just enter the names you want the metrics under.
