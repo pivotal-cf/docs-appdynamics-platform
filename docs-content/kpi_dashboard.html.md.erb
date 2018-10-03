@@ -74,21 +74,18 @@ You can run the PCF Dashboard Generator as a command line script or as an app wi
 
 The generated dashboard is named according to the app and tier name configured in the AppDynamics tile, i.e. APPNAME-TIERNAME-PCF KPI Dashboard. The generated health rules are prefixed with the tier name configured in the tile, so that AppDynamics tiles deployed to multiple foundations can report to the same AppDynamics app. An example is TIERNAME-Diego Cell Memory Capacity.
 
-### <a id='diego-health-rules'></a> Adjusting Diego Cell Capacity Health Rules
+### <a id='diego-health-rules'></a> Updating Diego Cell Capacity Health Rules
 
-The generated health rules are based on a template that assumes three Diego Cell VMs. If your organization has a different number of Diego Cells, you need to edit the health rules related to Diego Cell capacity so that they properly reflect the actual capacity. This applies to the following health rules that use metric expressions to calculate the capacity across the cluster of Diego Cells:
+The generated health rules will reflect the current number of diego cells when the tile is deployed. If you scale the number of diego cells after that point, the following health rules related to diego cell capacity will need to be regenerated, as they rely on metric expressions that include variables for each diego cell:
 
-- Diego Cell Container Capacity
+- ${tierName}-Diego Cell Container Capacity
+- ${tierName}-Diego Cell Memory Capacity
+- ${tierName}-Diego Cell Disk Capacity
+- ${tierName}-Remaining Memory Available-Cell Memory Chunks Available
+- ${tierName}-Remaining Memory Available-Overall Remaining Memory Available
+- ${tierName}-Remaining Disk Available
 
-- Diego Cell Memory Capacity
-
-- Diego Cell Disk Capacity
-
-- Remaining Memory Available-Cell Memory Chunks Available
-
-- Remaining Memory Available-Overall Remaining Memory Available
-
-- Remaining Disk Available
+Assuming a PCF environment, the easiest way to regenerate these health rules is to delete them in the controller UI, as well as the KPI dashboard that references them `${applicationName}-${tierName}-PCF KPI Dashboard`. The PCF Dashboard Generator will automatically recreate both the health rules and dashboard based on the latest diego cell count within 10 minutes. Note that if you've made any changes to these health rules, you'll need to reapply them.
 
 ### <a id='overwrite-behavior'></a> Overwrite Behavior
 
