@@ -71,7 +71,10 @@ The generated dashboard is named according to the app and tier name configured i
 
 ### <a id='diego-health-rules'></a> Updating Diego Cell Capacity Health Rules
 
-The generated health rules will reflect the current number of diego cells when the tile is deployed. If you scale the number of diego cells after that point, the following health rules related to diego cell capacity will need to be regenerated, as they rely on metric expressions that include variables for each diego cell:
+The generated health rules reflect the current number of Diego cells when the tile is deployed.
+If you scale the number of Diego cells after that point,
+the following health rules related to Diego cell capacity need to be regenerated,
+because they rely on metric expressions that include variables for each Diego cell:
 
 - ${tierName}-Diego Cell Container Capacity
 - ${tierName}-Diego Cell Memory Capacity
@@ -80,7 +83,10 @@ The generated health rules will reflect the current number of diego cells when t
 - ${tierName}-Remaining Memory Available-Overall Remaining Memory Available
 - ${tierName}-Remaining Disk Available
 
-Assuming a PCF environment, the easiest way to regenerate these health rules is to delete them in the controller UI, as well as the KPI dashboard that references them `${applicationName}-${tierName}-PCF KPI Dashboard`. The PCF Dashboard Generator will automatically recreate both the health rules and dashboard based on the latest diego cell count within 10 minutes. Note that if you've made any changes to these health rules, you'll need to reapply them.
+Assuming a PCF environment, one way to regenerate these health rules is to delete them in the controller UI,
+as well as the KPI dashboard that references them `${applicationName}-${tierName}-PCF KPI Dashboard`.
+The PCF Dashboard Generator automatically recreates both the health rules and dashboard based on the latest Diego cell count within 10 minutes.
+If you have made any changes to these health rules, you need to reapply them.
 
 ### <a id='overwrite-behavior'></a> Overwrite Behavior
 
