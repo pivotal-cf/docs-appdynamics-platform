@@ -69,6 +69,39 @@ $ cf curl /v2/info
   * **Username for Reporting Custom Dashboard**: Username of an account with custom dashboard creation permissions.
   * **Password**: Password for the above Account.
 
+## <a id='configure-proxy-settings'></a> Configuring Proxy Settings for the AppDynamics Platform Monitoring Tile
+
+If you're using a Proxy Server and SaaS controller, the two PCF apps deployed by the AppDynamics Platform Monitoring for PCF tile, AppDynamics Nozzle and the AppDynamics KPI Dashboard, require that you set environment variables to define the proxy host and port so the apps can communicate with the configured SaaS controller. 
+
+The following instructions assume the use of the Cloud Foundry CLI. You could also set the environment variables from the Apps Manager as well.
+ 
+    $ cf target -o appdynamics-org -s appdynamics-space
+    $ cf apps
+    (filtered)
+    appdnozzle-<version>
+    appdpcfdashboard-<version>
+
+Where `<version>` will be the specific version of the tile deployed and substituted in the following commands:
+AppDynamics Nozzle app:
+ 
+    $ cf set-env appdnozzle-<version> APPD_SDK_CONTROLLER_HTTP_PROXY_HOST host
+    $ cf set-env appdnozzle-<version> APPD_SDK_CONTROLLER_HTTP_PROXY_PORT port
+    $ cf set-env appdnozzle-<version> APPD_SDK_CONTROLLER_HTTP_PROXY_USERNAME user
+    $ cf set-env appdnozzle-<version> APPD_SDK_CONTROLLER_HTTP_PROXY_PASSWORD password
+ 
+ AppDynamics KPI Dashboard app:
+ 
+    $ cf set-env appdpcfdashboard-<version> HTTP_PROXY http://user@password:host:port/
+    $ cf set-env appdpcfdashboard-<version> HTTPS_PROXY https://user@password:host:https_port/
+ 
+ Restage the apps for the environment variables to take effect:
+
+    $ cf restage appdnozzle-<version>
+    $ cf restage  appdpcfdashboard-<version>
+
+## Apps Manager Configuration
+Set the environment variables from the Apps Manager as well.
+
 ## <a id='overide-nozzle-ops-manager'></a> Advanced Configuration of AppDynamics Application
 
 This configuration is optional for 4.5.x Controllers. The Application, Tier, Node name on the Controller are created as `appd-nozzle`, `appd-nozzle-tier`, and `appd-nozzle-node` respectively on the fly.
