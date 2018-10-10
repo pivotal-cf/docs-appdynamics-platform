@@ -1,8 +1,6 @@
 ---
 title: Installing and Configuring AppDynamics Platform Monitoring
 owner: Partners
----
-
 This topic describes how to install and configure Appdynamics Platform Metrics in Pivotal Cloud Foundry (PCF).
 ## <a id='overview-appd-nozzle'></a> Overview
 
@@ -73,34 +71,74 @@ $ cf curl /v2/info
 
 If you're using a Proxy Server and SaaS controller, the two PCF apps deployed by the AppDynamics Platform Monitoring for PCF tile, AppDynamics Nozzle and the AppDynamics KPI Dashboard, require that you set environment variables to define the proxy host and port so the apps can communicate with the configured SaaS controller. 
 
-The following instructions assume the use of the Cloud Foundry CLI. You could also set the environment variables from the Apps Manager as well.
- 
-    $ cf target -o appdynamics-org -s appdynamics-space
-    $ cf apps
-    (filtered)
-    appdnozzle-<version>
-    appdpcfdashboard-<version>
+You can configure the proxy environment variables in either in  `filename.here` or using the Apps Manager.
 
-Where `<version>` will be the specific version of the tile deployed and substituted in the following commands:
-AppDynamics Nozzle app:
- 
-    $ cf set-env appdnozzle-<version> APPD_SDK_CONTROLLER_HTTP_PROXY_HOST host
-    $ cf set-env appdnozzle-<version> APPD_SDK_CONTROLLER_HTTP_PROXY_PORT port
-    $ cf set-env appdnozzle-<version> APPD_SDK_CONTROLLER_HTTP_PROXY_USERNAME user
-    $ cf set-env appdnozzle-<version> APPD_SDK_CONTROLLER_HTTP_PROXY_PASSWORD password
- 
- AppDynamics KPI Dashboard app:
- 
-    $ cf set-env appdpcfdashboard-<version> HTTP_PROXY http://user@password:host:port/
-    $ cf set-env appdpcfdashboard-<version> HTTPS_PROXY https://user@password:host:https_port/
- 
- Restage the apps for the environment variables to take effect:
+### Using Cloud Foundry CLI to Set Proxy Environment Variables
 
-    $ cf restage appdnozzle-<version>
-    $ cf restage  appdpcfdashboard-<version>
+This section explains how to configure settings that use the Cloud Foundry Command Line Interface (CLI) when interacting with the AppDynamics Nozzle and the AppDynamics KPI Dashboard, where `<version>` will be the specific version of the tile deployed and substituted in the commands.
 
-## Apps Manager Configuration
-Set the environment variables from the Apps Manager as well.
+1. Open Terminal.
+
+1. Navigate to the directory where you want to configure the version that is associated with your org appdynamics-org and space appdynamics-space.
+ 
+        $ cf target -o appdynamics-org -s appdynamics-space
+        $ cf apps
+        (filtered)
+        appdnozzle-<version>
+        appdpcfdashboard-<version>
+
+1. Navigate to the AppDynamics Nozzle app and set the specific version of the tile deployed:  
+ 
+        $ cf set-env appdnozzle-<version> APPD_SDK_CONTROLLER_HTTP_PROXY_HOST host
+        $ cf set-env appdnozzle-<version> APPD_SDK_CONTROLLER_HTTP_PROXY_PORT port
+        $ cf set-env appdnozzle-<version> APPD_SDK_CONTROLLER_HTTP_PROXY_USERNAME user
+        $ cf set-env appdnozzle-<version> APPD_SDK_CONTROLLER_HTTP_PROXY_PASSWORD password
+ 
+1. Navigate to the AppDynamics KPI Dashboard app and set the specific version of the tile deployed:
+ 
+        $ cf set-env appdpcfdashboard-<version> HTTP_PROXY http://user@password:host:port/
+        $ cf set-env appdpcfdashboard-<version> HTTPS_PROXY https://user@password:host:https_port/
+ 
+1. Restage the apps for the environment variables to take effect:
+
+        $ cf restage appdnozzle-<version>
+        $ cf restage  appdpcfdashboard-<version>
+
+### Using Apps Manager to Set Proxy Environment Variables
+
+The proxy environment variables set above using the Cloud Foundry CLI can also be set using the Apps Manager.
+
+### AppDynamics Nozzle app
+1. Navigate to the appdynamics space.
+1. Open the **Settings** tab for the `appdnozzle-<version>` app. 
+1. Click **REVEAL USER PROVIDED ENV VARS**.
+
+   ![](./images/reveal-user-envars.png)
+
+1. Add the proxy environment variables and click **SAVE**.
+
+   ![](./images/add-envars-save.png)
+
+1. Click the **Restart** button to restart the app.
+
+   ![](./images/restart-app-ui.png)
+
+### AppDynamics KPI Dashboard app 
+1. Navigate to the appdynamics space.
+1. Open the **Settings** tab for the `appdpcfdashboard-<version>` app. 
+1. Click **REVEAL USER PROVIDED ENV VARS**.
+
+    !!!! **Note:** Replace these Screenshots with KPI Dashboard App Images !!!!
+
+   ![](./images/reveal-user-envars.png)
+
+1. Add the proxy environment variables and click **SAVE**.
+
+   ![](./images/add-envars-save.png)
+
+1. Click the **Restart** button to restart the app.
+
+   ![](./images/restart-app-ui.png)
 
 ## <a id='overide-nozzle-ops-manager'></a> Advanced Configuration of AppDynamics Application
 
