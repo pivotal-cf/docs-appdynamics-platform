@@ -71,11 +71,11 @@ $ cf curl /v2/info
 
 If you're using a Proxy Server and SaaS controller, the two PCF apps deployed by the AppDynamics Platform Monitoring for PCF tile, AppDynamics Nozzle and the AppDynamics KPI Dashboard, require that you set environment variables to define the proxy host and port so the apps can communicate with the configured SaaS controller. 
 
-You can configure the proxy environment variables in either in  `filename.here` or using the Apps Manager.
+You can configure the proxy environment variables in the Cloud Foundry Command Line Interface (CF CLI) or using the Apps Manager.
 
 ### Using Cloud Foundry CLI to Set Proxy Environment Variables
 
-This section explains how to configure settings that use the Cloud Foundry Command Line Interface (CLI) when interacting with the AppDynamics Nozzle and the AppDynamics KPI Dashboard, where `<version>` will be the specific version of the tile deployed and substituted in the commands.
+This section explains how to configure settings that use the Cloud Foundry CLI when interacting with the AppDynamics Nozzle and the AppDynamics KPI Dashboard, where `<version>` is the specific version of the tile deployed and substituted in the commands.
 
 1. Open Terminal.
 
@@ -113,32 +113,30 @@ The proxy environment variables set above using the Cloud Foundry CLI can also b
 1. Open the **Settings** tab for the `appdnozzle-<version>` app. 
 1. Click **REVEAL USER PROVIDED ENV VARS**.
 
-   ![](./images/reveal-user-envars.png)
+    ![](./images/pcf-dashboard-user-envars.png)
 
 1. Add the proxy environment variables and click **SAVE**.
 
-   ![](./images/add-envars-save.png)
+    ![](./images/pcf-dashboard-add-envars.png)
 
 1. Click the **Restart** button to restart the app.
 
-   ![](./images/restart-app-ui.png)
+    ![](./images/pcf-dashboard-restart-app-ui.png)
 
 ### AppDynamics KPI Dashboard app 
 1. Navigate to the appdynamics space.
 1. Open the **Settings** tab for the `appdpcfdashboard-<version>` app. 
 1. Click **REVEAL USER PROVIDED ENV VARS**.
 
-    !!!! **Note:** Replace these Screenshots with KPI Dashboard App Images !!!!
-
-   ![](./images/reveal-user-envars.png)
+    ![](./images/reveal-user-envars.png)
 
 1. Add the proxy environment variables and click **SAVE**.
 
-   ![](./images/add-envars-save.png)
+    ![](./images/add-envars-save.png)
 
 1. Click the **Restart** button to restart the app.
 
-   ![](./images/restart-app-ui.png)
+    ![](./images/restart-app-ui.png)
 
 ## <a id='overide-nozzle-ops-manager'></a> Advanced Configuration of AppDynamics Application
 
@@ -150,9 +148,9 @@ However, for the 4.4.x Controllers, this setting is mandatory. You have to pre-c
 
 1. In the **Advanced Configuration (Optional for 4.5.x Controllers)** tab, specify the following settings and click **Save**.
    ![](./images/nozzle-adv-config.png)
-  * **Nozzle Application Name**: Enter a name to identify the Nozzle application on the Controller.
-  * **Nozzle Tier Name**: Enter the tier name for the Nozzle application you defined previously. This MUST be Go SDK Tier
-  * **Nozzle Tier ID**: Enter the component ID you identified previously.
-  * **Nozzle Node Name**: Enter a name for the node that corresponds to the Application Name, such as **_app-name_-node**.
+    * **Nozzle Application Name**: Enter a name to identify the Nozzle application on the Controller.
+    * **Nozzle Tier Name**: Enter the tier name for the Nozzle application you defined previously. This MUST be Go SDK Tier
+    * **Nozzle Tier ID**: Enter the component ID you identified previously.
+    * **Nozzle Node Name**: Enter a name for the node that corresponds to the Application Name, such as **_app-name_-node**.
 
 1. In the Installation Dashboard, click **Apply Changes** and wait for all the changes to be applied.
