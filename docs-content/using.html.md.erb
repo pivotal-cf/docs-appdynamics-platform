@@ -6,8 +6,10 @@ owner: Partners
 ## <a id='overide-nozzle-cf'></a>Overriding Default Nozzle Configuration
 
 
-The Nozzle is shipped to work with the basic configuration you enter by using the tile forms. However, most of the configuration entries can be overriden.
-If the CF command line tool is installed in your enviorment, you can override the default Nozzle configuration by setting the environment variables and restaging the application:
+The Nozzle is shipped to work with the basic configuration you enter by using the tile forms.
+However, most of the configuration entries can be overridden.
+If the CF command line tool is installed in your environment,
+you can override the default Nozzle configuration by setting the environment variables and restaging the application:
 
 <pre class='terminal'>
 $ cf set-env appdnozzle <ENVNAME> <NEW ENV VALUE>
@@ -47,13 +49,13 @@ The table below summarizes the environment variables, their default and allowed 
     </tr>
     <tr>
       <td>APPD_CONTROLLER_HOST</td>
-      <td>Hostname of the Appdynamics Controller</td>
+      <td>Hostname of the AppDynamics Controller</td>
       <td>host.appd.com</td>
       <td>none</td>
     </tr>
     <tr>
       <td>APPD_CONTROLLER_PORT</td>
-      <td>Port on which Appdynamics Controller is listening</td>
+      <td>Port on which AppDynamics Controller is listening</td>
       <td>Any port number</td>
       <td>8090</td>
     </tr>
