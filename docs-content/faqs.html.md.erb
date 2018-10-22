@@ -9,7 +9,9 @@ owner: Partners
    * AppDynamics PCF Dashboard. This is an auto-generated custom dashboard that creates health rules for the above PCF metrics and presents it on the Controller.
 
 ### <a id='g3'></a> How do I configure SSL (On-Prem Controller deployment)?
-   *  Include the entire certificate chain in the security configuration of the Ops Manager Director tile. This will ensure that the BOSH deployments and Diego cells have automatic access to the certificates while validating the SSL connection.
+   *  Include the entire certificate chain in the security configuration of the BOSH Director tile.
+      This ensures that the BOSH deployments and Diego cells have automatic access
+      to the certificates while validating the SSL connection.
    *  AppDynamics deployments automatically reads the certificates and imports them into the correct key stores. No additional steps are required.
    *  Use the exact format (no comments) as specified in the Pivotal Ops Manager documentation.
    *  Select all the SSL check boxes in the Tile Configuration Forms.
