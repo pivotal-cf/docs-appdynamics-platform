@@ -30,7 +30,7 @@ When you successfully configure AppDynamics Nozzle on PCF, a default application
    A Settings tab is displayed.
 
 1. In the **Settings** tab, select **AppDynamics Nozzle Configuration**.
-![](./images/appd-nozzle-config.png)
+![Settings tab for AppDynamics Nozzle Configuration](./images/appd-nozzle-config.png)
 
 1. Specify the AppDynamics Nozzle configuration settings. All fields are mandatory. You cannot add multiple Nozzle configurations.
 
@@ -121,15 +121,15 @@ The proxy environment variables set for the AppDynamics Nozzle and the AppDynami
 1. In the **appdnozzle`-<version>`** app, open the **Settings** tab.
 1. Click **REVEAL USER PROVIDED ENV VARS**.
 
-    ![](./images/reveal-user-envars.png)
+    ![AppDynamics Nozzle Settings tab User Provided Environment Variables](./images/reveal-user-envars.png)
 
 1. Add the proxy environment variables and click **SAVE**.
 
-    ![](./images/add-envars-save.png)
+    ![AppDynamics Proxy Environment Variables](./images/add-envars-save.png)
 
 1. Click the **Restart** button to restart the app.
 
-    ![](./images/restart-app-ui.png)
+    ![AppDynamics Nozzle Restart button](./images/restart-app-ui.png)
 
 ### AppDynamics KPI Dashboard app
 
@@ -137,15 +137,15 @@ The proxy environment variables set for the AppDynamics Nozzle and the AppDynami
 1. In the **appdpcfdashboard`-<version>`** app, open the **Settings** tab.
 1. Click **REVEAL USER PROVIDED ENV VARS**.
 
-    ![](./images/pcf-dashboard-user-envars.png)
+    ![AppDynamics KPI Dashboard Settings tab User Provided Environment Variables](./images/pcf-dashboard-user-envars.png)
 
 1. Add the proxy environment variables and click **SAVE**.
 
-    ![](./images/pcf-dashboard-add-envars.png)
+    ![AppDynamics KPI Dashboard Proxy Environment Variables](./images/pcf-dashboard-add-envars.png)
 
 1. Click the **Restart** button to restart the app.
 
-    ![](./images/pcf-dashboard-restart-app-ui.png)
+    ![AppDynamics KPI Dashboard Restart button](./images/pcf-dashboard-restart-app-ui.png)
 
 ## <a id='overide-nozzle-ops-manager'></a> Advanced Configuration of AppDynamics Application
 
@@ -156,7 +156,7 @@ You have to create an Application and Tier on the AppDynamics Controller and ent
 Advanced configuration is optional for 4.5.x Controllers and default values can be overridden as shown in the example configuration:
 
 1. In the **Advanced Configuration (Optional for 4.5.x Controllers)** tab, specify the following settings and click **Save**.
-   ![](./images/nozzle-adv-config.png)
+   ![AppDynamics Nozzle configuration form](./images/nozzle-adv-config.png)
     * **Nozzle Application Name**: Enter a name to identify the Nozzle application on the Controller.
     * **Nozzle Tier Name**: Enter the tier name for the Nozzle application you defined previously. This MUST be Go SDK Tier
     * **Nozzle Tier ID**: Enter the component ID you identified previously.
