@@ -42,10 +42,16 @@ The table below summarizes the environment variables, their default and allowed 
       <td>appd-nozzle-node</td>
     </tr>
     <tr>
-        <td>APPD_SSL_ENABLED</td>
-        <td>Enable/Disable SSL to Controller</td>
-        <td>true / false</td>
-        <td>false</td>
+      <td>APPD_ACCOUNT</td>
+      <td>Account name for the above Controller</td>
+      <td>An Account name</td>
+      <td>none</td>
+    </tr>
+    <tr>
+      <td>APPD_ACCESS_KEY</td>
+      <td>Name of the Nozzle Node under which the metrics are recorded</td>
+      <td>Access Key</td>
+      <td>none</td>
     </tr>
     <tr>
       <td>APPD_CONTROLLER_HOST</td>
@@ -60,16 +66,10 @@ The table below summarizes the environment variables, their default and allowed 
       <td>8090</td>
     </tr>
     <tr>
-      <td>APPD_ACCOUNT</td>
-      <td>Account name for the above Controller</td>
-      <td>An Account name</td>
-      <td>none</td>
-    </tr>
-    <tr>
-      <td>APPD_ACCESS_KEY</td>
-      <td>Name of the Nozzle Node under which the metrics are recorded</td>
-      <td>Access Key</td>
-      <td>none</td>
+      <td>APPD_DEBUG</td>
+      <td>Setting APPD_DEBUG = `true` directs AppDynamics Agent logs to STDERR instead of log files</td>
+      <td>true / false</td>
+      <td>false</td>
     </tr>
     <tr>
       <td>APPD_SINK</td>
@@ -82,6 +82,12 @@ The table below summarizes the environment variables, their default and allowed 
       <td>Polling Interval in secs to Firehose Nozzle</td>
       <td>number of seconds</td>
       <td>2 seconds</td>
+    </tr>
+    <tr>
+      <td>APPD_SSL_ENABLED</td>
+      <td>Enable/Disable SSL to Controller</td>
+      <td>true / false</td>
+      <td>false</td>
     </tr>
     <tr>
       <td>NOZZLE_UAA_URL</td>
