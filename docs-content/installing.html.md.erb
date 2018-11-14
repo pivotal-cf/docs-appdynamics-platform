@@ -37,7 +37,7 @@ When you successfully configure AppDynamics Nozzle on PCF, a default application
 
 * **UAA Token Endpoint**: The User Account and Authentication Service (UAA) API authentication, `token_endpoint` URL value.
 * **Doppler Logging Endpoint**: The doppler firehose endpoint address, `doppler_logging_endpoint` value.
-    * Run the `cf curl /v2/info` command to obtain the values of The UAA `token_endpoint` and Doppler Traffic Controller `doppler_logging_endpoint` URL respectively.
+    * Run the `cf curl /v2/info` command to obtain the values of The UAA `token_endpoint` and Doppler Logging Endpoint `doppler_logging_endpoint` URL respectively.
 
     <pre class='terminal'>
     $ cf curl /v2/info
@@ -137,12 +137,17 @@ The proxy environment variables set for the AppDynamics Nozzle and the AppDynami
 
     ![AppDynamics KPI Dashboard Restart button](./images/pcf-dashboard-restart-app-ui.png)
 
-## <a id='overide-nozzle-ops-manager'></a> Advanced Configuration of AppDynamics Application
+## <a id='overide-nozzle-ops-manager'></a> Advanced Configuration of an AppDynamics Application
 
-For AppDynamics Controllers version 4.4.x, you have enter the configuration to create a default Application named AppDynamics Nozzle, `appd-nozzle`, as well as a Nozzle Tier, `appd-nozzle-tier` and Nozzle Node, `appd-nozzle-node`.
+To use AppDynamics Controllers version 4.4.x, you must first create an instance of an application before deploying the AppD Platform Montioring Tile.
+You can do this using either the Apps Manager or from the Cloud Foundry Command Line Interface (cf CLI). The app name argument is optional, so that they match with your existing application.
+If an app name is not specified, deafult names for the AppDynamics Nozzle, `appd-nozzle`, the Nozzle Tier, `appd-nozzle-tier` and Nozzle Node, `appd-nozzle-node` will be generated. It’s often easier to start with a default name and rename the app later.
+Record the application name, tier name and node name and tier id. Use these recorded values to fill in the Advanced Configuration for the app.
 
-For AppDynamics Controllers version 4.5.x, you can rename your default Nozzle Application, Tier and Node names, so that they match with your existing application name. Advanced configuration is optional.
-The Application and Tier names do not need to be created in this step. However, you select a `Go SDK` tier.
+For AppDynamics Controllers version 4.5.x, when you create a new app, you'll need to know the API endpoint for your Cloud Foundry instance.
+This is the URL of the Cloud Controller in your Pivotal Application Service (PAS) instance, also known as the target URL.
+See [Identifying the API Endpoint for your PAS Instance](https://docs.pivotal.io/pivotalcf/2-3/opsguide/api-endpoint.html) for more information.
+You must select a `Go SDK` tier, but the tier id is not necessary for Advanced Configuration.
 
 **To rename the Nozzle Application, Tier and Node names**
 
@@ -151,7 +156,7 @@ The Application and Tier names do not need to be created in this step. However, 
     * **Nozzle Application Name**: Enter a name to identify the Nozzle Application on the Controller, such as **_test-app-nozzle_**.
     * **Nozzle Tier Name**: Enter a name for the Nozzle Tier that corresponds to the Nozzle Application Name, such as **_test-app-tier_**. This MUST be a Go SDK Tier.
     * **Nozzle Node Name**: Enter a name for the Nozzle Node that corresponds to the Nozzle Application Name, such as **_test-app-node_**.
-    * **Nozzle Tier ID**: Enter the component ID you identified previously.
+    * **Nozzle Tier ID**: Enter the component ID of the GoLang SDK tier.
 
 
 1. In the Installation Dashboard, click **Apply Changes** and wait for the changes to be applied.
