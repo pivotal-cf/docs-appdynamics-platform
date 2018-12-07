@@ -8,11 +8,11 @@ owner: Partners
 
 The Nozzle is shipped to work with the basic configuration you enter by using the tile forms.
 However, most of the configuration entries can be overridden.
-If the CF command line tool is installed in your environment,
+If the [CF command line tool](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html) is installed in your environment,
 you can override the default Nozzle configuration by setting the environment variables and restaging the application:
 
 <pre class='terminal'>
-$ cf set-env appdnozzle <ENVNAME> <NEW ENV VALUE>
+$ cf set-env appdnozzle ENVNAME ENVVALUE
 $ cf restage appdnozzle-{version}
 </pre>
 
@@ -24,28 +24,18 @@ The table below summarizes the environment variables, their default and allowed 
     <th>Allowed Values</th>
     <th>Default</th>
     <tr>
-        <td>APPD_NOZZLE_APP</td>
-        <td>Name of the Nozzle Application under which the metrics are recorded</td>
-        <td>Any string</td>
-        <td>appd-nozzle</td>
-    </tr>
     <tr>
-        <td>APPD_NOZZLE_TIER</td>
-        <td>Name of the Nozzle Tier under which the metrics are recorded</td>
-        <td>Any string</td>
-        <td>appd-nozzle-tier</td>
-    </tr>
-    <tr>
-      <td>APPD_NOZZLE_Node</td>
+      <tr>
+      <td>APPD_ACCESS_KEY</td>
       <td>Name of the Nozzle Node under which the metrics are recorded</td>
-      <td>Any string</td>
-      <td>appd-nozzle-node</td>
-    </tr>
-    <tr>
-        <td>APPD_SSL_ENABLED</td>
-        <td>Enable/Disable SSL to Controller</td>
-        <td>true / false</td>
-        <td>false</td>
+      <td>Access Key</td>
+      <td>none</td>
+      </tr>
+      <tr>
+      <td>APPD_ACCOUNT</td>
+      <td>Account name for the above Controller</td>
+      <td>An Account name</td>
+      <td>none</td>
     </tr>
     <tr>
       <td>APPD_CONTROLLER_HOST</td>
@@ -60,22 +50,28 @@ The table below summarizes the environment variables, their default and allowed 
       <td>8090</td>
     </tr>
     <tr>
-      <td>APPD_ACCOUNT</td>
-      <td>Account name for the above Controller</td>
-      <td>An Account name</td>
-      <td>none</td>
+      <td>APPD_DEBUG</td>
+      <td>Setting APPD_DEBUG = `true` directs AppDynamics Agent logs to STDERR instead of log files</td>
+      <td>true / false</td>
+      <td>false</td>
     </tr>
     <tr>
-      <td>APPD_ACCESS_KEY</td>
-      <td>Name of the Nozzle Node under which the metrics are recorded</td>
-      <td>Access Key</td>
-      <td>none</td>
+    <td>APPD_NOZZLE_APP</td>
+    <td>Name of the Nozzle Application under which the metrics are recorded</td>
+    <td>Any string</td>
+    <td>appd-nozzle</td>
     </tr>
     <tr>
-      <td>APPD_SINK</td>
-      <td>Sink to which the metrics are to be pushed</td>
-      <td>stdout/Controller</td>
-      <td>Controller</td>
+    <td>APPD_NOZZLE_TIER</td>
+    <td>Name of the Nozzle Tier under which the metrics are recorded</td>
+    <td>Any string</td>
+    <td>appd-nozzle-tier</td>
+    </tr>
+    <tr>
+    <td>APPD_NOZZLE_Node</td>
+    <td>Name of the Nozzle Node under which the metrics are recorded</td>
+    <td>Any string</td>
+    <td>appd-nozzle-node</td>
     </tr>
     <tr>
       <td>APPD_SAMPLING_RATE</td>
@@ -84,27 +80,39 @@ The table below summarizes the environment variables, their default and allowed 
       <td>2 seconds</td>
     </tr>
     <tr>
+      <td>APPD_SINK</td>
+      <td>Sink to which the metrics are to be pushed</td>
+      <td>stdout/Controller</td>
+      <td>Controller</td>
+    </tr>
+    <tr>
+      <td>APPD_SSL_ENABLED</td>
+      <td>Enable/Disable SSL to Controller</td>
+      <td>true / false</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>NOZZLE_PASSWORD</td>
+      <td>Password for the above account</td>
+      <td>none</td>
+      <td>none</td>
+    </tr>
+    <tr>
+    <td>NOZZLE_TRAFFIC_CONTROLLER_URL</td>
+    <td>Doppler end point URL</td>
+    <td>Run cf curl /v2/info and record doppler api url</td>
+    <td>none
+    </td>
+    <tr>
       <td>NOZZLE_UAA_URL</td>
       <td>UAA API endpoint URL</td>
       <td>Run cf curl /v2/info and record the UAA endpoint</td>
       <td>none</td>
     </tr>
     <tr>
-      <td>NOZZLE_TRAFFIC_CONTROLLER_URL</td>
-      <td>Doppler end point URL</td>
-      <td>Run cf curl /v2/info and record doppler api url</td>
-      <td>none</td>
-    </tr>
-    <tr>
       <td>NOZZLE_USERNAME</td>
       <td>Name of the Nozzle Node under which the metrics are recorded</td>
       <td>User name of account belonging to doppler.firehose group</td>
-      <td>none</td>
-    </tr>
-    <tr>
-      <td>NOZZLE_PASSWORD</td>
-      <td>Password for the above account</td>
-      <td>none</td>
       <td>none</td>
     </tr>
 </table>

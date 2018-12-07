@@ -47,12 +47,19 @@ owner: Partners
 ### <a id='d6'></a> Where do I find the logs?
   * Run `cf logs appdpcfdashboard-{version}` in `appdynamics-org` and `appdynamics-space`.
 
-### <a id='d7'></a> How do I troubleshoot an SSL issue?
+### <a id='d7'></a> Can I redirect the logs?
+    * To redirect the logs to use STDERR, use the [Overriding Default Nozzle Configuration](https://docs.pivotal.io/partners/appdynamics-platform/using.html) environment variable `APPD_DEBUG`. Setting it to `true` will direct AppDynamics Agent logs to STDERR instead of log files.
+
+    ```bash
+        $ cf set-env appdnozzle-4.5.489 APPD_DEBUG true`.
+        $ cf restage appdnozzle-4.5.489
+    ```
+### <a id='d8'></a> How do I troubleshoot an SSL issue?
    * Run `$ cf ssh  appdpcfdashboard-{version}`
    * Make sure that the correct certificate is present in the `/home/vcap/app/cert.pem` file of the application.
 
      Run `cat /home/vcap/app/cert.pem`
 
-### <a id='d8'></a> How do I change a configuration variable?
+### <a id='d9'></a> How do I change a configuration variable?
   * The application is configured by using environment variables. To override, run `$ cf set-env appdpcfdashboard-{version} {ENVNAME} {ENVVAR}`
   * The list of environment varibles can be found by running `$ cf env appdpcfdashboard-{version}`
