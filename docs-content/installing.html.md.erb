@@ -160,3 +160,14 @@ You must select a `Go SDK` tier, but the tier id is not necessary for Advanced C
 
 
 1. In the Installation Dashboard, click **Apply Changes** and wait for the changes to be applied.
+
+### Deploy multiple tiles on multiple cf instances to the same AppDynamics controller
+
+In cases where you want to deploy multiple AppDynamics tiles on multiple CF foundations and use a single AppD controller, you can now record these metrics under two different tiers.
+
+To implement this change, review these tile install and reinstall use-case scenarios:
+
+1. Customers who have installed a previous version of the tile and are using the default value "appd-nozzle-tier", can continue to use the default value.
+1. Customers who have installed a previous version of the tile and are not using default value, can continue to use whatever value they have specified for the tier-name.
+1. Customers who do a new installation have the tier-name set to the CF system domain's default value. For example: `sys.pie-multi-az-blue.cfplatformeng.com`
+1. Customers who do a new installation with a custom value, have a tier-name with a custom value for tier. 
