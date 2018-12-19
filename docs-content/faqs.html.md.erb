@@ -64,5 +64,5 @@ owner: Partners
   * The application is configured by using environment variables. To override, run `$ cf set-env appdpcfdashboard-{version} {ENVNAME} {ENVVAR}`
   * The list of environment varibles can be found by running `$ cf env appdpcfdashboard-{version}`
 
-### <a id='d8'></a> How do I troubleshoot a tile install?
+### <a id='d10'></a> How do I troubleshoot a tile install?
   * It’s not uncommon that in production environments cf ssh access is not allowed. In this case, under Settings/User Provided Environment Variables, set `APPD_DEBUG` to true for the appdnozzle app in the Apps Manager, or use the `cf set-env` command and restart the app. This setting forwards the agent logs to STDOUT, so you’ll be able to view them in the Apps Manager or using `cf logs APP_NAME`.
