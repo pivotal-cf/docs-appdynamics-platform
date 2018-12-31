@@ -18,14 +18,17 @@ When you successfully configure AppDynamics Nozzle on PCF, a default application
 
 1. [Set up the AppDynamics Controller](https://docs.appdynamics.com/display/PRO45/Controller+Deployment).
 
-1. Acquire at least one AppDynamics Go SDK Agent License. See [License Management](https://docs.appdynamics.com/display/PRO45/License+Management), and [License Entitlements and Restrictions](https://docs.appdynamics.com/display/PRO45/License+Entitlements+and+Restrictions) for more information.
+1. Acquire at least one AppDynamics Go SDK Agent License.
+   For more information, see [License Management](https://docs.appdynamics.com/display/PRO45/License+Management),
+   and [License Entitlements and Restrictions](https://docs.appdynamics.com/display/PRO45/License+Entitlements+and+Restrictions).
 
 
 ## <a id='set-up-appd-nozzle'></a> Configuring the AppDynamics Nozzle for PCF
 
 1. Log in to the Ops Manager.
 
-1. If the AppDynamics Platform Monitoring tile does not appear in the Ops Manager Installation Dashboard, click **Import a Product** in the left-side menu to import the AppDynamics Platform Monitoring tile.
+1. If the AppDynamics Platform Monitoring tile does not appear in the Ops Manager Installation Dashboard,
+   click **Import a Product** in the left-side menu to import the AppDynamics Platform Monitoring tile.
 
 1. Double-click the **AppDynamics Platform Monitoring for PCF** tile in the Installation Dashboard.
    A Settings tab is displayed.
@@ -33,11 +36,14 @@ When you successfully configure AppDynamics Nozzle on PCF, a default application
 1. In the **Settings** tab, select **AppDynamics Nozzle Configuration**.
 ![Settings tab for AppDynamics Nozzle Configuration](./images/appd-nozzle-config.png)
 
-1. Specify the AppDynamics Nozzle configuration settings. All fields are mandatory. You cannot add multiple Nozzle configurations. Click **Save**.
+1. Specify the AppDynamics Nozzle configuration settings.
+   All fields are mandatory.
+   You cannot add multiple Nozzle configurations. Click **Save**.
 
 * **UAA Token Endpoint**: The User Account and Authentication Service (UAA) API authentication, `token_endpoint` URL value.
-* **Doppler Logging Endpoint**: The doppler firehose endpoint address, `doppler_logging_endpoint` value.
-    * Run the `cf curl /v2/info` command to obtain the values of The UAA `token_endpoint` and Doppler Logging Endpoint `doppler_logging_endpoint` URL respectively.
+* **Doppler Logging Endpoint**: The Firehose endpoint address, `doppler_logging_endpoint` value.
+    * Run the `cf curl /v2/info` command to obtain the values of The UAA `token_endpoint`
+      and Doppler Logging Endpoint `doppler_logging_endpoint` URL respectively.
 
     <pre class='terminal'>
     $ cf curl /v2/info
@@ -49,14 +55,22 @@ When you successfully configure AppDynamics Nozzle on PCF, a default application
     }
     </pre>
 
-* **Nozzle Username**: Username for a member account belonging to the **doppler.firehose** group. This is the authorized UAA user that AppDynamics Nozzle uses to access the Loggregator. For more information, see [How to Find Credentials](https://github.com/Appdynamics/appdynamics-firehose-nozzle#how-to-find-credentials).
-* **Nozzle Password**: The password for the Controller account. Cloud Foundry (CF) environments usually ship with an **opentsdb-firehose-nozzle** account which already belongs to the doppler.firehose group. To use the existing opentsdb-firehose-nozzle account shipped with CF, log in to the OPS Manager and select the PAS tile.
+* **Nozzle Username**: Username for a member account belonging to the **doppler.firehose** group.
+  This is the authorized UAA user that AppDynamics Nozzle uses to access the Loggregator.
+  For more information, see [How to Find Credentials](https://github.com/Appdynamics/appdynamics-firehose-nozzle#how-to-find-credentials).
+* **Nozzle Password**: The password for the Controller account. Cloud Foundry (CF) environments
+    usually ship with an **opentsdb-firehose-nozzle** account which already belongs to the doppler.firehose group.
+    To use the existing opentsdb-firehose-nozzle account shipped with CF, log in to the OPS Manager and select the PAS tile.
 <b><i>To get the credentials either</i></b>
-    * Navigate to credentials > UAA > **Opentsdb Nozzle Credentials**. Copy the username and password.
-    * (or) Create a new account in the doppler.firehose group with the correct permissions. For more information, see [UAA Client](https://github.com/cf-platform-eng/firehose-nozzle#option-2-uaa-client).
+    * Navigate to credentials > UAA > **Opentsdb Nozzle Credentials**.
+      Copy the username and password.
+    * (or) Create a new account in the doppler.firehose group with the correct permissions.
+      For more information, see [UAA Client](https://github.com/cf-platform-eng/firehose-nozzle#option-2-uaa-client).
 
-* **Controller Account Name**: The name of the account in the AppDynamics Controller. Access the account name in the AppDynamics Controller UI on the Account tab under License.
-* **Account Access Key**: The access key for the AppDynamics Controller account. Access the account key in the AppDynamics Controller UI on the Account tab under License.
+* **Controller Account Name**: The name of the account in the AppDynamics Controller.
+    Access the account name in the AppDynamics Controller UI on the Account tab under License.
+* **Account Access Key**: The access key for the AppDynamics Controller account.
+    Access the account key in the AppDynamics Controller UI on the Account tab under License.
 * **Controller Host**: The hostname of the AppDynamics Controller.
 * **Controller Port**: The port on which the AppDynamics Controller listens for Nozzle traffic.
 * **Enable Controller SSL**: Establishes secures communication with the Controller.
@@ -66,7 +80,10 @@ When you successfully configure AppDynamics Nozzle on PCF, a default application
 
 ## <a id='configure-proxy-settings'></a> Configuring Proxy Settings for the AppDynamics Platform Monitoring Tile
 
-If you're using a Proxy Server and SaaS controller, the two PCF apps deployed by the AppDynamics Platform Monitoring for PCF tile, AppDynamics Nozzle and the AppDynamics KPI Dashboard, require that you set environment variables to define the proxy host and port so the apps can communicate with the configured SaaS controller.
+If you are using a Proxy Server and SaaS controller,
+the two PCF apps deployed by the AppDynamics Platform Monitoring for PCF tile,
+AppDynamics Nozzle and the AppDynamics KPI Dashboard, require that you set environment variables
+to define the proxy host and port so the apps can communicate with the configured SaaS controller.
 
 You can configure the proxy environment variables in the Cloud Foundry Command Line Interface (CF CLI) or using the Apps Manager user interface.
 
@@ -139,9 +156,11 @@ The proxy environment variables set for the AppDynamics Nozzle and the AppDynami
 
 ## <a id='overide-nozzle-ops-manager'></a> Advanced Configuration of an AppDynamics Application
 
-To use AppDynamics Controllers version 4.4.x, you must first create an instance of an application before deploying the AppD Platform Montioring Tile.
+To use AppDynamics Controllers v4.4.x, you must first create an instance of an application before deploying the AppD Platform Monitoring tile.
 You can do this using either the Apps Manager or from the Cloud Foundry Command Line Interface (cf CLI). The app name argument is optional, so that they match with your existing application.
-If an app name is not specified, deafult names for the AppDynamics Nozzle, `appd-nozzle`, the Nozzle Tier, `appd-nozzle-tier` and Nozzle Node, `appd-nozzle-node` will be generated. It’s often easier to start with a default name and rename the app later.
+If an app name is not specified, default names for the AppDynamics Nozzle, `appd-nozzle`, the Nozzle Tier,
+`appd-nozzle-tier` and Nozzle Node, `appd-nozzle-node` will be generated.
+It is often easier to start with a default name and rename the app later.
 Record the application name, tier name and node name and tier id. Use these recorded values to fill in the Advanced Configuration for the app.
 
 For AppDynamics Controllers version 4.5.x, when you create a new app, you'll need to know the API endpoint for your Cloud Foundry instance.
