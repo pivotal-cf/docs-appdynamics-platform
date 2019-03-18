@@ -154,7 +154,7 @@ The proxy environment variables set for the AppDynamics Nozzle and the AppDynami
 
     ![AppDynamics KPI Dashboard Restart button](./images/pcf-dashboard-restart-app-ui.png)
 
-## <a id='overide-nozzle-ops-manager'></a> Advanced Configuration of an AppDynamics Application
+## <a id='overide-nozzle-ops-manager'></a> Advanced Configuration
 
 To use AppDynamics Controllers v4.4.x, you must first create an instance of an application before deploying the AppD Platform Monitoring tile.
 You can do this using either the Apps Manager or from the Cloud Foundry Command Line Interface (cf CLI). The app name argument is optional, so that they match with your existing application.
@@ -179,3 +179,11 @@ You must select a `Go SDK` tier, but the tier id is not necessary for Advanced C
 
 
 1. In the Installation Dashboard, click **Apply Changes** and wait for the changes to be applied.
+
+### <a id='deploy-multiple-tiles-on-multiple-instances'></a> Deploying Multiple Tiles on Multiple Cloud Foundry Instances to a Single AppDynamics Controller
+
+You may wish to deploy multiple AppDynamics service broker tiles on to multiple Cloud Foundry instances, using a single AppDynamics Controller.
+The metrics corresponding to each of the cloud foundry instances are recorded under tier names which defaults to the system domain's value of the Cloud Foundry deployment.
+For example: `sys.pie-multi-az-blue.cfplatformeng.com`
+
+In addtion, you can overwrite the tier name with a custom value by filling in the **Nozzle Tier Name** field as mentioned in the section above.
