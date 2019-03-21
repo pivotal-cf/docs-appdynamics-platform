@@ -92,7 +92,7 @@ This form takes in information to create Dashboard and associated health rules o
 
 ### <a id='Advanced metrics collection'></a> (Optional) Extending Metrics Collection
 
-Starting 4.6 version of the tile we have included a features to collect additional metrics in addition to
+Starting with the 4.6.* version of the tile we have included a feature to collect additional metrics in addition to
 the default standard KPI metrics that are collected by AppDynamics Nozzle.
 
 ![Settings tab for AppDynamics Advanced Configuration](./images/3.png)
@@ -100,9 +100,9 @@ the default standard KPI metrics that are collected by AppDynamics Nozzle.
 * **Metrics**: The type of metrics that are to be collected by the Nozzle. AppDynamics Nozzle collects `CounterEvent` and `ValueMetric` metrics to record standard KPI metrics.
 It is highly recommend to keep these two metric types selcted in the form.
 
-* **Extended Metrics JSON Filter**: A filter is applied to collected metric to limit the data that is processed. This JSON defines
-that filter. The filter is a simple dictionary with keys mapping to `origin` tag of the metric and value representing a list of `metric names`
-that are to be reported. Wildcard `"*"` can also be used inside the list to collect all metrics under the `origin`.
+* **Extended Metrics JSON Filter**: AppDynamics Nozzle aplies a filter to limit the number of metrics that are processed. This JSON configures
+the filter. It is a simple JSON dictionary with metrics `origin` tag used as keys and the list of `names` of metrics that belong to the `origin` that are to be collected as value.
+Additionally, a wildcard `"*"` can also be used inside the list to collect all metrics under the `origin`.
 
 ```json
 {
@@ -145,7 +145,7 @@ Enter the AppDynamics AppName, Tier, TierID and Node names in the corresponding 
 
 ## <a id='Scaling'></a> AppDynamics Nozzle Scalability
 
-Starting with 4.6.* version of the tile, AppDynamics Nozzle is completely scalable to any number of desired instances. However,
+Starting with the 4.6.* version of the tile, AppDynamics Nozzle is completely scalable to any number of desired instances. However,
 it is recommended to scale the number of nozzle instances to match the number of traffic controller instances.
 See the [official cloud foundry recommendation](https://docs.cloudfoundry.org/loggregator/log-ops-guide.html#scaling-nozzles)
 
