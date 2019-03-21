@@ -145,12 +145,13 @@ Enter the AppDynamics AppName, Tier, TierID and Node names in the corresponding 
 
 ## <a id='Scaling'></a> AppDynamics Nozzle Scalability
 
-Starting 4.6.* version of the tile, AppDynamics Nozzle is completely scalable to any number of desired instances. However,
-it is recommended to scale to the number of traffic controller instances. See the [official cloud foundry recommendation](https://docs.cloudfoundry.org/loggregator/log-ops-guide.html#scaling-nozzles)
+Starting with 4.6.* version of the tile, AppDynamics Nozzle is completely scalable to any number of desired instances. However,
+it is recommended to scale the number of nozzle instances to match the number of traffic controller instances.
+See the [official cloud foundry recommendation](https://docs.cloudfoundry.org/loggregator/log-ops-guide.html#scaling-nozzles)
 
 
 ## <a id='deploy-multiple-tiles-on-multiple-instances'></a> Monitoring Multiple Cloud Foundry Instances
 
-You may wish to deploy multiple AppDynamics Platform Monitoring tiles on to multiple Cloud Foundry instances, using a single AppDynamics Controller.
+Multiple AppDynamics Platform Monitoring tiles can be deployed on to multiple Cloud Foundry instances, using a single AppDynamics Controller.
 The metrics corresponding to each of the cloud foundry instances are recorded under tier names which defaults to the system domain's value of the Cloud Foundry deployment e.g: `sys.pie-multi-az-blue.cfplatformeng.com`
-In addtion, you can also overwrite the tier name with a custom value by filling in the **Nozzle Tier Name** field as mentioned in the section above.
+Optionally, the tier names can be customized by setting `Nozzle Tier Name` field in the **Overriding Defaults** form.
