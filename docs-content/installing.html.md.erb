@@ -5,9 +5,9 @@ owner: Partners
 
 This topic describes how to install and configure AppDynamics Platform Monitoring for Pivotal Cloud Foundry (PCF).
 The tile allows you to deploy  AppDynamics Firehose Nozzle that collects various KPI metrics and a Dashboard that
-automatically creates health-rules and custom dashboards associated with the metrics.
+automatically creates health rules and custom dashboards associated with the metrics.
 
-Additionally the tile takes in advanced configuration to customize metric collection, configuring
+Additionally the tile allows for advanced configuration to customize metric collection, configuring
 multi-foundation dashboard and overiding default configurations.
 
 ## <a id='overview-appd-nozzle'></a> Overview
@@ -47,7 +47,7 @@ You can view these correlated logs and metrics in the Metric Browser correspondi
 
 ### <a id='nozzle configuration'></a> AppDynamics Nozzle Configuration
 
-This form take in information to establish connection with Cloud Foundry Loggregator and AppDynamics Controller.
+This form takes in information to establish a connection with Cloud Foundry Loggregator and AppDynamics Controller.
 
 ![Settings tab for AppDynamics Nozzle Configuration](./images/1.png)
 
@@ -83,7 +83,7 @@ This form take in information to establish connection with Cloud Foundry Loggreg
 
 ### <a id='dashboard configuration'></a> AppDynamics Dashboard Configuration
 
-This form takes in information to create Dashboard and associated health rules on the AppDynamics Controller
+This form takes in information to create a Dashboard and associated health rules on the AppDynamics Controller
 
 ![Settings tab for AppDynamics Dashboard Configuration](./images/2.png)
 
@@ -97,8 +97,8 @@ the default standard KPI metrics that are collected by AppDynamics Nozzle.
 
 ![Settings tab for AppDynamics Advanced Configuration](./images/3.png)
 
-* **Metrics**: The type of metrics that are to be collected by the Nozzle. AppDynamics Nozzle collects `CounterEvent` and `ValueMetric` metrics to record standard KPI metrics.
-It is highly recommend to keep these two metric types selcted in the form.
+* **Metrics**: The type of metrics that are collected by the Nozzle. AppDynamics Nozzle collects `CounterEvent` and `ValueMetric` metrics to record standard KPI metrics.
+It is highly recommend to keep these two metric types selected in the form.
 
 * **Extended Metrics JSON Filter**: AppDynamics Nozzle aplies a filter to limit the number of metrics that are processed. This JSON configures
 the filter. It is a simple JSON dictionary with metrics `origin` tag used as keys and the list of `names` of metrics that belong to the `origin` that are to be collected as value.
