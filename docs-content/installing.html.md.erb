@@ -12,9 +12,8 @@ multi-foundation dashboard and overiding default configurations.
 
 ## <a id='overview-appd-nozzle'></a> Overview
 
-AppDynamics Nozzle aggregates and forwards logs and metrics from the **Loggregator [Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html#firehose)**
-to the AppDynamics Controller. The Controller processes the combined data stream of logs, HTTP events, and
-container metrics from all applications, as well as detailed performance metrics on the health of the underlying
+AppDynamics Nozzle aggregates and forwards metrics from the **Loggregator [Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html#firehose)**
+to the AppDynamics Controller. The Controller processes the combined data stream of  detailed performance metrics on the health of the underlying
 infrastructure of apps running on PCF.
 
 When you successfully configure AppDynamics Nozzle on PCF, a default application nozzle, named `appd-nozzle-v2`, is created on the AppDynamics Controller.
@@ -145,8 +144,17 @@ to report the metric the filter entry will be
 For 4.4.x controller, please create an applicaiton on the controller and create a `Go SDK` tier associated with that application and record the tier-id.
 Enter the AppName, Tier, TierID and Node names in the corresponding fields of the **Overriding Defaults** form.
 
+
+## <a id='Scaling'></a> Scalability
+
+Starting 4.6.* version of the tile, AppDynamics Nozzle is completely scalable to any number of desired instances. However,
+it is recommended to scale to the number of traffic controller instances. See the [official cloud foundry recommendation](https://docs.cloudfoundry.org/loggregator/log-ops-guide.html#scaling-nozzles)
+
+
 ## <a id='deploy-multiple-tiles-on-multiple-instances'></a> Deploying Multiple Tiles on Multiple Cloud Foundry Instances to a Single AppDynamics Controller
 
 You may wish to deploy multiple AppDynamics service broker tiles on to multiple Cloud Foundry instances, using a single AppDynamics Controller.
 The metrics corresponding to each of the cloud foundry instances are recorded under tier names which defaults to the system domain's value of the Cloud Foundry deployment e.g: `sys.pie-multi-az-blue.cfplatformeng.com`
 In addtion, you can overwrite the tier name with a custom value by filling in the **Nozzle Tier Name** field as mentioned in the section above.
+
+
