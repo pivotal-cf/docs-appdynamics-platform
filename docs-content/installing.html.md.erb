@@ -49,7 +49,7 @@ You can view these correlated logs and metrics in the Metric Browser correspondi
 
 This form takes in information to establish a connection with Cloud Foundry Loggregator and AppDynamics Controller.
 
-![Settings tab for AppDynamics Nozzle Configuration](./images/1.png)
+![Settings tab for AppDynamics Nozzle Configuration](./images/nozzle_config.png)
 
 * **Doppler Logging Endpoint**: The Firehose endpoint address, `doppler_logging_endpoint` value.
     * Run the `cf curl /v2/info` command to obtain the values of The UAA `token_endpoint`
@@ -85,7 +85,7 @@ This form takes in information to establish a connection with Cloud Foundry Logg
 
 This form takes in information to create a Dashboard and associated health rules on the AppDynamics Controller
 
-![Settings tab for AppDynamics Dashboard Configuration](./images/2.png)
+![Settings tab for AppDynamics Dashboard Configuration](./images/dashboard_config.png)
 
 * **Username for Reporting Custom Dashboard**: Username of an account with custom dashboard creation permissions.
 * **Password**: Password for the Controller account.
@@ -95,10 +95,9 @@ This form takes in information to create a Dashboard and associated health rules
 Starting with the 4.6.* version of the tile we have included a feature to collect additional metrics in addition to
 the default standard KPI metrics that are collected by AppDynamics Nozzle.
 
-![Settings tab for AppDynamics Advanced Configuration](./images/3.png)
+![Settings tab for AppDynamics Advanced Metrics](./images/advanced_metrics.png)
 
-* **Metrics**: The type of metrics that are collected by the Nozzle. AppDynamics Nozzle collects `CounterEvent` and `ValueMetric` metrics to record standard KPI metrics.
-It is highly recommend to keep these two metric types selected in the form.
+* **Collect Container Metrics**: Check this box to collect Container metrics for the applications.
 
 * **Extended Metrics JSON Filter**: AppDynamics Nozzle aplies a filter to limit the number of metrics that are processed. This JSON configures
 the filter. It is a simple JSON dictionary with metrics `origin` tag used as keys and the list of `names` of metrics that belong to the `origin` that are to be collected as value.
@@ -130,7 +129,7 @@ to report the metric the filter entry will be
 
 <p class="note"> For 4.4.x controllers it is mandatory to override the default Application, Tier, Tier ID and Node values.
 
-![Settings tab for AppDynamics Default Overrides](./images/4.png)
+![Settings tab for AppDynamics Default Overrides](./images/default_config.png)
 
 * **UAA Token Endpoint**: UAA token end point of the cloudfoundry. This can be found by doing `$ cf curl /v2/info | grep token_endpoint`
 * **Nozzle Application Name**: Enter a name to identify the Nozzle Application on the Controller, such as **_test-app-nozzle_**.
