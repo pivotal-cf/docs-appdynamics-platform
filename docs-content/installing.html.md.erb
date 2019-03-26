@@ -90,7 +90,9 @@ This form takes in information to create a Dashboard and associated health rules
 * **Username for Reporting Custom Dashboard**: Username of an account with custom dashboard creation permissions.
 * **Password**: Password for the Controller account.
 
-### <a id='configuration'></a> Multi-foundation Dashboard Configuration
+Refer this section for setting up a [controller account with required permissions](kpi_dashboard.html#dashboard-app)
+
+#### <a id='configuration'></a> Multi-foundation Dashboard Configuration (Optional)
 
 The Multi-foundation Dashboard configuration supports creating a single dashboard that
 displays the health and performance of multiple foundations. Each foundation that is included
@@ -117,34 +119,6 @@ Below are examples of the ‘Two foundations per row’ and ‘Four foundations 
 ![Four foundations per row layout](./images/09fourfoundation.png)
 
 ![Two foundations per row layout](./images/10twofoundation.png)
-
-### <a id='dashboard-app'></a> Dashboard App Permissions
-
-The ‘Username for reporting Dashboard’ and ‘Password’ fields from the platform tile
-determine the credentials used by the Dashboard App for creating the KPI health rules and
-the Single Foundation and Multi-Foundation Dashboards via the REST API. The following
-screenshots show the minimal permissions required and assume a distinct user is created as
-well as a role that is assigned to the user.
-
-1. Create a ‘PCF KPI Role’ and under Dashboards assign it ‘Can Create Dashboards’ and
-View and Edit permission on the Default dashboard.
-
-![Dashboard App Permissions Can Create Dashboards](./images/11dashapppermissions.png)
-
-2. Under Applications, assign the role ‘Custom’ and ‘View’ permissions for the app that the
-AppDynamics Nozzle reports. The default is appd-nozzle-v2, unless it was overridden under
-Advanced Configuration of the platform tile.
-
-![Dashboard App Permissions Custom and View](./images/12pcfkpirole.png)
-
-3. Edit the permissions for the application and select only ‘Configure Health Rules’
-
-![Dashboard App Permissions Configure Health Rules](./images/13configurehealthrules.png)
-
-4. Create a user and assign it the PCF KPI Role. The user and password should match the
-‘Username for reporting Dashboard’ and ‘Password’ fields from the platform tile.
-
-![Dashboard App Permissions Create User](./images/14pcfkpiuser.png)
 
 ### <a id='Advanced metrics collection'></a> (Optional) Extending Metrics Collection
 
@@ -205,7 +179,7 @@ it is recommended to scale the number of nozzle instances to match the number of
 See the [official cloud foundry recommendation](https://docs.cloudfoundry.org/loggregator/log-ops-guide.html#scaling-nozzles).
 
 
-## <a id='deploy-multiple-tiles-on-multiple-instances'></a> Monitoring Multiple PCF Foundations
+## <a id='deploy-multiple-tiles-on-multiple-instances'></a> Multiple PCF Foundations
 
 Multiple AppDynamics Platform Monitoring tiles can be deployed on multiple PCF foundations, using a single AppDynamics Controller.
 The metrics corresponding to each of the foundations are recorded under tier names which defaults to the system domain’s value of the Cloud Foundry deployment, for example: `sys.pie-multi-az-blue.cfplatformeng.com`
