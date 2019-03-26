@@ -72,9 +72,9 @@ This form takes in information to establish a connection with Cloud Foundry Logg
 * **Controller Host**: The hostname of the AppDynamics Controller.
 * **Controller Port**: The port on which the AppDynamics Controller listens for Nozzle traffic.
 * **Enable Controller SSL**: Establishes secures communication with the Controller.
-* **AppDynamics Controller Proxy**: Proxy url with basic authentication to AppDynamics Controler, if present. Example: `https://user:password@proxy.com:9000`
+* **AppDynamics Controller Proxy**: Proxy url, if necessary, used by the Nozzle and Dashboard App to communicate with the AppDynamics Controller. Example: `https://user:password@proxy.com:9000`
 
-#### <a id='Nozzle Credentials'></a> Nozzle Credentials
+### <a id='Nozzle Credentials'></a> Nozzle Credentials
 * Cloud Foundry (CF) environments usually ship with an **opentsdb-firehose-nozzle** account which already belongs to the doppler.firehose group.
       To use the existing opentsdb-firehose-nozzle account shipped with CF, log in to the OPS Manager and select the PAS tile and navigate to credentials > UAA > **Opentsdb Nozzle Credentials**
       and copy the username and password.
@@ -89,6 +89,62 @@ This form takes in information to create a Dashboard and associated health rules
 
 * **Username for Reporting Custom Dashboard**: Username of an account with custom dashboard creation permissions.
 * **Password**: Password for the Controller account.
+
+### <a id='configuration'></a> Multi-foundation Dashboard Configuration
+
+The Multi-foundation Dashboard configuration supports creating a single dashboard that
+displays the health and performance of multiple foundations. Each foundation that is included
+must have the platform tile installed and configure the Nozzle to report to the same controller.
+
+One Multi-foundation Dashboard is created for each configuration added in the Multi-
+foundation Dashboard Configurations section. In the example below, ‘all-foundations’ is the
+name of the new configuration, and will be prepended to the name of the dashboard created in
+the controller, which uses the format &lt;config name&gt;-PCF Multi-foundation Dashboard.
+
+![](./images/08multidashboardconfig.png)
+
+The ‘Application regex’ and ‘Tier regex’ should match one or more app/tier combinations where
+AppDynamics Nozzles are reporting. Based on the default app and tier, the example uses ‘appd-
+nozzle-v2’ as the app regex, and sys.* as the tier regex, which will match any system domain.
+
+The ‘Dashboard layout selection’ defaults to ‘Auto select layout’ where the Dashboard App will
+select a layout with the appropriate number of foundations per row based on the total number
+of foundations discovered. Or a specific layout can be chosen to control the density of the
+created dashboard.
+
+Below are examples of the ‘Two foundations per row’ and ‘Four foundations per row’ layouts.
+
+![Four foundations per row layout](./images/09fourfoundation.png)
+
+![Two foundations per row layout](./images/10twofoundation.png)
+
+### <a id='dashboard-app'></a> Dashboard App Permissions
+
+The ‘Username for reporting Dashboard’ and ‘Password’ fields from the platform tile
+determine the credentials used by the Dashboard App for creating the KPI health rules and
+the Single Foundation and Multi-Foundation Dashboards via the REST API. The following
+screenshots show the minimal permissions required and assume a distinct user is created as
+well as a role that is assigned to the user.
+
+1. Create a ‘PCF KPI Role’ and under Dashboards assign it ‘Can Create Dashboards’ and
+View and Edit permission on the Default dashboard.
+
+![Dashboard App Permissions Can Create Dashboards](./images/11dashapppermissions.png)
+
+2. Under Applications, assign the role ‘Custom’ and ‘View’ permissions for the app that the
+AppDynamics Nozzle reports. The default is appd-nozzle-v2, unless it was overridden under
+Advanced Configuration of the platform tile.
+
+![Dashboard App Permissions Custom and View](./images/12pcfkpirole.png)
+
+3. Edit the permissions for the application and select only ‘Configure Health Rules’
+
+![Dashboard App Permissions Configure Health Rules](./images/13configurehealthrules.png)
+
+4. Create a user and assign it the PCF KPI Role. The user and password should match the
+‘Username for reporting Dashboard’ and ‘Password’ fields from the platform tile.
+
+![Dashboard App Permissions Create User](./images/14pcfkpiuser.png)
 
 ### <a id='Advanced metrics collection'></a> (Optional) Extending Metrics Collection
 
@@ -146,11 +202,11 @@ Enter the AppDynamics AppName, Tier, TierID and Node names in the corresponding 
 
 Starting with the 4.6.* version of the tile, AppDynamics Nozzle is completely scalable to any number of desired instances. However,
 it is recommended to scale the number of nozzle instances to match the number of traffic controller instances.
-See the [official cloud foundry recommendation](https://docs.cloudfoundry.org/loggregator/log-ops-guide.html#scaling-nozzles)
+See the [official cloud foundry recommendation](https://docs.cloudfoundry.org/loggregator/log-ops-guide.html#scaling-nozzles).
 
 
-## <a id='deploy-multiple-tiles-on-multiple-instances'></a> Monitoring Multiple Cloud Foundry Instances
+## <a id='deploy-multiple-tiles-on-multiple-instances'></a> Monitoring Multiple PCF Foundations
 
-Multiple AppDynamics Platform Monitoring tiles can be deployed on to multiple Cloud Foundry instances, using a single AppDynamics Controller.
-The metrics corresponding to each of the cloud foundry instances are recorded under tier names which defaults to the system domain's value of the Cloud Foundry deployment e.g: `sys.pie-multi-az-blue.cfplatformeng.com`
+Multiple AppDynamics Platform Monitoring tiles can be deployed on multiple PCF foundations, using a single AppDynamics Controller.
+The metrics corresponding to each of the foundations are recorded under tier names which defaults to the system domain’s value of the Cloud Foundry deployment, for example: `sys.pie-multi-az-blue.cfplatformeng.com`
 Optionally, the tier names can be customized by setting `Nozzle Tier Name` field in the **Overriding Defaults** form.
