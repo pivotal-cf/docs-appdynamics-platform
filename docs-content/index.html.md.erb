@@ -5,9 +5,16 @@ owner: Partners
 
 ## <a id='overview'></a> Overview
 
-AppDynamics Platform Monitoring for Pivotal Cloud Foundry (PCF) provides visibility into the PCF platform where your AppDynamics-monitored applications are deployed. The tile allows you to deploy a Firehose Nozzle Agent that collects various KPI metrics and
-a Dashboard that automatically creates health-rules and custom dashboards associated with the metrics.
+Pivotal Cloud Foundry (PCF) is a multi-cloud Platform as a Service (PaaS). It provides
+continuous delivery and supports the full app development lifecycle, from initial
+development through all testing stages to deployment. PCF’s container-based architecture
+runs apps in any programming language over a variety of cloud service providers.
 
+[AppDynamics Platform Monitoring for Pivotal Cloud Foundry (PCF)](https://network.pivotal.io/products/appdynamics-platform/)
+provides visibility into the PCF platform where your AppDynamics-monitored applications are deployed.
+The tile deploys a Firehose Nozzle that collects various KPI metrics and publishes them to a Controller.
+It also deploys a Dashboard App that automatically creates KPI health rules and custom dashboards
+associated with the health rules.
 
 ## <a id='product-snapshot'></a> Product Snapshot
 
@@ -16,19 +23,19 @@ a Dashboard that automatically creates health-rules and custom dashboards associ
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>v4.5.605</td>
+        <td>v4.6.103</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>February 4, 2019</td>
+        <td>March 27, 2019</td>
     </tr>
     <tr>
         <td>Pivotal Cloud Foundry Operations Manager </td>
-        <td>v2.0, v2.1, v2.2, v2.3, and v2.4</td>
+        <td>v2.1, v2.2, v2.3, and v2.4</td>
     </tr>
     <tr>
         <td>Pivotal Application Service</td>
-        <td>v2.0.x, v2.1, v2.2, v2.3, and v2.4</td>
+        <td>v2.1, v2.2, v2.3, and v2.4</td>
     </tr>
     <tr>
        <td>BOSH stemcell version</td>
@@ -45,16 +52,26 @@ a Dashboard that automatically creates health-rules and custom dashboards associ
 </table>
 
 
+
+<p class="note warning"><strong>WARNING:</strong> Starting with 4.6 version the default AppDynamics Nozzle Application Name
+has been changed to **appd-nozzle-v2** and a new dashboard with name **appd-nozzle-v2-<{cf system domain}>-PCF KPI Dashboard**
+will be created.
+</p>
+
+
 <p class="note warning"><strong>WARNING:</strong> AppDynamics Platform Monitoring for PCF v4.5.555
    and earlier require a stemcell based on Ubuntu Trusty.
    The end of life date for Ubuntu Trusty is April 2019.
    If a security vulnerability is found on this stemcell after April, it will not be fixed.</p>
 
+
+
+
 ### <a id="reqs"></a> Requirements
 
 * AppDynamics Controller v4.5.x, v4.4.x
 * An AppDynamics account with Go SDK Agent License
-* Pivotal Cloud Foundry v2.0.x, v2.1.x, v2.2.x, v2.3.x, v2.4.x
+* Pivotal Cloud Foundry v2.1.x, v2.2.x, v2.3.x, and v2.4.x
 
 
 ### <a id="feedback"></a> Feedback

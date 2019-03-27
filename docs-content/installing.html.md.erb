@@ -3,14 +3,29 @@ title: Installing and Configuring AppDynamics Platform Monitoring for PCF
 owner: Partners
 ---
 
-This topic describes how to install and configure AppDynamics Platform Monitoring for Pivotal Cloud Foundry (PCF). The tile allows you to deploy a Firehose Nozzle Agent that collects various KPI metrics and
-a Dashboard that automatically creates health-rules and custom dashboards associated with the metrics.
+This topic describes how to install and configure AppDynamics Platform Monitoring for Pivotal Cloud Foundry (PCF).
+The tile allows you to deploy  AppDynamics Firehose Nozzle that collects various KPI metrics and a Dashboard that
+automatically creates health rules and custom dashboards associated with the metrics.
+
+Additionally the tile allows for advanced configuration to customize metric collection, configuring
+multi-foundation dashboard and overiding default configurations.
+
+<p class="note warning"><strong>WARNING:</strong> Starting with 4.6 version the default AppDynamics Nozzle Application Name
+has been changed to **appd-nozzle-v2** and a new dashboard with name **appd-nozzle-v2-<{cf system domain}>-PCF KPI Dashboard**
+will be created.
+</p>
 
 ## <a id='overview-appd-nozzle'></a> Overview
 
-AppDynamics Nozzle aggregates and forwards logs and metrics from the **Loggregator [Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html#firehose)** to the AppDynamics Controller. The Controller processes the combined data stream of logs, HTTP events, and container metrics from all applications, as well as detailed performance metrics on the health of the underlying infrastructure of apps running on PCF.
+AppDynamics Nozzle aggregates and forwards metrics from the **Loggregator [Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html#firehose)**
+to the AppDynamics Controller. The Controller processes the combined data stream of  detailed performance metrics on the health of the underlying
+infrastructure of apps running on PCF.
 
-When you successfully configure AppDynamics Nozzle on PCF, a default application nozzle, named **appd-nozzle**, is created on the AppDynamics Controller. The appd-nozzle monitors the Loggregator Firehose for specified events and metrics, and streams this data to a default nozzle tier named **appd-nozzle-tier**, and a default nozzel node named **appd-nozzle-node**. You can view these correlated logs and metrics in the Metric Browser corresponding to the Nozzle application instance or resource being monitored.
+When you successfully configure AppDynamics Nozzle on PCF, a default application nozzle, named `appd-nozzle-v2`, is created on the AppDynamics Controller.
+The `appd-nozzle-v2` monitors the Loggregator Firehose for specified events and metrics, and streams this data to a default nozzle tier named `appd-nozzle-tier`,
+and a default nozzle node named `appd-nozzle-node`.
+
+You can view these correlated logs and metrics in the Metric Browser corresponding to the Nozzle application instance or resource being monitored.
 
 ## <a id='before-you-start'></a> Before You Start
 
@@ -33,14 +48,14 @@ When you successfully configure AppDynamics Nozzle on PCF, a default application
 1. Double-click the **AppDynamics Platform Monitoring for PCF** tile in the Installation Dashboard.
    A Settings tab is displayed.
 
-1. In the **Settings** tab, select **AppDynamics Nozzle Configuration**.
-![Settings tab for AppDynamics Nozzle Configuration](./images/appd-nozzle-config.png)
+1. Fill in the details for the following forms on the tile.
 
-1. Specify the AppDynamics Nozzle configuration settings.
-   All fields are mandatory.
-   You cannot add multiple Nozzle configurations. Click **Save**.
+### <a id='nozzle configuration'></a> AppDynamics Nozzle Configuration
 
-* **UAA Token Endpoint**: The User Account and Authentication Service (UAA) API authentication, `token_endpoint` URL value.
+This form takes in information to establish a connection with Cloud Foundry Loggregator and AppDynamics Controller.
+
+![Settings tab for AppDynamics Nozzle Configuration](./images/nozzle_config.png)
+
 * **Doppler Logging Endpoint**: The Firehose endpoint address, `doppler_logging_endpoint` value.
     * Run the `cf curl /v2/info` command to obtain the values of The UAA `token_endpoint`
       and Doppler Logging Endpoint `doppler_logging_endpoint` URL respectively.
@@ -49,24 +64,12 @@ When you successfully configure AppDynamics Nozzle on PCF, a default application
     $ cf curl /v2/info
     {
     ...
-    "token_endpoint": "https://uaa.sys.pie-multi-az-blue.cfplatformeng.com",
-    ...
     "doppler_logging_endpoint": "wss://doppler.sys.pie-multi-az-blue.cfplatformeng.com:443",
     }
     </pre>
 
-* **Nozzle Username**: Username for a member account belonging to the **doppler.firehose** group.
-  This is the authorized UAA user that AppDynamics Nozzle uses to access the Loggregator.
-  For more information, see [How to Find Credentials](https://github.com/Appdynamics/appdynamics-firehose-nozzle#how-to-find-credentials).
-* **Nozzle Password**: The password for the Controller account. Cloud Foundry (CF) environments
-    usually ship with an **opentsdb-firehose-nozzle** account which already belongs to the doppler.firehose group.
-    To use the existing opentsdb-firehose-nozzle account shipped with CF, log in to the OPS Manager and select the PAS tile.
-<b><i>To get the credentials either</i></b>
-    * Navigate to credentials > UAA > **Opentsdb Nozzle Credentials**.
-      Copy the username and password.
-    * (or) Create a new account in the doppler.firehose group with the correct permissions.
-      For more information, see [UAA Client](https://github.com/cf-platform-eng/firehose-nozzle#option-2-uaa-client).
-
+* **Nozzle Username**: The username for a member account belonging to the **doppler.firehose** group. This is the authorized UAA user that AppDynamics Nozzle uses to access the Loggregator.
+* **Nozzle Password**: The password for the above member account.
 * **Controller Account Name**: The name of the account in the AppDynamics Controller.
     Access the account name in the AppDynamics Controller UI on the Account tab under License.
 * **Account Access Key**: The access key for the AppDynamics Controller account.
@@ -74,116 +77,115 @@ When you successfully configure AppDynamics Nozzle on PCF, a default application
 * **Controller Host**: The hostname of the AppDynamics Controller.
 * **Controller Port**: The port on which the AppDynamics Controller listens for Nozzle traffic.
 * **Enable Controller SSL**: Establishes secures communication with the Controller.
+* **AppDynamics Controller Proxy**: Proxy url, if necessary, used by the Nozzle and Dashboard App to communicate with the AppDynamics Controller. Example: `https://user:password@proxy.com:9000`
+
+### <a id='Nozzle Credentials'></a> Nozzle Credentials
+* Cloud Foundry (CF) environments usually ship with an **opentsdb-firehose-nozzle** account which already belongs to the doppler.firehose group.
+      To use the existing opentsdb-firehose-nozzle account shipped with CF, log in to the OPS Manager and select the PAS tile and navigate to credentials > UAA > **Opentsdb Nozzle Credentials**
+      and copy the username and password.
+* (or) Create a new account in the doppler.firehose group with the correct permissions.
+      For more information, see [UAA Client](https://github.com/cf-platform-eng/firehose-nozzle#option-2-uaa-client).
+
+### <a id='dashboard configuration'></a> AppDynamics Dashboard Configuration
+
+This form takes in information to create a Dashboard and associated health rules on the AppDynamics Controller
+
+![Settings tab for AppDynamics Dashboard Configuration](./images/dashboard_config.png)
+
 * **Username for Reporting Custom Dashboard**: Username of an account with custom dashboard creation permissions.
 * **Password**: Password for the Controller account.
 
+Refer this section for setting up a [controller account with required permissions](kpi_dashboard.html#dashboard-app)
 
-## <a id='configure-proxy-settings'></a> Configuring Proxy Settings for the AppDynamics Platform Monitoring Tile
+#### <a id='configuration'></a> Multi-foundation Dashboard Configuration (Optional)
 
-If you are using a Proxy Server and SaaS controller,
-the two PCF apps deployed by the AppDynamics Platform Monitoring for PCF tile,
-AppDynamics Nozzle and the AppDynamics KPI Dashboard, require that you set environment variables
-to define the proxy host and port so the apps can communicate with the configured SaaS controller.
+The Multi-foundation Dashboard configuration supports creating a single dashboard that
+displays the health and performance of multiple foundations. Each foundation that is included
+must have the platform tile installed and configure the Nozzle to report to the same controller.
 
-You can configure the proxy environment variables in the Cloud Foundry Command Line Interface (CF CLI) or using the Apps Manager user interface.
+One Multi-foundation Dashboard is created for each configuration added in the Multi-
+foundation Dashboard Configurations section. In the example below, ‘all-foundations’ is the
+name of the new configuration, and will be prepended to the name of the dashboard created in
+the controller, which uses the format &lt;config name&gt;-PCF Multi-foundation Dashboard.
 
-### Using Cloud Foundry CLI to Set Proxy Environment Variables
+![](./images/08multidashboardconfig.png)
 
-This section explains how to configure settings using the Cloud Foundry CLI, where `<version>` is the specific version of the tile deployed and substituted in the commands.
+The ‘Application regex’ and ‘Tier regex’ should match one or more app/tier combinations where
+AppDynamics Nozzles are reporting. Based on the default app and tier, the example uses ‘appd-
+nozzle-v2’ as the app regex, and sys.* as the tier regex, which will match any system domain.
 
-1. Open Terminal.
+The ‘Dashboard layout selection’ defaults to ‘Auto select layout’ where the Dashboard App will
+select a layout with the appropriate number of foundations per row based on the total number
+of foundations discovered. Or a specific layout can be chosen to control the density of the
+created dashboard.
 
-1. Navigate to the directory where you want to configure the version that is associated with your org appdynamics-org and space appdynamics-space.
+Below are examples of the ‘Two foundations per row’ and ‘Four foundations per row’ layouts.
 
-        $ cf target -o appdynamics-org -s appdynamics-space
-        $ cf apps
-        (filtered)
-        appdnozzle-<version>
-        appdpcfdashboard-<version>
+![Four foundations per row layout](./images/09fourfoundation.png)
 
-1. Navigate to the **AppDynamics Nozzle** app and set the specific version of the tile deployed:
+![Two foundations per row layout](./images/10twofoundation.png)
 
-        $ cf set-env appdnozzle-<version> APPD_SDK_CONTROLLER_HTTP_PROXY_HOST host
-        $ cf set-env appdnozzle-<version> APPD_SDK_CONTROLLER_HTTP_PROXY_PORT port
-        $ cf set-env appdnozzle-<version> APPD_SDK_CONTROLLER_HTTP_PROXY_USERNAME user
-        $ cf set-env appdnozzle-<version> APPD_SDK_CONTROLLER_HTTP_PROXY_PASSWORD password
+### <a id='Advanced metrics collection'></a> (Optional) Extending Metrics Collection
 
-1. Navigate to the **AppDynamics KPI Dashboard** app and set the specific version of the tile deployed:
+Starting with the 4.6.* version of the tile we have included a feature to collect additional metrics in addition to
+the default standard KPI metrics that are collected by AppDynamics Nozzle.
 
-        $ cf set-env appdpcfdashboard-<version> HTTP_PROXY http://user@password:host:port
-        $ cf set-env appdpcfdashboard-<version> HTTPS_PROXY https://user@password:host:https_port
+![Settings tab for AppDynamics Advanced Metrics](./images/advanced_metrics.png)
 
-1. Restage the apps for the environment variables to take effect:
+* **Collect Container Metrics**: Check this box to collect Container metrics for the applications.
 
-        $ cf restage appdnozzle-<version>
-        $ cf restage  appdpcfdashboard-<version>
+* **Extended Metrics JSON Filter**: AppDynamics Nozzle aplies a filter to limit the number of metrics that are processed. This JSON configures
+the filter. It is a simple JSON dictionary with metrics `origin` tag used as keys and the list of `names` of metrics that belong to the `origin` that are to be collected as value.
+Additionally, a wildcard `"*"` can also be used inside the list to collect all metrics under the `origin`.
 
-### Using Apps Manager to Set Proxy Environment Variables
+```json
+{
+    "<origin>":["<MetricName1>", "<MetricName2>"],
+    "<origin>":["*"]
+}
+```
 
-The proxy environment variables set for the AppDynamics Nozzle and the AppDynamics KPI Dashboard using the Cloud Foundry CLI can also be configured using the **Apps Manager**.
+e.g: Consider this metric with `origin` set to `uaa` with `name` `audit_service.principal_not_found_count`
 
-### AppDynamics Nozzle app
+```bash
+origin:"uaa" eventType:ValueMetric timestamp:1553201379027067175 deployment:"cf" job:"uaa" index:"1e586719-7e22-4cb4-944d-2176db9e01b8"
+ ip:"192.168.16.21" tags:<key:"source_id" value:"uaa" >
+ valueMetric:<name:"audit_service.principal_not_found_count" value:0 unit:"gauge" >
+```
+to report the metric the filter entry will be
 
-1. Open the AppD **Apps Manager** and navigate to the appdynamics space.
-1. In the **appdnozzle`-<version>`** app, open the **Settings** tab.
-1. Click **REVEAL USER PROVIDED ENV VARS**.
+```json
+{
+    "uaa": ["audit_service.principal_not_found_count"]
+}
+```
 
-    ![AppDynamics Nozzle Settings tab User Provided Environment Variables](./images/reveal-user-envars.png)
+### <a id='Overriding Defaults'></a> (Optional) Overriding Defaults
 
-1. Add the proxy environment variables and click **SAVE**.
+<p class="note"> For 4.4.x controllers it is mandatory to override the default Application, Tier, Tier ID and Node values.
 
-    ![AppDynamics Proxy Environment Variables](./images/add-envars-save.png)
+![Settings tab for AppDynamics Default Overrides](./images/default_config.png)
 
-1. Click the **Restart** button to restart the app.
+* **UAA Token Endpoint**: UAA token end point of the cloudfoundry. This can be found by doing `$ cf curl /v2/info | grep token_endpoint`
+* **Nozzle Application Name**: Enter a name to identify the Nozzle Application on the Controller, such as **_test-app-nozzle_**.
+* **Nozzle Tier Name**: Enter a name for the Nozzle Tier that corresponds to the Nozzle Application Name, such as **_test-app-tier_**. This MUST be a Go SDK Tier.
+* **Nozzle Node Name**: Enter a name for the Nozzle Node that corresponds to the Nozzle Application Name, such as **_test-app-node_**.
+* **Nozzle Tier ID**: Enter the component ID of the GoLang SDK tier.
 
-    ![AppDynamics Nozzle Restart button](./images/restart-app-ui.png)
-
-### AppDynamics KPI Dashboard app
-
-1. Open the AppD **Apps Manager** and navigate to the **appdynamics space**.
-1. In the **appdpcfdashboard`-<version>`** app, open the **Settings** tab.
-1. Click **REVEAL USER PROVIDED ENV VARS**.
-
-    ![AppDynamics KPI Dashboard Settings tab User Provided Environment Variables](./images/pcf-dashboard-user-envars.png)
-
-1. Add the proxy environment variables and click **SAVE**.
-
-    ![AppDynamics KPI Dashboard Proxy Environment Variables](./images/pcf-dashboard-add-envars.png)
-
-1. Click the **Restart** button to restart the app.
-
-    ![AppDynamics KPI Dashboard Restart button](./images/pcf-dashboard-restart-app-ui.png)
-
-## <a id='overide-nozzle-ops-manager'></a> Advanced Configuration
-
-To use AppDynamics Controllers v4.4.x, you must first create an instance of an application before deploying the AppD Platform Monitoring tile.
-You can do this using either the Apps Manager or from the Cloud Foundry Command Line Interface (cf CLI). The app name argument is optional, so that they match with your existing application.
-If an app name is not specified, default names for the AppDynamics Nozzle, `appd-nozzle`, the Nozzle Tier,
-`appd-nozzle-tier` and Nozzle Node, `appd-nozzle-node` will be generated.
-It is often easier to start with a default name and rename the app later.
-Record the application name, tier name and node name and tier id. Use these recorded values to fill in the Advanced Configuration for the app.
-
-For AppDynamics Controllers version 4.5.x, when you create a new app, you'll need to know the API endpoint for your Cloud Foundry instance.
-This is the URL of the Cloud Controller in your Pivotal Application Service (PAS) instance, also known as the target URL.
-See [Identifying the API Endpoint for your PAS Instance](https://docs.pivotal.io/pivotalcf/2-3/opsguide/api-endpoint.html) for more information.
-You must select a `Go SDK` tier, but the tier id is not necessary for Advanced Configuration.
-
-**To rename the Nozzle Application, Tier and Node names**
-
-1. In the **Advanced Configuration (Optional for 4.5.x Controllers)** tab, specify the following settings and click **Save**.
-   ![AppDynamics Nozzle configuration form](./images/nozzle-adv-config.png)
-    * **Nozzle Application Name**: Enter a name to identify the Nozzle Application on the Controller, such as **_test-app-nozzle_**.
-    * **Nozzle Tier Name**: Enter a name for the Nozzle Tier that corresponds to the Nozzle Application Name, such as **_test-app-tier_**. This MUST be a Go SDK Tier.
-    * **Nozzle Node Name**: Enter a name for the Nozzle Node that corresponds to the Nozzle Application Name, such as **_test-app-node_**.
-    * **Nozzle Tier ID**: Enter the component ID of the GoLang SDK tier.
+#### <a id='44x Controllers'></a> 4.4.x Controllers
+For 4.4.x controller, please create an applicaiton on the AppDynamics Controller and create a `Go SDK` tier associated with that application and record the tier-id.
+Enter the AppDynamics AppName, Tier, TierID and Node names in the corresponding fields of the **Overriding Defaults** form.
 
 
-1. In the Installation Dashboard, click **Apply Changes** and wait for the changes to be applied.
+## <a id='Scaling'></a> AppDynamics Nozzle Scalability
 
-### <a id='deploy-multiple-tiles-on-multiple-instances'></a> Deploying Multiple Tiles on Multiple Cloud Foundry Instances to a Single AppDynamics Controller
+Starting with the 4.6.* version of the tile, AppDynamics Nozzle is completely scalable to any number of desired instances. However,
+it is recommended to scale the number of nozzle instances to match the number of traffic controller instances.
+See the [official cloud foundry recommendation](https://docs.cloudfoundry.org/loggregator/log-ops-guide.html#scaling-nozzles).
 
-You may wish to deploy multiple AppDynamics service broker tiles on to multiple Cloud Foundry instances, using a single AppDynamics Controller.
-The metrics corresponding to each of the cloud foundry instances are recorded under tier names which defaults to the system domain's value of the Cloud Foundry deployment.
-For example: `sys.pie-multi-az-blue.cfplatformeng.com`
 
-In addtion, you can overwrite the tier name with a custom value by filling in the **Nozzle Tier Name** field as mentioned in the section above.
+## <a id='deploy-multiple-tiles-on-multiple-instances'></a> Multiple PCF Foundations
+
+Multiple AppDynamics Platform Monitoring tiles can be deployed on multiple PCF foundations, using a single AppDynamics Controller.
+The metrics corresponding to each of the foundations are recorded under tier names which defaults to the system domain’s value of the Cloud Foundry deployment, for example: `sys.pie-multi-az-blue.cfplatformeng.com`
+Optionally, the tier names can be customized by setting `Nozzle Tier Name` field in the **Overriding Defaults** form.
