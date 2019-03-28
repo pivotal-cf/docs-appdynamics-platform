@@ -130,7 +130,7 @@ dashboard and health rules within ten minutes (or restart the Dashboard App to r
 them immediately).
 
 
-## <a id='dashboard-app'></a> Setting up Account to create Dashboards 
+## <a id='dashboard-app'></a> Setting up Account to create Dashboards
 
 The ‘Username for reporting Dashboard’ and ‘Password’ fields from the platform tile
 determine the credentials used by the Dashboard App for creating the KPI health rules and
@@ -138,25 +138,24 @@ the Single Foundation and Multi-Foundation Dashboards via the REST API. The foll
 screenshots show the minimal permissions required and assume a distinct user is created as
 well as a role that is assigned to the user.
 
-1. Create a ‘PCF KPI Role’ and under Dashboards assign it ‘Can Create Dashboards’ and
-View and Edit permission on the Default dashboard.
+1. Create a ‘PCF KPI Role’ and under Dashboards assign it ‘Can Create Dashboards’ and View and Edit permission on the Default dashboard.
 
-![Dashboard App Permissions Can Create Dashboards](./images/11dashapppermissions.png)
+    ![Dashboard App Permissions Can Create Dashboards](./images/11dashapppermissions.png)
 
 2. Under Applications, assign the role ‘Custom’ and ‘View’ permissions for the app that the
 AppDynamics Nozzle reports. The default is appd-nozzle-v2, unless it was overridden under
 Advanced Configuration of the platform tile.
 
-![Dashboard App Permissions Custom and View](./images/12pcfkpirole.png)
+    ![Dashboard App Permissions Custom and View](./images/12pcfkpirole.png)
 
 3. Edit the permissions for the application and select only ‘Configure Health Rules’
 
-![Dashboard App Permissions Configure Health Rules](./images/13configurehealthrules.png)
+    ![Dashboard App Permissions Configure Health Rules](./images/13configurehealthrules.png)
 
 4. Create a user and assign it the PCF KPI Role. The user and password should match the
 ‘Username for reporting Dashboard’ and ‘Password’ fields from the platform tile.
 
-![Dashboard App Permissions Create User](./images/14pcfkpiuser.png)
+    ![Dashboard App Permissions Create User](./images/14pcfkpiuser.png)
 
 
 
