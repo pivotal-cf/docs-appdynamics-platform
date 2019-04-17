@@ -57,17 +57,17 @@ the Pivotal KPI documentation, and prefixed with the tier name.
      - [Router Performance Scaling Indicators](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html#Router)
      - [UAA Performance Scaling Indicators](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html#UAA)
 
-     Below is an example of a KPI health rule created for the indicator Diego Cell Container
-     Capacity, named ‘sys.pcf.com-Diego Cell Memory Capacity’.
+     Below is an example of a KPI health rule created for the indicator Diego Cell Memory Capacity,
+     named ‘sys.pcf.com-Diego Cell Memory Capacity’.
 
-![KPI health rule created for the indicator Diego Cell Container Capacity](./images/02memorycapacity.png)
+![KPI health rule created for the indicator Diego Cell Memory Capacity](./images/02memorycapacity.png)
 
-The Critical Criteria is defined based on the threshold from the Diego Cell Container Capacity
-indicator, which specifies that if the total memory capacity for all Diego Cells falls below 35%
+The Critical Criteria is defined based on the threshold from the Diego Cell Memory Capacity indicator,
+which specifies that if the total memory capacity for all Diego Cells falls below 35%
 an alert should be generated and an operator should consider scaling the number of Diego
 Cells.
 
-![Critical Criteria for the indicator Diego Cell Container Capacity](./images/03criticalcriteria.png)
+![Critical Criteria for the indicator Diego Cell Memory Capacity](./images/03criticalcriteria.png)
 
 To attach a KPI health rule to an action, such as sending an email or opening a ticket, see the
 [AppDynamics Policy](https://docs.appdynamics.com/display/PRO45/Configure+Policies) documentation.
@@ -83,7 +83,7 @@ Dashboard configuration that is added in the platform tile.
 ### <a id='single-foundation'></a> Single Foundation Dashboard
 
 The Single Foundation Dashboard visualizes performance of the PCF foundation on which the
-AppDynamics platform tile is installed in a single pane of glass. It is named `<app name><tier
+AppDynamics platform tile is installed in a single pane of glass. It is named `<app name>-<tier
 name>-PCF KPI Dashboard` based on the app and tier names configured for the Nozzle in the
 platform tile, which default to `appd-nozzle-v2` and `<system domain>`, respectively. The
 dashboard uses health status widgets to reflect the current state of the KPI health rules, as
@@ -118,7 +118,7 @@ widget to display the aggregate health of the capacity related health rules as w
 with the foundation. Depending on the layout, the dashboard may contain gauge widgets for
 current capacity, a health rule violation widget, and current router requests.
 
-![The Multi-Foundation Dashboard](./images/08multidashboardconfig.png)
+![The Multi-Foundation Dashboard](./images/07multifoundation.png)
 
 ## <a id='configuration'></a> Recreating KPI HRs or Dashboards
 
