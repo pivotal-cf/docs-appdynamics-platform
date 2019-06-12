@@ -11,21 +11,35 @@ Additionally the tile allows for advanced configuration to customize metric coll
 multi-foundation dashboard and overiding default configurations.
 
 <p class="note warning"><strong>WARNING:</strong> Starting with 4.6 version the default AppDynamics Nozzle Application Name
-has been changed to **appd-nozzle-v2** and a new dashboard with name **appd-nozzle-v2-<{cf system domain}>-PCF KPI Dashboard**
+has been changed to <strong>appd-nozzle-v2</strong> and a new dashboard with name <strong>appd-nozzle-v2-<{cf system domain}>-PCF KPI Dashboard</strong>
 will be created.
 </p>
 
 ## <a id='overview-appd-nozzle'></a> Overview
 
-AppDynamics Nozzle aggregates and forwards metrics from the **Loggregator [Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html#firehose)**
-to the AppDynamics Controller. The Controller processes the combined data stream of  detailed performance metrics on the health of the underlying
-infrastructure of apps running on PCF.
+The tile deploys an AppDynamics Nozzle and Dashboard App as PCF apps to the org and space
+appdynamics-org/appdynamics-space. The diagram illustrates the AppDynamics Nozzle that is
+deployed by the tile. The Nozzle aggregates and forwards metrics from the 
+**Loggregator [Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html#firehose)** to
+the AppDynamics Controller. The metrics are published in the Controller as custom metrics under the
+default application name, appd-nozzle-v2, and tier that corresponds to the system domain of the PCF
+foundation.
 
-When you successfully configure AppDynamics Nozzle on PCF, a default application nozzle, named `appd-nozzle-v2`, is created on the AppDynamics Controller.
-The `appd-nozzle-v2` monitors the Loggregator Firehose for specified events and metrics, and streams this data to a default nozzle tier named `appd-nozzle-tier`,
-and a default nozzle node named `appd-nozzle-node`.
+![AppD Nozzle to Loggregator Firehose](./images/pcf-foundation-02.png)
 
-You can view these correlated logs and metrics in the Metric Browser corresponding to the Nozzle application instance or resource being monitored.
+The Dashboard App deployed by the tile will automatically create a set of KPI health rules and a
+Single Foundation dashboard in the controller configured in the Nozzle Configuration, which reflect
+the health and capacity of the foundation where the tile is installed.
+
+![AppD Nozzle to Loggregator Firehose](./images/pcf-foundation-03.png)
+
+In addition, based on optional configuration added in the tile under AppDynamics Dashboard
+Configuration, the Dashboard App will create one or more Multi-Foundation Dashboards. These
+dashboards summarize the health and capacity of multiple foundations, assuming each foundation
+has the AppDynamics Platform Monitoring for PCF tile installed, and each tile is configured to report
+to the same AppDynamics controller, as indicated in the diagram.
+
+![AppD Nozzle to Loggregator Firehose](./images/pcf-foundation-04.png)
 
 ## <a id='before-you-start'></a> Before You Start
 
@@ -175,6 +189,72 @@ to report the metric the filter entry will be
 #### <a id='44x Controllers'></a> 4.4.x Controllers
 For 4.4.x controller, please create an applicaiton on the AppDynamics Controller and create a `Go SDK` tier associated with that application and record the tier-id.
 Enter the AppDynamics AppName, Tier, TierID and Node names in the corresponding fields of the **Overriding Defaults** form.
+
+## <a id='validate-install'></a> Validating an Install
+
+### <a id='Nozzle Credentials'></a> Validating the Nozzle
+
+Once the tile install completes successfully in the Ops Manager, confirm that the Nozzle is reporting
+metrics to the controller by navigating to the appd-nozzle-v2 app and opening the Metric Browser. If
+the Nozzle is successfully reporting metrics, it will create the path `Application Infrastructure
+Performance|<tier>|Custom Metrics|PCF Firehose Monitor`, where the tier corresponds to the system
+domain of the PCF foundation. Navigate to a specific metric such as Diego Cell
+Metrics|rep|cf|diego_cell|<guid>|rep. CapacityRemainingMemory as shown below, and doubleclick it to
+add it to the timeseries graph and confirm metrics are reporting in the last 5 minutes.
+
+![](./images/pcf-foundation-05.png)
+
+If the metrics don’t appear, use the Apps Manager to tail the logs for the Nozzle `appdnozzle-
+<version>` under appdynamics-org/appdynamics-space. Tailing the logs from the Apps Manager will
+ensure getting the startup logs for the Nozzle, which are typically lost when using `cf logs. Follow this
+procedure:
+
+1. Set APPD_DEBUG to **true** in the Apps Manager under Settings/User Provided Environment
+Variables.
+
+    ![](./images/pcf-foundation-06.png)
+
+    This will cause the agent logs to be forwarded to standard err rather than written to the container file
+    system, so they’ll be visible in the app logs.
+
+2. Restage the Nozzle in the Apps Manager.
+
+3. In the Apps Manager, go to Logs and press the play button to tail the logs as the Nozzle
+restages. You should see some [ERR] log messages in red that are specific to the SDK agent and
+would indicate any problems communicating with the Controller. The [OUT] log messages should
+show ‘Handling x events’ where x is non-zero and would indicate successful communication with the
+Loggregator Firehose.
+
+    ![](./images/pcf-foundation-07.png)
+
+### <a id='Nozzle Credentials'></a> Validating the Dashboard App
+
+Check that the KPI health rules have been created in the appd-nozzle-v2 app in the controller configured
+in the tile under **Nozzle Configuration**. Navigate to Applications/appd-nozzle-v2/Alert & Respond/**Health Rules**.
+You should see a set of over 100 health rules whose names are prefixed with the system domain of the PCF foundation
+where the tile was installed.
+
+Open the the Single Foundation dashboard under **Dashboards & Reports** with the name `appd-nozzle-v2-<system domain>-PCF`
+KPI Dashboard and check that there are no broken links and the widgets are showing recent data.
+
+If any Multi-foundation dashboards were configured, check that they are also listed under Dashboards & Reports,
+with the name `<config name>-PCF Multi-foundation Dashboard`.
+
+If the health rules or dashboards are not listed, restage and check the logs for the Dashboard App `appdpcfdashboard-<version>` in
+the **Apps Manager** under the org and space appdynamics-org/appdynamcis-space, as was described for the Nozzle.
+Optionally set the APPD_DEBUG flag to true.
+
+The Dashboard App requires that the Nozzle successfully publish metrics to the Controller before it will create the KPI health rules and dashboards.
+If the Dashboard App does not find the metrics, it will output a message to its log:
+
+
+    "retrying fetching metrics exponentially"
+
+and eventually:
+
+      “error: failed to find PCF metric path in target controller…”
+
+If you see these messages, first resolve the issue with the Nozzle by following the Nozzle validation steps described above.
 
 
 ## <a id='Scaling'></a> AppDynamics Nozzle Scalability
