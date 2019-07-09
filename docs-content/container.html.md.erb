@@ -1,0 +1,67 @@
+---
+title: Application Container Correlation  
+owner: Partners
+---
+
+<p class="note warning">
+- This is a Beta release
+- For now, we support only Java and node.js applicaitons. Support for other languages will be added soon 
+</p>
+
+## <a id='overview'></a> Overview
+
+Starting 4.7 version, tile deploys another nozzle that can collect metrics for the container along with
+underneath diego cell and correlate the metrics with the application (APM) metrics of the applications that are monitored 
+using AppDynamics APM tile. 
+
+This feature is very light weight. It deploys just one correlation agent (nozzle) to monitor all the VMs and 
+containers and does not require (multiple) agents to be deployed on each diego cells.
+
+## <a id='Pre-Requisites'></a> PreRequisites
+
+1. This feature requires Server Visibility License 
+
+1. AppDynamics Platform tile v4.7 or higher
+
+1. AppDynamics Extension BuildPack v4.7 or higher for non-java applications (or) this forked version of 
+   Java Buildpack [BuildPack](https://github.com/pavankrish123/java-buildpack).
+
+
+## <a id='workflow'></a> Workflow
+
+1. Configure AppDynamics Platform Monitoring tile to enable container corellation. This can be done by checking in 
+the `Enable Application Container Correlation` checkbox under `AppDynamics Advanced Metrics` configuration
+page of the tile 
+
+![ConfiguringContainerCorellation](./images/15ConfiguringContainer.png)
+
+1. Repush the applications (if they are not already pushed) with version 4.7 or higher AppDynamics Extension
+   BuildPack for non-java applicaitons (or) latest version of java buildpack. 
+
+## <a id='metrics'></a> Navigating the Metrics
+
+This festure is intended to provide machine monitoring in corellation with application monitoring. The container 
+and diego cell metrics are recorded as first class metrics in the applicaiton's page.
+
+1. To view the metrics and the details of the Diego cells the application is running on 
+ - Goto <b><i>Application's page -> Servers</i></b>
+
+ ![ServerMonitoring](./images/16Servers.png)
+
+
+1. To view the metrics and the details of the containers the application is running on 
+ - Goto <b><i>Application's page -> Containers</i></b>
+
+![ContainerMonitoring'](./images/18Containers.png)
+
+
+1. Additionally the Servers and the Containers running on the server can also be navigated by clicking 
+top level Servers tab on the controller home page 
+
+![TopLevelServerMonitoring'](./images/19TopLevel.png)
+![TopLevelContainerMonitoring'](./images/20ServersContainer.png)
+
+### <a id='Notes'></a> Notes
+- The feature deploys and starts another nozzle instance along with the nozzle that collects platform metrics
+- The feature consumes one server visibility per each diego cell running the monitored applications. 
+
