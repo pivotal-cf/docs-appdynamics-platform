@@ -61,7 +61,10 @@ top level Servers tab on the controller home page
 ![TopLevelServerMonitoring'](./images/19TopLevel.png)
 ![TopLevelContainerMonitoring'](./images/20ServersContainer.png)
 
-### <a id='Notes'></a> Notes
+## <a id='Notes'></a> Notes
 - The feature deploys and starts another nozzle instance along with the nozzle that collects platform metrics
 - The feature consumes one server visibility per each diego cell running the monitored applications. 
+- Every Server/Container metric that is exposed via nozzle is collected in this feature. However, there are 
+  be some gaps in UI becuase metrics emitted by loggregator are not complete. We are working with Pivotal
+  to fill in the those gaps in the UI 
 
