@@ -60,6 +60,28 @@ top level Servers tab on the controller home page
 ![TopLevelServerMonitoring'](./images/19TopLevel.png)
 ![TopLevelContainerMonitoring'](./images/20ServersContainer.png)
 
+## <a id='tags'></a> Tagging
+
+In addition to the metrics, this feature is capable of collecting and displaying tags which can provide a way 
+of obtaining a filtered view. We collect wide variety of out of the box tags by default like host_ip, pcf-org,
+pcf-space etc..,. 
+
+On top of these out of the box tags, we can add additional tags by setting environment variables with 
+prefix `APPD_TAG_`. Any environemnt varibale of the app starting with `APPD_TAG` will be treated as a 
+tag and will be dispalyed in tags section. 
+
+To view the tags for a container, just goto Application's Containers Page -> Click the Container entry -> Tags section
+
+![ContainerTags'](./images/21containerTags.png)
+
+
+To filter the containers belonging to a specific tag, Goto Application's Containers Page -> Click on `Filters` -> Add Criteria
+-> Select the Tag Key -> Add the value to the tag. 
+
+![ContainerTagFilter'](./images/22filterTags.png)
+
+
+
 ## <a id='Notes'></a> Notes
 - The feature deploys and starts another nozzle instance along with the nozzle that collects platform metrics
 - The feature consumes one server visibility per each diego cell running the monitored applications. 
