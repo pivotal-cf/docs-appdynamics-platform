@@ -23,8 +23,17 @@ containers and does not require (multiple) agents to be deployed on each diego c
 1. AppDynamics Platform tile v4.7 or higher
 
 1. AppDynamics Extension BuildPack v4.7 or higher for non-java applications (or) this forked version of 
-   Java Buildpack [BuildPack](https://github.com/pavankrish123/java-buildpack).
+   Java Buildpack [BuildPack](https://github.com/AppDynamics/java-buildpack).
 
+## <a id='BuildPackVersions'></a> Minimum Versions of Buildpacks
+
+As mentioned before for this beta release we are supporting Java and node.js applications and to get the 
+container correlation the applications need to be pushed with buildpacks mentioned in the below table.
+
+| Language     | BuildPacks Versions |
+| ------------ | ------------ | 
+| Java         | https://github.com/AppDynamics/java-buildpack  | 
+| NodeJS       | appdbuildpack v4.7.67 or higher, nodejs_buildpack (any version) |
 
 ## <a id='workflow'></a> Workflow
 
@@ -64,22 +73,21 @@ top level Servers tab on the controller home page
 
 In addition to the metrics, this feature is capable of collecting and displaying tags which can provide a way 
 of obtaining a filtered view. We collect wide variety of out of the box tags by default like host_ip, pcf-org,
-pcf-space etc..,. 
+pcf-space etc..,.  
 
 On top of these out of the box tags, we can add additional tags by setting environment variables with 
-prefix `APPD_TAG_`. Any environemnt varibale of the app starting with `APPD_TAG` will be treated as a 
+prefix `APPD_TAG_`. Any environemnt variable of the application starting with `APPD_TAG_` will be treated as a 
 tag and will be dispalyed in tags section. 
 
-To view the tags for a container, just goto Application's Containers Page -> Click the Container entry -> Tags section
-
+To view the tags for a container, just goto <b><i>Application's Containers Page -> Click the Container entry -> Tags section
+</i></b>
 ![ContainerTags'](./images/21containerTags.png)
 
 
-To filter the containers belonging to a specific tag, Goto Application's Containers Page -> Click on `Filters` -> Add Criteria
--> Select the Tag Key -> Add the value to the tag. 
+To filter the containers belonging to a specific tag, <b><i>Goto Application's Containers Page -> Click on `Filters` -> Add Criteria
+-> Select the Tag Key -> Add the value to the tag. </i></b>
 
 ![ContainerTagFilter'](./images/22filterTags.png)
-
 
 
 ## <a id='Notes'></a> Notes
