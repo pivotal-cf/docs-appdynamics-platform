@@ -9,8 +9,8 @@ This is a Beta release. This release supports Java and node.js applicaitons. Sup
 
 ## <a id='overview'></a> Overview
 
-Starting 4.7 version, tile deploys another nozzle that can collect metrics for the container along with
-underneath diego cell and correlate the metrics with the application (APM) metrics of the applications that are monitored 
+Starting 4.7.237 version, AppDynamics Platform Monitoring tile deploys another nozzle that can collect metrics for the container along with
+the diego cell metrics and correlates the metrics with the application (APM) metrics of the applications that are monitored 
 using AppDynamics APM tile. 
 
 This feature is very light weight. It deploys just one correlation agent (nozzle) to monitor all the VMs and 
@@ -20,10 +20,9 @@ containers and does not require (multiple) agents to be deployed on each diego c
 
 1. This feature requires Server Visibility License 
 
-1. AppDynamics Platform tile v4.7 or higher
+1. AppDynamics Platform Monitoring tile v4.7.237 or higher
 
-1. AppDynamics Extension BuildPack v4.7 or higher for non-java applications (or) this forked version of 
-   Java Buildpack [BuildPack](https://github.com/AppDynamics/java-buildpack).
+1. AppDynamics Extension BuildPack v4.7 or higher for non-java applications (or) Java Buildpack [BuildPack](https://github.com/cloudfoundry/java-buildpack).
 
 ## <a id='BuildPackVersions'></a> Minimum Versions of Buildpacks
 
@@ -32,7 +31,7 @@ container correlation the applications need to be pushed with buildpacks mention
 
 | Language     | BuildPacks Versions |
 | ------------ | ------------ | 
-| Java         | https://github.com/AppDynamics/java-buildpack  | 
+| Java         | java_buildpack | 
 | NodeJS       | appdbuildpack v4.7.67 or higher, nodejs_buildpack (any version) |
 
 ## <a id='workflow'></a> Workflow
