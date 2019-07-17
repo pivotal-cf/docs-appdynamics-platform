@@ -4,95 +4,90 @@ owner: Partners
 ---
 
 <p class="note warning"><strong>WARNING:</strong>
-This is a Beta release. This release supports Java and node.js applicaitons. Support for other languages will be added soon
+This is a Beta release. This release supports Java and Node.js applications. Support for other languages will be added soon.
 </p>
 
 ## <a id='overview'></a> Overview
 
-Starting 4.7.239 version, AppDynamics Platform Monitoring tile deploys another nozzle that can collect metrics for the container along with
-the diego cell metrics and correlates the metrics with the application (APM) metrics of the applications that are monitored
+Starting AppDynamics Platform Monitoring tile version 4.7.239, the tile deploys an additional nozzle that can collect metrics for the container along with
+the Diego cell metrics. This additional nozzle correlates the metrics with the application (APM) metrics of the applications that are monitored
 using AppDynamics APM tile.
 
-This feature is very light weight. It deploys just one correlation agent (nozzle) to monitor all the VMs and
-containers and does not require (multiple) agents to be deployed on each diego cells.
+Application container correlation is very lightweight. It deploys just one correlation agent (nozzle) to monitor all the VMs and
+containers and does not require multiple agents to be deployed on each Diego cell.
 
-## <a id='Pre-Requisites'></a> PreRequisites
+## <a id='Prerequisites'></a> Prerequisites
 
-1. This feature requires Server Visibility License
+1. Application container correlation requires a [Server Visibility license](https://docs.appdynamics.com/display/latest/Server+Visibility).
 
-1. AppDynamics Platform Monitoring tile v4.7.239 or higher
+1. AppDynamics Platform Monitoring tile v4.7.239 or higher.
 
-1. AppDynamics Extension BuildPack v4.7 or higher for non-java applications (or) Java [BuildPack](https://github.com/cloudfoundry/java-buildpack) v4.20 or higher.
+1. AppDynamics Extension Buildpack v4.7 or higher for non-Java applications (or) [Java Buildpack](https://github.com/cloudfoundry/java-buildpack).
 
-## <a id='BuildPackVersions'></a> Minimum Versions of Buildpacks
+## <a id='BuildpackVersions'></a> Minimum Versions of Buildpacks
 
-As mentioned before for this beta release we are supporting Java and node.js applications and to get the
-container correlation the applications need to be pushed with buildpacks mentioned in the below table.
+For the Beta release we only support Java and Node.js applications. To get container correlation the applications need to be pushed with the buildpacks listed in the table below.
 
-| Language     | BuildPacks Versions |
+| Language     | Buildpacks Versions |
 | ------------ | ------------ |
 | Java         | java_buildpack |
 | NodeJS       | appdbuildpack v4.7.67 or higher, nodejs_buildpack (any version) |
 
 ## <a id='workflow'></a> Workflow
 
-1. Configure AppDynamics Platform Monitoring tile to enable container corellation. This can be done by checking in
-the `Enable Application Container Correlation` checkbox under `AppDynamics Advanced Metrics` configuration
-page of the tile
+Configure AppDynamics Platform Monitoring tile to enable container correlation.
 
-![ConfiguringContainerCorellation](./images/15ConfiguringContainer.png)
+1. Under  the *AppDynamics Advanced Metrics* configuration page of the tile, select the Enable Application Container Correlation (Beta) checkbox.
 
-1. Repush the applications (if they are not already pushed) with version 4.7 or higher AppDynamics Extension
-   BuildPack for non-java applicaitons (or) latest version of java buildpack.
+    ![ConfiguringContainerCorellation](./images/15ConfiguringContainer.png)
+
+1. Push the applications, if they are not already pushed, with version 4.7 or higher of the AppDynamics Extension
+   Buildpack for non-Java applications (or) the latest version of the Java buildpack.
 
 ## <a id='metrics'></a> Navigating the Metrics
 
-This feature is intended to provide machine monitoring in correlation with application monitoring. The container
-and diego cell metrics are recorded as first class metrics in the applicaiton's page.
+Application container correlation is intended to provide machine monitoring in correlation with application monitoring. The container
+and Diego cell metrics are recorded as first-class metrics in the application's page.
 
 1. To view the metrics and the details of the Diego cells the application is running on
  - Go to <b><i>Application's page -> Servers</i></b>
 
- ![ServerMonitoring](./images/16Servers.png)
+    ![ServerMonitoring](./images/16Servers.png)
 
 
 1. To view the metrics and the details of the containers the application is running on
  - Go to <b><i>Application's page -> Containers</i></b>
 
-![ContainerMonitoring'](./images/18Containers.png)
+    ![ContainerMonitoring'](./images/18Containers.png)
 
 
-1. Additionally the Servers and the Containers running on the server can also be navigated by clicking
-top level Servers tab on the controller home page
+1. Additionally the Servers and the Containers running on the server can also be navigated by clicking the top level **Servers** tab on the Controller home page
 
-![TopLevelServerMonitoring'](./images/19TopLevel.png)
-![TopLevelContainerMonitoring'](./images/20ServersContainer.png)
+    ![TopLevelServerMonitoring'](./images/19TopLevel.png)
+    ![TopLevelContainerMonitoring'](./images/20ServersContainer.png)
 
 ## <a id='tags'></a> Tagging
 
-In addition to the metrics, this feature is capable of collecting and displaying tags which can provide a way
-of obtaining a filtered view. We collect wide variety of out of the box tags by default like host_ip, pcf-org,
-pcf-space etc..,.
+In addition to metrics, container correlation is capable of collecting and displaying tags which provide a filtered view. We collect a wide variety of tags by default like `host_ip`, `pcf-org`,
+`pcf-space` etc...
 
-On top of these out of the box tags, we can add additional tags by setting environment variables with
-prefix `APPD_TAG_`. Any environemnt variable of the application starting with `APPD_TAG_` will be treated as a
-tag and will be dispalyed in tags section.
+In addition to these default tags, you can create additional tags by setting environment variables with the prefix `APPD_TAG_`. Any application environment variable starting with the `APPD_TAG_` will be treated as a
+tag and is dispalyed in the *Tags* section.
 
-To view the tags for a container, just go to <b><i>Application's Containers Page -> Click the Container entry -> Tags section
+1. To view the tags for a container, go to <b><i>Application's Containers Page -> Click the Container entry -> Tags section
 </i></b>
-![ContainerTags'](./images/21containerTags.png)
+    ![ContainerTags'](./images/21containerTags.png)
 
 
-To filter the containers belonging to a specific tag, Go to <b><i>Application's Containers Page -> Click on `Filters` -> Add Criteria
+1. To filter the containers belonging to a specific tag, go to <b><i>Application's Containers Page -> Click on Filters -> Add Criteria
 -> Select the Tag Key -> Add the value to the tag. </i></b>
-
-![ContainerTagFilter'](./images/22filterTags.png)
+    ![ContainerTagFilter'](./images/22filterTags.png)
 
 
 ## <a id='Notes'></a> Notes
-- The feature deploys and starts another nozzle instance along with the nozzle that collects platform metrics
-- The feature consumes one server visibility per each diego cell running the monitored applications.
-- Every Server/Container metric that is exposed via nozzle is collected in this feature. However, there are
-  be some gaps in UI becuase metrics emitted by loggregator are not complete. We are working with Pivotal
-  to fill in the those gaps in the UI
+- Application container correlation deploys and starts another nozzle instance along with the nozzle that collects platform metrics
+- Application container correlation consumes one [Server Visibility license](https://docs.appdynamics.com/display/latest/Server+Visibility) per Diego cell running the monitored applications.
+- Every Server/Container metric that is exposed via the nozzle is collected in Application container correlation. However, there are
+  be some gaps in User Interface because metrics emitted by the Loggregator are not complete. We are working with Pivotal
+  to fill in the those gaps in the UI.
 
