@@ -1,76 +1,95 @@
 ---
-title: AppDynamics Platform Monitoring for Pivotal Cloud Foundry
+title: Application Container Correlation  (BETA)
 owner: Partners
 ---
 
-## <a id='overview'></a> Overview
-
-[AppDynamics Platform Monitoring for Pivotal Cloud Foundry (PCF)](https://network.pivotal.io/products/appdynamics-platform/)
-provides visibility into the PCF platform where your AppDynamics-monitored applications are deployed.
-The tile deploys a Firehose Nozzle that collects various KPI metrics and publishes them to a controller.
-It also deploys a Dashboard App that automatically creates KPI health rules and custom dashboards associated
-with the health rules, which can be used to monitor the health and capacity of one or more PCF foundations.
-
-## <a id='product-snapshot'></a> Product Snapshot
-
-<table class="nice">
-    <th>Element</th>
-    <th>Details</th>
-    <tr>
-        <td>Version</td>
-        <td>4.7.241</td>
-    </tr>
-    <tr>
-        <td>Release date</td>
-        <td>July 26, 2019</td>
-    </tr>
-    <tr>
-        <td>Pivotal Cloud Foundry Operations Manager </td>
-        <td>v2.2, v2.3, v2.4, v2.5, v2.6</td>
-    </tr>
-    <tr>
-        <td>Pivotal Application Service</td>
-        <td>v2.2, v2.3, v2.4, v2.5, v2.6</td>
-    </tr>
-    <tr>
-       <td>BOSH stemcell version</td>
-       <td>Ubuntu Xenial</td>
-    </tr>
-    <tr>
-        <td>IaaS support</td>
-        <td>AWS, Azure, GCP, OpenStack, and vSphere</td>
-    </tr>
-    <tr>
-        <td>AppDynamics Controller Version</td>
-        <td>4.5 and 4.4</td>
-    </tr>
-</table>
-
-
-
-<p class="note warning"><strong>WARNING:</strong> Starting with 4.6 version the default AppDynamics Nozzle Application Name
-has been changed to **appd-nozzle-v2** and a new dashboard with name **appd-nozzle-v2-<{cf system domain}>-PCF KPI Dashboard**
-will be created.
+<p class="note warning"><strong>WARNING:</strong>
+This is a Beta release. This release supports Java and Node.js applications. Support for other languages will be added soon.
 </p>
 
+## <a id='overview'></a> Overview
 
-<p class="note warning"><strong>WARNING:</strong> AppDynamics Platform Monitoring for PCF v4.5.555
-   and earlier require a stemcell based on Ubuntu Trusty.
-   The end of life date for Ubuntu Trusty is April 2019.
-   If a security vulnerability is found on this stemcell after April, it will not be fixed.</p>
+Starting AppDynamics Platform Monitoring tile version 4.7.239, the tile deploys an additional nozzle that can collect metrics for the container along with
+the Diego cell metrics. This additional nozzle correlates the metrics with the application (APM) metrics of the applications that are monitored
+using AppDynamics APM tile.
+
+Application container correlation is very lightweight. It deploys just one correlation agent (nozzle) to monitor all the VMs and
+containers and does not require multiple agents to be deployed on each Diego cell.
+
+## <a id='Prerequisites'></a> Prerequisites
+
+1. Application container correlation requires a [Server Visibility license](https://docs.appdynamics.com/display/latest/Server+Visibility).
+
+1. AppDynamics Platform Monitoring tile v4.7.239 or higher.
+
+1. AppDynamics Extension Buildpack v4.7 or higher for non-Java applications (or) [Java Buildpack](https://github.com/cloudfoundry/java-buildpack).
+
+1. This feature requires both the Platform tile and Applications instrumented using AppDynamics Service Broker pointing to the same AppDynamics Controller.    
+
+## <a id='BuildpackVersions'></a> Minimum Versions of Buildpacks
+
+For the Beta release we only support Java and Node.js applications. To get container correlation the applications need to be pushed with the buildpacks listed in the table below.
+
+| Language     | Buildpacks Versions |
+| ------------ | ------------ |
+| Java         | java_buildpack |
+| NodeJS       | appdbuildpack v4.7.67 or higher, nodejs_buildpack (any version) |
+
+## <a id='workflow'></a> Workflow
+
+Configure AppDynamics Platform Monitoring tile to enable container correlation.
+
+1. Under  the **AppDynamics Advanced Metrics** configuration page of the tile, select the Enable Application Container Correlation (Beta) checkbox.
+
+    ![ConfiguringContainerCorellation](./images/15ConfiguringContainer.png)
+
+1. Push the applications, if they are not already pushed, with version 4.7 or higher of the AppDynamics Extension
+   Buildpack for non-Java applications (or) the latest version of the Java buildpack.
+
+## <a id='metrics'></a> Navigating the Metrics
+
+Application container correlation is intended to provide machine monitoring in correlation with application monitoring. The container
+and Diego cell metrics are recorded as first-class metrics in the application's page.
+
+1. To view the metrics and the details of the Diego cells the application is running on
+ - Go to <b>Application's page -> Servers</b>
+
+    ![ServerMonitoring](./images/16Servers.png)
 
 
-### <a id="reqs"></a> Requirements
+1. To view the metrics and the details of the containers the application is running on
+ - Go to <b>Application's page -> Containers</b>
 
-* AppDynamics Controller v4.5.x, v4.4.x
-* An AppDynamics account with Go SDK Agent License
-* Pivotal Cloud Foundry v2.1.x, v2.2.x, v2.3.x, v2.4.x, v2.5.x, v2.6.x
+    ![ContainerMonitoring'](./images/18Containers.png)
 
 
-### <a id="feedback"></a> Feedback
+1. Additionally the Servers and the Containers running on the server can also be navigated by clicking the top level **Servers** tab on the Controller home page
 
-Please provide any bugs, feature requests, or questions to the [Pivotal Cloud Foundry Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
+    ![TopLevelServerMonitoring'](./images/19TopLevel.png)
+    ![TopLevelContainerMonitoring'](./images/20ServersContainer.png)
 
-### <a id='license'></a> License
+## <a id='tags'></a> Tagging
 
-Users interested in AppDynamics can sign up for a [free trial license](https://portal.appdynamics.com/account/signup/signupForm).
+In addition to metrics, container correlation is capable of collecting and displaying tags which provide a filtered view. We collect a wide variety of tags by default like `host_ip`, `pcf-org`,
+`pcf-space` etc...
+
+In addition to these default tags, you can create additional tags by setting environment variables with the prefix `APPD_TAG_`. Any application environment variable starting with the `APPD_TAG_` will be treated as a
+tag and is displayed in the *Tags* section.
+
+1. To view the tags for a container, go to <b>Application's Containers Page -> Click the Container entry -> Tags section
+</b>
+    ![ContainerTags'](./images/21containerTags.png)
+
+
+1. To filter the containers belonging to a specific tag, go to <b>Application's Containers Page -> Click on Filters -> Add Criteria
+-> Select the Tag Key -> Add the value to the tag. </b>
+    ![ContainerTagFilter'](./images/22filterTags.png)
+
+
+## <a id='Notes'></a> Notes
+- This Beta version requires both the Platform tile and Applications instrumented using AppDynamics Service Broker pointing to the same AppDynamics Controller. We are
+  planning on supporting multiple controller plans in the future
+- Application container correlation deploys and starts another nozzle instance along with the nozzle that collects platform metrics
+- Application container correlation consumes one [Server Visibility license](https://docs.appdynamics.com/display/latest/Server+Visibility) per Diego cell running the monitored applications.
+- Every Server/Container metric that is exposed via the nozzle is collected in Application container correlation. However, there are some metrics expected in the User Interface that are not emitted by the Loggregator. We are working with Pivotal to fill those gaps.
+
