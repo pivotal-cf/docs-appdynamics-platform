@@ -1,12 +1,12 @@
 ---
-title: AppDynamics Platform Metrics for PCF FAQs
+title: AppDynamics Platform Metrics for Pivotal Platform FAQs
 owner: Partners
 ---
 
 ## <a id='GeneralFAQs'></a> General FAQs
-### <a id='g1'></a> <a id='g1'></a> What is included in the AppDynamics Platform Metrics for PCF tile?
-   * AppDynamics PCF FireHose Nozzle Agent. The Agent collects PCF metrics through a custom Nozzle from Loggregator.
-   * AppDynamics PCF Dashboard. This is an auto-generated custom dashboard that creates health rules for the above PCF metrics and presents it on the Controller.
+### <a id='g1'></a> <a id='g1'></a> What is included in the AppDynamics Platform Metrics for Pivotal Platform tile?
+   * AppDynamics Pivotal Platform FireHose Nozzle Agent. The Agent collects Pivotal Platform metrics through a custom Nozzle from Loggregator.
+   * AppDynamics Pivotal Platform Dashboard. This is an auto-generated custom dashboard that creates health rules for the above Pivotal Platform metrics and presents it on the Controller.
 
 ### <a id='g3'></a> How do I configure SSL (On-Prem Controller deployment)?
    *  Include the entire certificate chain in the security configuration of the BOSH Director tile.
@@ -24,9 +24,9 @@ owner: Partners
 ### <a id='g5'></a> My installation failed, what do I provide to the AppDynamics support?
    *  Collect the error logs from the Ops Manager installation page and provide the entire deployment log files to the AppDynamics support.
 
-## <a id='PCFDashboardFAQS'></a> AppDynamics Platform Metrics for PCF FAQs
-### <a id='d1'></a> What is PCF Dashboard?
-  * The PCF Dashboard Generator is a Python 3 application that generates a platform dashboard and set of health rules for the PCF foundations that have installed the AppDynamics tile v4.5.x. The generated dashboard and health rules leverage the custom metrics published by the AppDynamics tile to the Controller and application configured in the AppDynamics tile.
+## <a id='PCFDashboardFAQS'></a> AppDynamics Platform Metrics for Pivotal Platform FAQs
+### <a id='d1'></a> What is Pivotal Platform Dashboard?
+  * The Pivotal Platform Dashboard Generator is a Python 3 application that generates a platform dashboard and set of health rules for the Pivotal Platform foundations that have installed the AppDynamics tile v4.5.x. The generated dashboard and health rules leverage the custom metrics published by the AppDynamics tile to the Controller and application configured in the AppDynamics tile.
 
 ### <a id='d2'></a> Where do I find this Dashboard?
  * The dashboard can be found in the Dashboards and Reports page of the AppDynamics Controller, with a name `{appname}-{tiername}-PCF KPI Dashboard` where appname and tiername are the names of Nozzle Agent and tier name you have configured in the tile.

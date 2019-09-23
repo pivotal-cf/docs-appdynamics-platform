@@ -1,15 +1,15 @@
 ---
-title: AppDynamics Platform Monitoring for Pivotal Cloud Foundry
+title: AppDynamics Platform Monitoring for Pivotal Platform
 owner: Partners
 ---
 
 ## <a id='overview'></a> Overview
 
-[AppDynamics Platform Monitoring for Pivotal Cloud Foundry (PCF)](https://network.pivotal.io/products/appdynamics-platform/)
-provides visibility into the PCF platform where your AppDynamics-monitored applications are deployed.
+[AppDynamics Platform Monitoring for Pivotal Platform (Pivotal Platform)](https://network.pivotal.io/products/appdynamics-platform/)
+provides visibility into the Pivotal Platform platform where your AppDynamics-monitored applications are deployed.
 The tile deploys a Firehose Nozzle that collects various KPI metrics and publishes them to a controller.
 It also deploys a Dashboard App that automatically creates KPI health rules and custom dashboards associated
-with the health rules, which can be used to monitor the health and capacity of one or more PCF foundations.
+with the health rules, which can be used to monitor the health and capacity of one or more Pivotal Platform foundations.
 
 ## <a id='product-snapshot'></a> Product Snapshot
 
@@ -25,7 +25,7 @@ with the health rules, which can be used to monitor the health and capacity of o
         <td>August 22, 2019</td>
     </tr>
     <tr>
-        <td>Pivotal Cloud Foundry Operations Manager </td>
+        <td>Pivotal Platform Operations Manager </td>
         <td>v2.2, v2.3, v2.4, v2.5, v2.6</td>
     </tr>
     <tr>
@@ -48,28 +48,22 @@ with the health rules, which can be used to monitor the health and capacity of o
 
 
 
-<p class="note warning"><strong>WARNING:</strong> Starting with 4.6 version the default AppDynamics Nozzle Application Name
+<p class="note warning">
+<strong>WARNING:</strong> Starting with 4.6 version the default AppDynamics Nozzle Application Name
 has been changed to **appd-nozzle-v2** and a new dashboard with name **appd-nozzle-v2-<{cf system domain}>-PCF KPI Dashboard**
 will be created.
 </p>
-
-
-<p class="note warning"><strong>WARNING:</strong> AppDynamics Platform Monitoring for PCF v4.5.555
-   and earlier require a stemcell based on Ubuntu Trusty.
-   The end of life date for Ubuntu Trusty is April 2019.
-   If a security vulnerability is found on this stemcell after April, it will not be fixed.</p>
-
 
 ### <a id="reqs"></a> Requirements
 
 * AppDynamics Controller v4.5.x, v4.4.x
 * An AppDynamics account with Go SDK Agent License
-* Pivotal Cloud Foundry v2.1.x, v2.2.x, v2.3.x, v2.4.x, v2.5.x, v2.6.x
+* Pivotal Platform v2.1.x, v2.2.x, v2.3.x, v2.4.x, v2.5.x, v2.6.x
 
 
 ### <a id="feedback"></a> Feedback
 
-Please provide any bugs, feature requests, or questions to the [Pivotal Cloud Foundry Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
+Please provide any bugs, feature requests, or questions to the [Pivotal Platform Feedback list](mailto:pivotal-cf-feedback@pivotal.io).
 
 ### <a id='license'></a> License
 

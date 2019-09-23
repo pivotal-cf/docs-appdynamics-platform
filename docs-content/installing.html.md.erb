@@ -1,9 +1,9 @@
 ---
-title: Installing and Configuring AppDynamics Platform Monitoring for PCF
+title: Installing and Configuring AppDynamics Platform Monitoring for Pivotal Platfrom
 owner: Partners
 ---
 
-This topic describes how to install and configure AppDynamics Platform Monitoring for Pivotal Cloud Foundry (PCF).
+This topic describes how to install and configure AppDynamics Platform Monitoring for Pivotal Platfrom.
 The tile allows you to deploy  AppDynamics Firehose Nozzle that collects various KPI metrics and a Dashboard that
 automatically creates health rules and custom dashboards associated with the metrics.
 
@@ -17,12 +17,12 @@ will be created.
 
 ## <a id='overview-appd-nozzle'></a> Overview
 
-The tile deploys an AppDynamics Nozzle and Dashboard App as PCF apps to the org and space
+The tile deploys an AppDynamics Nozzle and Dashboard App as Pivotal Platfrom apps to the org and space
 appdynamics-org/appdynamics-space. The diagram illustrates the AppDynamics Nozzle that is
 deployed by the tile. The Nozzle aggregates and forwards metrics from the 
 **Loggregator [Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html#firehose)** to
 the AppDynamics Controller. The metrics are published in the Controller as custom metrics under the
-default application name, appd-nozzle-v2, and tier that corresponds to the system domain of the PCF
+default application name, appd-nozzle-v2, and tier that corresponds to the system domain of the Pivotal Platfrom
 foundation.
 
 ![AppD Nozzle to Loggregator Firehose](./images/pcf-foundation-02.png)
@@ -36,7 +36,7 @@ the health and capacity of the foundation where the tile is installed.
 In addition, based on optional configuration added in the tile under AppDynamics Dashboard
 Configuration, the Dashboard App will create one or more Multi-Foundation Dashboards. These
 dashboards summarize the health and capacity of multiple foundations, assuming each foundation
-has the AppDynamics Platform Monitoring for PCF tile installed, and each tile is configured to report
+has the AppDynamics Platform Monitoring for Pivotal Platfrom tile installed, and each tile is configured to report
 to the same AppDynamics controller, as indicated in the diagram.
 
 ![AppD Nozzle to Loggregator Firehose](./images/pcf-foundation-04.png)
@@ -52,14 +52,14 @@ to the same AppDynamics controller, as indicated in the diagram.
    and [License Entitlements and Restrictions](https://docs.appdynamics.com/display/PRO45/License+Entitlements+and+Restrictions).
 
 
-## <a id='set-up-appd-nozzle'></a> Configuring the AppDynamics Nozzle for PCF
+## <a id='set-up-appd-nozzle'></a> Configuring the AppDynamics Nozzle for Pivotal Platfrom
 
 1. Log in to the Ops Manager.
 
 1. If the AppDynamics Platform Monitoring tile does not appear in the Ops Manager Installation Dashboard,
    click **Import a Product** in the left-side menu to import the AppDynamics Platform Monitoring tile.
 
-1. Double-click the **AppDynamics Platform Monitoring for PCF** tile in the Installation Dashboard.
+1. Double-click the **AppDynamics Platform Monitoring for Pivotal Platfrom** tile in the Installation Dashboard.
    A Settings tab is displayed.
 
 1. Fill in the details for the following forms on the tile.
@@ -198,7 +198,7 @@ Once the tile install completes successfully in the Ops Manager, confirm that th
 metrics to the controller by navigating to the appd-nozzle-v2 app and opening the Metric Browser. If
 the Nozzle is successfully reporting metrics, it will create the path `Application Infrastructure
 Performance|<tier>|Custom Metrics|PCF Firehose Monitor`, where the tier corresponds to the system
-domain of the PCF foundation. Navigate to a specific metric such as Diego Cell
+domain of the Pivotal Platfrom foundation. Navigate to a specific metric such as Diego Cell
 Metrics|rep|cf|diego_cell|<guid>|rep. CapacityRemainingMemory as shown below, and doubleclick it to
 add it to the timeseries graph and confirm metrics are reporting in the last 5 minutes.
 
@@ -213,8 +213,8 @@ procedure:
 Variables.
 
     ![](./images/pcf-foundation-06.png)
-   
-    This will cause the agent logs to be forwarded to standard err rather than written to the container file 
+
+    This will cause the agent logs to be forwarded to standard err rather than written to the container file
     system, so they’ll be visible in the app logs.
 
 2. Restage the Nozzle in the Apps Manager.
@@ -231,7 +231,7 @@ Loggregator Firehose.
 
 Check that the KPI health rules have been created in the appd-nozzle-v2 app in the controller configured
 in the tile under **Nozzle Configuration**. Navigate to Applications/appd-nozzle-v2/Alert & Respond/**Health Rules**.
-You should see a set of over 100 health rules whose names are prefixed with the system domain of the PCF foundation
+You should see a set of over 100 health rules whose names are prefixed with the system domain of the Pivotal Platfrom foundation
 where the tile was installed.
 
 Open the the Single Foundation dashboard under **Dashboards & Reports** with the name `appd-nozzle-v2-<system domain>-PCF`
@@ -264,8 +264,8 @@ it is recommended to scale the number of nozzle instances to match the number of
 See the [official cloud foundry recommendation](https://docs.cloudfoundry.org/loggregator/log-ops-guide.html#scaling-nozzles).
 
 
-## <a id='deploy-multiple-tiles-on-multiple-instances'></a> Multiple PCF Foundations
+## <a id='deploy-multiple-tiles-on-multiple-instances'></a> Multiple Pivotal Platfrom Foundations
 
-Multiple AppDynamics Platform Monitoring tiles can be deployed on multiple PCF foundations, using a single AppDynamics Controller.
+Multiple AppDynamics Platform Monitoring tiles can be deployed on multiple Pivotal Platfrom foundations, using a single AppDynamics Controller.
 The metrics corresponding to each of the foundations are recorded under tier names which defaults to the system domain’s value of the Cloud Foundry deployment, for example: `sys.pie-multi-az-blue.cfplatformeng.com`
 Optionally, the tier names can be customized by setting `Nozzle Tier Name` field in the **Overriding Defaults** form.
