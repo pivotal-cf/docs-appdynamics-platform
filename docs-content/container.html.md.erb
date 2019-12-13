@@ -22,7 +22,7 @@ containers and does not require multiple agents to be deployed on each Diego cel
 
 1. AppDynamics Platform Monitoring tile v4.7.239 or higher.
 
-1. AppDynamics Extension Buildpack v4.7 or higher for non-Java applications (or) [Java Buildpack](https://github.com/cloudfoundry/java-buildpack).
+1. AppDynamics Extension Buildpack v4.7 or higher for non-Java applications (or) [Java Buildpack] v4.20 or higher (https://github.com/cloudfoundry/java-buildpack).
 
 1. This feature requires both the Platform tile and Applications instrumented using AppDynamics Service Broker pointing to the same AppDynamics Controller.    
 
@@ -44,7 +44,7 @@ Configure AppDynamics Platform Monitoring tile to enable container correlation.
     ![ConfiguringContainerCorellation](./images/15ConfiguringContainer.png)
 
 1. Push the applications, if they are not already pushed, with version 4.7 or higher of the AppDynamics Extension
-   Buildpack for non-Java applications (or) the latest version of the Java buildpack.
+   Buildpack for non-Java applications (or) the  version 4.20 or higher of the Java buildpack for Java Applications.
 
 ## <a id='metrics'></a> Navigating the Metrics
 
