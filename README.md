@@ -28,10 +28,10 @@ This section is for creating AppDynamics PCF Partner documentation for the first
 
 ### Build, View, and Edit Docs on macOS 
 
-AppDynamics PCF documentation lives in the PCF docs [Github repository](https://github.com/pivotal-cf?utf8=%E2%9C%93&q=appdynamics&type=&language=). To edit, stage, and publish changes, you must work with locally cloned branches of each product and topic repository.
+AppDynamics PCF documentation lives in the [PCF docs Github repository](https://github.com/pivotal-cf?utf8=%E2%9C%93&q=appdynamics&type=&language=). To edit, stage, and publish changes, you must work with locally cloned branches of each product and topic repository.
 
 This section describes how to build, view, and edit the AppDynamics documentation from your macOS machine.
-1. [Prerequisites ](#Prerequisites)
+1. [Prerequisites](#Prerequisites)
 2. [Getting Started](#Getting-Started)
 3. [Install Ruby](#Install-Ruby)
 4. [Set up Git](#Set-up-Git)
