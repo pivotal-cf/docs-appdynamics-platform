@@ -277,21 +277,14 @@ This section describes how to sync to the master branch, navigate to the `releas
         ```
 
     If the commit fails, try setting up your global git configuration:
-                        ```
-                        $ git config --global user.name “<Firstname> <Lastname>”
-                        ```
-                        ```
-                        $ git config --global user.email name@appdynamics.com
-                        ```
-                        ```
-                        $ whoami
-                        ```
-                        ```
-                        $ git config --local --list
-                        ```
-                        ```
-                        $ ~/.gitconfig
-                        ```
+    ``` 
+	$ git config --global user.name “<Firstname> <Lastname>"
+	$ git config --global user.email name@appdynamics.com
+	$ whoami
+	$ git config --local --list
+	$ ~/.gitconfig
+
+	```  
                         
 11. Push your changes to the repo.
     ```
