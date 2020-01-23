@@ -18,19 +18,19 @@ with the health rules, which can be used to monitor the health and capacity of o
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>4.7.334</td>
+        <td>5.0.369</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>December 13, 2019</td>
+        <td>January 24, 2020</td>
     </tr>
     <tr>
         <td>Pivotal Platform Operations Manager </td>
-        <td>v2.4x, v2.5x, v2.6x, v2.7x</td>
+        <td>v2.6x, v2.7x, v2.8.x</td>
     </tr>
     <tr>
         <td>Pivotal Application Service</td>
-        <td>v2.4, v2.5, v2.6, v2.7</td>
+        <td>v2.6x, v2.7x, v2.8.x</td>
     </tr>
     <tr>
        <td>BOSH stemcell version</td>
@@ -49,16 +49,16 @@ with the health rules, which can be used to monitor the health and capacity of o
 
 
 <p class="note warning">
-<strong>WARNING:</strong> Starting with 4.6 version the default AppDynamics Nozzle Application Name
-has been changed to **appd-nozzle-v2** and a new dashboard with name **appd-nozzle-v2-<{cf system domain}>-PCF KPI Dashboard**
-will be created.
+<strong>WARNING:</strong> 
+    5.x tiles are not directly upgradeable from 4.x tiles. This is because 5.x tiles needs new authentication for it's HTTP based 
+    communication with loggregator. For more details please see the [installation instructions](https://docs.pivotal.io/partners/appdynamics-platform/installing.html)
 </p>
 
 ### <a id="reqs"></a> Requirements
 
 * AppDynamics Controller v4.5.x, v4.4.x
 * An AppDynamics account with Go SDK Agent License
-* Pivotal Platform v2.3.x, v2.4.x, v2.5.x, v2.6.x, v2.7x
+* Pivotal Platform v2.6.x, v2.7x, v2.8.x
 
 
 ### <a id="feedback"></a> Feedback
