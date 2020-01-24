@@ -1,42 +1,32 @@
 ---
-title: Installing and Configuring AppDynamics Platform Monitoring for Pivotal Platfrom
+title: Installing and Configuring AppDynamics Platform Monitoring for Pivotal Platform
 owner: Partners
 ---
 
-This topic describes how to install and configure AppDynamics Platform Monitoring for Pivotal Platfrom.
-The tile allows you to deploy  AppDynamics Firehose Nozzle that collects various KPI metrics and a Dashboard that
-automatically creates health rules and custom dashboards associated with the metrics.
+This topic describes how to install and configure the **AppDynamics Platform Monitoring for Pivotal Platform** tile.
+The tile allows you to deploy the AppDynamics Firehose Nozzle. The Firehose Nozzle collects various KPI metrics and a dashboard that
+automatically creates health rules and custom dashboards associated with the collected metrics.
 
-Additionally the tile allows for advanced configuration to customize metric collection, configuring
-multi-foundation dashboard and overiding default configurations.
+Additionally, the tile allows for advanced configuration to customize metric collection, configuring
+multi-foundation dashboards and overiding default configurations.
 
-<p class="note warning"><strong>WARNING:</strong> Starting with 4.6 version the default AppDynamics Nozzle Application Name
-has been changed to <strong>appd-nozzle-v2</strong> and a new dashboard with name <strong>appd-nozzle-v2-<{cf system domain}>-PCF KPI Dashboard</strong>
-will be created.
-</p>
+<p class="note"><strong>Note: </strong>Starting with 5.x version of the AppDynamics Platform Monitoring for Pivotal Platform tile, the default AppDynamics Nozzle Configuration has been changed to include <strong>UUA User</strong> and <strong>UAA Secret</strong> fields. The 4.x fields: <strong>Doppler Logging Endpoint, Nozzle Username</strong> and <strong>Nozzle Password</strong> have been removed.</p>
 
 ## <a id='overview-appd-nozzle'></a> Overview
 
-The tile deploys an AppDynamics Nozzle and Dashboard App as Pivotal Platfrom apps to the org and space
-appdynamics-org/appdynamics-space. The diagram illustrates the AppDynamics Nozzle that is
-deployed by the tile. The Nozzle aggregates and forwards metrics from the 
+The tile deploys an AppDynamics Nozzle and Dashboard App as Pivotal Platform apps to the org and space appdynamics-org/appdynamics-space. The diagram illustrates the AppDynamics Nozzle that is deployed by the tile. The Nozzle aggregates and forwards metrics from the 
 **Loggregator [Firehose](https://docs.cloudfoundry.org/loggregator/architecture.html#firehose)** to
 the AppDynamics Controller. The metrics are published in the Controller as custom metrics under the
-default application name, appd-nozzle-v2, and tier that corresponds to the system domain of the Pivotal Platfrom
+default application name, appd-nozzle-v2, and tier that corresponds to the system domain of the Pivotal Platform
 foundation.
 
 ![AppD Nozzle to Loggregator Firehose](./images/pcf-foundation-02.png)
 
-The Dashboard App deployed by the tile will automatically create a set of KPI health rules and a
-Single Foundation dashboard in the controller configured in the Nozzle Configuration, which reflect
-the health and capacity of the foundation where the tile is installed.
+The Dashboard App deployed by the tile will automatically create a set of KPI health rules and a Single Foundation Dashboard in the Controller configured in the Nozzle Configuration. These dashboards reflect the health and capacity of the foundation where the tile is installed.
 
 ![AppD Nozzle to Loggregator Firehose](./images/pcf-foundation-03.png)
 
-In addition, based on optional configuration added in the tile under AppDynamics Dashboard
-Configuration, the Dashboard App will create one or more Multi-Foundation Dashboards. These
-dashboards summarize the health and capacity of multiple foundations, assuming each foundation
-has the AppDynamics Platform Monitoring for Pivotal Platfrom tile installed, and each tile is configured to report
+In addition, based on optional configuration added in the tile under AppDynamics Dashboard Configuration, the Dashboard App will create one or more Multi-Foundation Dashboards. These dashboards summarize the health and capacity of multiple foundations, assuming each foundation has the AppDynamics Platform Monitoring for Pivotal Platform tile installed, and each tile is configured to report
 to the same AppDynamics controller, as indicated in the diagram.
 
 ![AppD Nozzle to Loggregator Firehose](./images/pcf-foundation-04.png)
@@ -52,27 +42,49 @@ to the same AppDynamics controller, as indicated in the diagram.
    and [License Entitlements and Restrictions](https://docs.appdynamics.com/display/PRO45/License+Entitlements+and+Restrictions).
 
 
-## <a id='set-up-appd-nozzle'></a> Configuring the AppDynamics Nozzle for Pivotal Platfrom
+## <a id='set-up-appd-nozzle'></a> Configuring the AppDynamics Nozzle for Pivotal Platform
 
-1. Log in to the Ops Manager.
+1. Log in to the <strong>Ops Manager</strong>.
 
-1. If the AppDynamics Platform Monitoring tile does not appear in the Ops Manager Installation Dashboard,
+1. If the AppDynamics Platform Monitoring tile does not appear in the <strong>Ops Manager</strong> Installation Dashboard,
    click **Import a Product** in the left-side menu to import the AppDynamics Platform Monitoring tile.
 
-1. Double-click the **AppDynamics Platform Monitoring for Pivotal Platfrom** tile in the Installation Dashboard.
-   A Settings tab is displayed.
+1. Doubleclick the **AppDynamics Platform Monitoring for Pivotal Platform** tile in the Installation Dashboard.
+   A <strong>Settings</strong> tab is displayed.
 
-1. Fill in the details for the following forms on the tile.
+1. In the <strong>Settings</strong> tab, fill in the details for the forms on the tile.
 
 ### <a id='nozzle configuration'></a> AppDynamics Nozzle Configuration
 
-This form takes in information to establish a connection with Cloud Foundry Loggregator and AppDynamics Controller.
+Depending on the version of the AppDynamics Platform Monitoring for Pivotal Platform tile, there are two options to configure the AppDynamics Nozzle:
 
-![Settings tab for AppDynamics Nozzle Configuration](./images/nozzle_config.png)
+*  v5.x Nozzle Configuration
+*  v4.x Nozzle Configuration
 
-* **Doppler Logging Endpoint**: The Firehose endpoint address, `doppler_logging_endpoint` value.
-    * Run the `cf curl /v2/info` command to obtain the values of The UAA `token_endpoint`
-      and Doppler Logging Endpoint `doppler_logging_endpoint` URL respectively.
+#### v5.x Nozzle Configuration
+In Platform Tile version 5.x there are two added fields: <strong>UAA User</strong> and <strong>UAA Secret</strong>.
+These two fields, replace the previous 4.x fields <strong>Doppler Logging Endpoint, Nozzle Username</strong>, and <strong>Nozzle Password</strong>.
+
+This **AppDynamics Nozzle Configuration** form takes in information to establish a connection with the Cloud Foundry Loggregator and AppDynamics Controller.
+
+![v5.x Settings tab for AppDynamics Nozzle Configuration](./images/nozzle-config-v5.png)
+
+* **UAA User**: Username of the UAA account with access to log data. The account must belong to `logs.admin` authority. Please refer these [instructions] (https://github.com/cf-platform-eng/firehose-nozzle-v2#authentication--testing) to create a UAA account.
+* **UAA Secret**: The secret key of the UAA User account.
+* **Controller Account Name**: The name of the account in the AppDynamics Controller.
+    Access the account name in the AppDynamics Controller UI by navigating to the **settings icon > License > Account**.
+* **Account Access Key**: The access key for the AppDynamics Controller account.
+    Access the account key in the AppDynamics Controller UI by navigating to the **settings icon > License > Account**.
+* **Controller Host**: The hostname of the AppDynamics Controller.
+* **Controller Port**: The port on which the AppDynamics Controller listens for Nozzle traffic.
+* **Enable Controller SSL**: Establishes secures communication with the Controller.
+* **AppDynamics Controller Proxy**: Proxy url, if necessary, used by the Nozzle and Dashboard App to communicate with the AppDynamics Controller. For example: `https://user:password@proxy.com:9000`
+
+#### v4.x Nozzle Configuration
+![v4.x Settings tab for AppDynamics Nozzle Configuration](./images/nozzle_config.png)
+
+* **Doppler Logging Endpoint**: The Firehose endpoint address for the `doppler_logging_endpoint` value.
+    * Run the `cf curl /v2/info` command to obtain the values of the UAA `token_endpoint` and Doppler Logging Endpoint `doppler_logging_endpoint` URL respectively.
 
     <pre class='terminal'>
     $ cf curl /v2/info
@@ -91,18 +103,50 @@ This form takes in information to establish a connection with Cloud Foundry Logg
 * **Controller Host**: The hostname of the AppDynamics Controller.
 * **Controller Port**: The port on which the AppDynamics Controller listens for Nozzle traffic.
 * **Enable Controller SSL**: Establishes secures communication with the Controller.
-* **AppDynamics Controller Proxy**: Proxy url, if necessary, used by the Nozzle and Dashboard App to communicate with the AppDynamics Controller. Example: `https://user:password@proxy.com:9000`
+* **AppDynamics Controller Proxy**: Proxy url, if necessary, used by the Nozzle and Dashboard App to communicate with the AppDynamics Controller. For example: `https://user:password@proxy.com:9000`
 
-### <a id='Nozzle Credentials'></a> Nozzle Credentials
-* Cloud Foundry (CF) environments usually ship with an **opentsdb-firehose-nozzle** account which already belongs to the doppler.firehose group.
-      To use the existing opentsdb-firehose-nozzle account shipped with CF, log in to the OPS Manager and select the PAS tile and navigate to credentials > UAA > **Opentsdb Nozzle Credentials**
-      and copy the username and password.
-* (or) Create a new account in the doppler.firehose group with the correct permissions.
-      For more information, see [UAA Client](https://github.com/cf-platform-eng/firehose-nozzle#option-2-uaa-client).
+### <a id='Nozzle Credentials'></a> AppDynamics Nozzle Credentials
+
+Depending on the version of the AppDynamics Platform Monitoring for Pivotal Platform tile, there are two options to authenticate a user:
+
+*  v5.x Nozzle Credentials
+*  v4.x Nozzle Credentials
+
+#### v5.x Nozzle Credentials
+
+Version 5.x of the AppDynamics Platform tile uses a **UAA User** and **UAA Secret** instead of a **Doppler Logging Endpoint, Username**, and **Password**.
+
+To create a UAA User that can access the data, use the [UAA CLI](https://docs.cloudfoundry.org/uaa/uaa-user-management.html).
+
+1. Create the user:
+
+    ```bash
+    uaac target https://uaa.sys.<pcf system domain> --skip-ssl-validation
+    uaac token client get admin -s <admin client secret>
+    uaac client add my-v2-nozzle \
+      --name my-v2-nozzle \
+      --secret <my-v2-nozzle client secret> \
+      --authorized_grant_types client_credentials,refresh_token \
+      --authorities logs.admin
+    ```
+
+#### v4.x Nozzle Credentials
+
+Cloud Foundry (CF) environments usually ship with an **opentsdb-firehose-nozzle** account which already belongs to the **doppler.firehose** group.
+To use the existing **opentsdb-firehose-nozzle** account shipped with Cloud Foundry(CF):
+
+1. Log in to the **OPS Manager** and select the **PAS** tile.
+1. Navigate to **Credentials > UAA > Opentsdb Nozzle Credentials**.
+1. Copy the username and password.
+
+(or)
+
+* Create a new account in the **doppler.firehose group** with the correct permissions.
+For more information, see [UAA Client](https://github.com/cf-platform-eng/firehose-nozzle#option-2-uaa-client).
 
 ### <a id='dashboard configuration'></a> AppDynamics Dashboard Configuration
 
-This form takes in information to create a Dashboard and associated health rules on the AppDynamics Controller
+This form receives information to create a Dashboard and associated health rules on the AppDynamics Controller
 
 ![Settings tab for AppDynamics Dashboard Configuration](./images/dashboard_config.png)
 
@@ -113,25 +157,15 @@ Refer this section for setting up a [controller account with required permission
 
 #### <a id='configuration'></a> Multi-foundation Dashboard Configuration (Optional)
 
-The Multi-foundation Dashboard configuration supports creating a single dashboard that
-displays the health and performance of multiple foundations. Each foundation that is included
-must have the platform tile installed and configure the Nozzle to report to the same controller.
+The Multi-foundation Dashboard Configuration supports creating a single dashboard that displays the health and performance of multiple foundations. Each foundation that is included must have the platform tile installed and the Nozzle configured to report to the same Controller.
 
-One Multi-foundation Dashboard is created for each configuration added in the Multi-
-foundation Dashboard Configurations section. In the example below, ‘all-foundations’ is the
-name of the new configuration, and will be prepended to the name of the dashboard created in
-the controller, which uses the format &lt;config name&gt;-PCF Multi-foundation Dashboard.
+One Multi-foundation Dashboard is created for each configuration added in the Multi-foundation Dashboard Configurations section. In the example below, ‘all-foundations’ is the name of the new configuration, and will be prepended to the name of the dashboard created in the Controller, which uses the format &lt;config name&gt;-PCF Multi-foundation Dashboard.
 
 ![](./images/08multidashboardconfig.png)
 
-The ‘Application regex’ and ‘Tier regex’ should match one or more app/tier combinations where
-AppDynamics Nozzles are reporting. Based on the default app and tier, the example uses ‘appd-
-nozzle-v2’ as the app regex, and sys.* as the tier regex, which will match any system domain.
+The ‘Application regex’ and ‘Tier regex’ should match one or more app/tier combinations where AppDynamics Nozzles are reporting. Based on the default app and tier, the example uses ‘appd-nozzle-v2’ as the app regex, and sys.* as the tier regex, which will match any system domain.
 
-The ‘Dashboard layout selection’ defaults to ‘Auto select layout’ where the Dashboard App will
-select a layout with the appropriate number of foundations per row based on the total number
-of foundations discovered. Or a specific layout can be chosen to control the density of the
-created dashboard.
+The ‘Dashboard layout selection’ defaults to ‘Auto select layout’ where the Dashboard App selects a layout with the appropriate number of foundations per row based on the total number of foundations discovered. Or a specific layout can be chosen to control the density of the created dashboard.
 
 Below are examples of the ‘Two foundations per row’ and ‘Four foundations per row’ layouts.
 
@@ -187,6 +221,7 @@ to report the metric the filter entry will be
 * **Nozzle Tier ID**: Enter the component ID of the GoLang SDK tier.
 
 #### <a id='44x Controllers'></a> 4.4.x Controllers
+
 For 4.4.x controller, please create an applicaiton on the AppDynamics Controller and create a `Go SDK` tier associated with that application and record the tier-id.
 Enter the AppDynamics AppName, Tier, TierID and Node names in the corresponding fields of the **Overriding Defaults** form.
 
@@ -195,12 +230,12 @@ Enter the AppDynamics AppName, Tier, TierID and Node names in the corresponding 
 ### <a id='Nozzle Credentials'></a> Validating the Nozzle
 
 Once the tile install completes successfully in the Ops Manager, confirm that the Nozzle is reporting
-metrics to the controller by navigating to the appd-nozzle-v2 app and opening the Metric Browser. If
-the Nozzle is successfully reporting metrics, it will create the path `Application Infrastructure
+metrics to the Controller by navigating to the appd-nozzle-v2 app and opening the Metric Browser. If
+the Nozzle is successfully reporting metrics, it creates the path `Application Infrastructure
 Performance|<tier>|Custom Metrics|PCF Firehose Monitor`, where the tier corresponds to the system
-domain of the Pivotal Platfrom foundation. Navigate to a specific metric such as Diego Cell
-Metrics|rep|cf|diego_cell|<guid>|rep. CapacityRemainingMemory as shown below, and doubleclick it to
-add it to the timeseries graph and confirm metrics are reporting in the last 5 minutes.
+domain of the Pivotal Platform foundation. Navigate to a specific metric such as Diego Cell
+Metrics|rep|cf|diego_cell|<guid>|rep. CapacityRemainingMemory as shown below. Doubleclick it to
+add it to the time series graph and confirm metrics are reporting in the last 5 minutes.
 
 ![](./images/pcf-foundation-05.png)
 
@@ -229,9 +264,9 @@ Loggregator Firehose.
 
 ### <a id='Nozzle Credentials'></a> Validating the Dashboard App
 
-Check that the KPI health rules have been created in the appd-nozzle-v2 app in the controller configured
+Check that the KPI health rules have been created in the **appd-nozzle-v2** app in the Controller configured
 in the tile under **Nozzle Configuration**. Navigate to Applications/appd-nozzle-v2/Alert & Respond/**Health Rules**.
-You should see a set of over 100 health rules whose names are prefixed with the system domain of the Pivotal Platfrom foundation
+You should see a set of over 100 health rules with names that are prefixed with the system domain of the Pivotal Platform foundation
 where the tile was installed.
 
 Open the the Single Foundation dashboard under **Dashboards & Reports** with the name `appd-nozzle-v2-<system domain>-PCF`
@@ -264,8 +299,8 @@ it is recommended to scale the number of nozzle instances to match the number of
 See the [official cloud foundry recommendation](https://docs.cloudfoundry.org/loggregator/log-ops-guide.html#scaling-nozzles).
 
 
-## <a id='deploy-multiple-tiles-on-multiple-instances'></a> Multiple Pivotal Platfrom Foundations
+## <a id='deploy-multiple-tiles-on-multiple-instances'></a> Multiple Pivotal Platform Foundations
 
-Multiple AppDynamics Platform Monitoring tiles can be deployed on multiple Pivotal Platfrom foundations, using a single AppDynamics Controller.
-The metrics corresponding to each of the foundations are recorded under tier names which defaults to the system domain’s value of the Cloud Foundry deployment, for example: `sys.pie-multi-az-blue.cfplatformeng.com`
-Optionally, the tier names can be customized by setting `Nozzle Tier Name` field in the **Overriding Defaults** form.
+Multiple AppDynamics Platform Monitoring tiles can be deployed on multiple Pivotal Platform foundations using a single AppDynamics Controller.
+The metrics corresponding to each of the foundations are recorded under tier names that default to the system domain’s value of the Cloud Foundry deployment, for example: `sys.pie-multi-az-blue.cfplatformeng.com`
+Optionally, the tier names can be customized by setting the `Nozzle Tier Name` field in the **Overriding Defaults** form.
