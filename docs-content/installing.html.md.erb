@@ -69,7 +69,7 @@ This **AppDynamics Nozzle Configuration** form takes in information to establish
 
 ![v5.x Settings tab for AppDynamics Nozzle Configuration](./images/nozzle-config-v5.png)
 
-* **UAA User**: Username of the UAA account with access to log data. The account must belong to `logs.admin` authority. Please refer to: https://github.com/cf-platform-eng/firehose-nozzle-v2#authentication--testing to create a UAA account.
+* **UAA User**: Username of the UAA account with access to log data. The account must belong to `logs.admin` authority. Please refer these [instructions] (https://github.com/cf-platform-eng/firehose-nozzle-v2#authentication--testing) to create a UAA account.
 * **UAA Secret**: The secret key of the UAA User account.
 * **Controller Account Name**: The name of the account in the AppDynamics Controller.
     Access the account name in the AppDynamics Controller UI by navigating to the **settings icon > License > Account**.
@@ -128,22 +128,6 @@ To create a UAA User that can access the data, use the [UAA CLI](https://docs.cl
       --secret <my-v2-nozzle client secret> \
       --authorized_grant_types client_credentials,refresh_token \
       --authorities logs.admin
-    ```
-
-1. Manually get a token:
-
-    ```bash
-    uaac token client get v2-nozzle-test -s <my-v2-nozzle client secret>
-    uaac context
-    ```
-
-    The RLP Gateway data can be tested with `curl`.
-
-1. To view the data in the form of newline-delimited JSON payloads, copy the token and run:
-
-    ```bash
-    export token=<my-v2-nozzle token from context>
-    curl -k -H "Authorization: $token" 'https://log-stream.sys.<pcf system domain>/v2/read?counter&gauge'
     ```
 
 #### v4.x Nozzle Credentials
