@@ -19,7 +19,7 @@ or multiple foundations and are appropriate for displaying in an operations cent
 The AppDynamics Nozzle reads metrics from the Loggregator Firehose and publishes them as
 custom metrics to the controller configured in the tile. You can view the metrics in the Metrics
 Browser under the app and tier assigned in the tile. The app and tier names are ‘appd-nozzle-
-v2’ and the name of the Pivotal Platform system domain, respectively, unless they were overridden in the
+v2’ and the name of the VMware Tanzu system domain, respectively, unless they were overridden in the
 tile.
 
 The metric path is `Application Infrastructure Performance|<tier>|Custom Metrics|PCF
@@ -44,7 +44,7 @@ the Pivotal KPI documentation, and prefixed with the tier name.
      - [Diego Cell Metrics](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#cell)
      - [Diego Locket Metrics](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#locket)
      - [Diego Route Emitter Metrics](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#route_emitter)
-     - [PAS MySQL KPIs](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL)
+     - [TAS MySQL KPIs](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL)
      - [Gorouter Metrics](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#gorouter)
      - [UAA Metrics](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#uaa)
      - [Firehose Metrics](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#doppler-server)
@@ -82,7 +82,7 @@ Dashboard configuration that is added in the platform tile.
 
 ### <a id='single-foundation'></a> Single Foundation Dashboard
 
-The Single Foundation Dashboard visualizes performance of the Pivotal Platform foundation on which the
+The Single Foundation Dashboard visualizes performance of the VMware Tanzu foundation on which the
 AppDynamics platform tile is installed in a single pane of glass. It is named `<app name>-<tier
 name>-PCF KPI Dashboard` based on the app and tier names configured for the Nozzle in the
 platform tile, which default to `appd-nozzle-v2` and `<system domain>`, respectively. The
@@ -93,7 +93,7 @@ The dashboard is separated into three sections:
 
 - **(top)**: Core capacity scaling indicators and measurements for the Diego Cell, Router, and UAA services
 - **(middle)**: Key Performance Indicators, active KPI health rule violations and graphs of Router throughput.
-- **(bottom)**: System (BOSH) VM health indicators for the core Pivotal Platform services that track the health of each VM supporting a core Pivotal Platform service.
+- **(bottom)**: System (BOSH) VM health indicators for the core VMware Tanzu services that track the health of each VM supporting a core VMware Tanzu service.
 
 ![The Single Foundation Dashboard](./images/04singlefoundation.png)
 

@@ -1,5 +1,5 @@
 ---
-title: Release Notes for AppDynamics Platform Monitoring for Pivotal Platform
+title: Release Notes for AppDynamics Platform Monitoring for VMware Tanzu
 owner: Partners
 ---
 
@@ -17,7 +17,7 @@ owner: Partners
 
 - Major Release - 5.0.x line of tiles
 - Performance updates
-- Works only with >=2.6 PAS environments
+- Works only with >=2.6 TAS environments
 - The Nozzle uses new v2 HTTP-based APIs to collect metrics. This replaces the old websocket-based communication to the loggregator.
 
 
@@ -33,7 +33,7 @@ owner: Partners
 **Release Date:** October 23, 2019
 
 - Maintenance Release
-- Removed GOVERSION to allow future PAS upgrades
+- Removed GOVERSION to allow future TAS upgrades
 - Improvements to nozzle websocket error handling
 
 ## <a id='47249'></a> 4.7.249
@@ -41,12 +41,12 @@ owner: Partners
 **Release Date:** August 22, 2019
 
 - Maintenance Release
-- Updated GOVERSION to 1.11 to support PAS v4.5.8+
-- Dashboard improvements to address changing metric paths between PAS upgrades
+- Updated GOVERSION to 1.11 to support TAS v4.5.8+
+- Dashboard improvements to address changing metric paths between TAS upgrades
 
 <p class="note"><strong>Note:</strong>
 
-- This tile now requires Go 1.11+ which is available in go_buildpack 1.8.27 and later. If you are using PAS v2.2.6 or lower you will have to install a more up-to-date go_buildpack manually.
+- This tile now requires Go 1.11+ which is available in go_buildpack 1.8.27 and later. If you are using TAS v2.2.6 or lower you will have to install a more up-to-date go_buildpack manually.
 - Due to dashboard changes, existing dashboards and health rules must be deleted before upgrading to this tile version.
 
 </p>
