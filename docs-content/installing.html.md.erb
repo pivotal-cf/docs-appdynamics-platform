@@ -239,29 +239,6 @@ add it to the time series graph and confirm metrics are reporting in the last 5 
 
 ![](./images/pcf-foundation-05.png)
 
-If the metrics don’t appear, use the Apps Manager to tail the logs for the Nozzle `appdnozzle-
-<version>` under appdynamics-org/appdynamics-space. Tailing the logs from the Apps Manager will
-ensure getting the startup logs for the Nozzle, which are typically lost when using `cf logs. Follow this
-procedure:
-
-1. Set APPD_DEBUG to **true** in the Apps Manager under Settings/User Provided Environment
-Variables.
-
-    ![](./images/pcf-foundation-06.png)
-
-    This will cause the agent logs to be forwarded to standard err rather than written to the container file
-    system, so they’ll be visible in the app logs.
-
-2. Restage the Nozzle in the Apps Manager.
-
-3. In the Apps Manager, go to Logs and press the play button to tail the logs as the Nozzle
-restages. You should see some [ERR] log messages in red that are specific to the SDK agent and
-would indicate any problems communicating with the Controller. The [OUT] log messages should
-show ‘Handling x events’ where x is non-zero and would indicate successful communication with the
-Loggregator Firehose.
-
-    ![](./images/pcf-foundation-07.png)
-
 ### <a id='Nozzle Credentials'></a> Validating the Dashboard App
 
 Check that the KPI health rules have been created in the **appd-nozzle-v2** app in the Controller configured
@@ -289,8 +266,15 @@ and eventually:
 
       “error: failed to find PCF metric path in target controller…”
 
-If you see these messages, first resolve the issue with the Nozzle by following the Nozzle validation steps described above.
-
+If you see these messages, first resolve the issue with the Nozzle by following the Nozzle validation steps described above.   
+   
+## <a id='Nozzle Logging'></a> Adjusting Nozzle Logging
+   
+By default, the agent forwards the logs to stderr with default level set to Info. To override the behavior 
+   
+1. set APPD_DISABLE_CONSOLE_LOGGING to true to disbale logging to console 
+2. set APPD_LOG_LEVEL to one of info, warn, debug to manage Log Level
+3. Restage the Nozzle in the Apps Manager.
 
 ## <a id='Scaling'></a> AppDynamics Nozzle Scalability
 
@@ -304,3 +288,9 @@ See the [official cloud foundry recommendation](https://docs.cloudfoundry.org/lo
 Multiple AppDynamics Platform Monitoring tiles can be deployed on multiple VMware Tanzu foundations using a single AppDynamics Controller.
 The metrics corresponding to each of the foundations are recorded under tier names that default to the system domain’s value of the Cloud Foundry deployment, for example: `sys.pie-multi-az-blue.cfplatformeng.com`
 Optionally, the tier names can be customized by setting the `Nozzle Tier Name` field in the **Overriding Defaults** form.
+
+## <a id='Debugging'></a> Debugging
+
+If the metrics don’t appear, use the Apps Manager to tail the logs for the Nozzle `appdnozzle-
+<version>` under appdynamics-org/appdynamics-space. Tailing the logs from the Apps Manager will
+ensure getting the startup logs for the Nozzle, which are typically lost when using `cf logs. 
