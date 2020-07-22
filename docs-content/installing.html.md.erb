@@ -182,6 +182,16 @@ the default standard KPI metrics that are collected by AppDynamics Nozzle.
 
 * **Collect Container Metrics**: Check this box to collect Container metrics for the applications.
 
+* **Periodic Clearing of Nozzle Cache**: Enable this if nozzle's cache holding container meta data needs to be cleared. Nozzle collects this meta data from CAPI. 
+Enabling this option forces nozzle to clear and collect the CAPI data periodically. 
+       
+
+* **Nozzle Cache clearing Interval (in Minutes)**: Set Cache clearing interval (in minutes). Default is set to 1 day (1440). This input is used along with the above 
+flag to clear the meta data cache 
+
+<p class="note"><strong>Enabling this feature will increase traffic to CAPI. Enable this only if required</strong></p>
+
+       
 * **Extended Metrics JSON Filter**: AppDynamics Nozzle aplies a filter to limit the number of metrics that are processed. This JSON configures
 the filter. It is a simple JSON dictionary with metrics `origin` tag used as keys and the list of `names` of metrics that belong to the `origin` that are to be collected as value.
 Additionally, a wildcard `"*"` can also be used inside the list to collect all metrics under the `origin`.
@@ -219,6 +229,7 @@ to report the metric the filter entry will be
 * **Nozzle Tier Name**: Enter a name for the Nozzle Tier that corresponds to the Nozzle Application Name, such as **_test-app-tier_**. This MUST be a Go SDK Tier.
 * **Nozzle Node Name**: Enter a name for the Nozzle Node that corresponds to the Nozzle Application Name, such as **_test-app-node_**.
 * **Nozzle Tier ID**: Enter the component ID of the GoLang SDK tier.
+* **AppDynamics Nozzle Log Level**: Select the nozzle logging. Level Info is set by default.
 
 #### <a id='44x Controllers'></a> 4.4.x Controllers
 
