@@ -69,8 +69,8 @@ This **AppDynamics Nozzle Configuration** form takes in information to establish
 
 ![v5.x Settings tab for AppDynamics Nozzle Configuration](./images/nozzle-config-v5.png)
 
-* **UAA User**: Username of the UAA account with access to log data. The account must belong to `logs.admin` authority. Please refer these [instructions] (https://github.com/cf-platform-eng/firehose-nozzle-v2#authentication--testing) to create a UAA account.
-* **UAA Secret**: The secret key of the UAA User account.
+* **UAA User**: (Only for tiles with version < v5.0.457)Username of the UAA account with access to log data. The account must belong to `logs.admin` authority. Please refer these [instructions] (https://github.com/cf-platform-eng/firehose-nozzle-v2#authentication--testing) to create a UAA account.
+* **UAA Secret**: (Only for tiles with version < v5.0.457) The secret key of the UAA User account.
 * **Controller Account Name**: The name of the account in the AppDynamics Controller.
     Access the account name in the AppDynamics Controller UI by navigating to the **settings icon > License > Account**.
 * **Account Access Key**: The access key for the AppDynamics Controller account.
@@ -80,41 +80,14 @@ This **AppDynamics Nozzle Configuration** form takes in information to establish
 * **Enable Controller SSL**: Establishes secures communication with the Controller.
 * **AppDynamics Controller Proxy**: Proxy url, if necessary, used by the Nozzle and Dashboard App to communicate with the AppDynamics Controller. For example: `https://user:password@proxy.com:9000`
 
-#### v4.x Nozzle Configuration
-![v4.x Settings tab for AppDynamics Nozzle Configuration](./images/nozzle_config.png)
-
-* **Doppler Logging Endpoint**: The Firehose endpoint address for the `doppler_logging_endpoint` value.
-    * Run the `cf curl /v2/info` command to obtain the values of the UAA `token_endpoint` and Doppler Logging Endpoint `doppler_logging_endpoint` URL respectively.
-
-    <pre class='terminal'>
-    $ cf curl /v2/info
-    {
-    ...
-    "doppler_logging_endpoint": "wss://doppler.sys.pie-multi-az-blue.cfplatformeng.com:443",
-    }
-    </pre>
-
-* **Nozzle Username**: The username for a member account belonging to the **doppler.firehose** group. This is the authorized UAA user that AppDynamics Nozzle uses to access the Loggregator.
-* **Nozzle Password**: The password for the above member account.
-* **Controller Account Name**: The name of the account in the AppDynamics Controller.
-    Access the account name in the AppDynamics Controller UI on the Account tab under License.
-* **Account Access Key**: The access key for the AppDynamics Controller account.
-    Access the account key in the AppDynamics Controller UI on the Account tab under License.
-* **Controller Host**: The hostname of the AppDynamics Controller.
-* **Controller Port**: The port on which the AppDynamics Controller listens for Nozzle traffic.
-* **Enable Controller SSL**: Establishes secures communication with the Controller.
-* **AppDynamics Controller Proxy**: Proxy url, if necessary, used by the Nozzle and Dashboard App to communicate with the AppDynamics Controller. For example: `https://user:password@proxy.com:9000`
 
 ### <a id='Nozzle Credentials'></a> AppDynamics Nozzle Credentials
 
-Depending on the version of the AppDynamics Platform Monitoring for VMware Tanzu tile, there are two options to authenticate a user:
+For tiles with version prior to v5.0.457 or higher the nozzle authenticates via OAuth.
 
-*  v5.x Nozzle Credentials
-*  v4.x Nozzle Credentials
+#### (Not required in latest) Nozzle Credentials for tiles with version prior to v5.0.457
 
-#### v5.x Nozzle Credentials
-
-Version 5.x of the AppDynamics Platform tile uses a **UAA User** and **UAA Secret** instead of a **Doppler Logging Endpoint, Username**, and **Password**.
+Versions v5.0.457 of the AppDynamics Platform tile uses a **UAA User** and **UAA Secret** instead of a **Doppler Logging Endpoint, Username**, and **Password**.
 
 To create a UAA User that can access the data, use the [UAA CLI](https://docs.cloudfoundry.org/uaa/uaa-user-management.html).
 
@@ -129,20 +102,6 @@ To create a UAA User that can access the data, use the [UAA CLI](https://docs.cl
       --authorized_grant_types client_credentials,refresh_token \
       --authorities logs.admin
     ```
-
-#### v4.x Nozzle Credentials
-
-Cloud Foundry (CF) environments usually ship with an **opentsdb-firehose-nozzle** account which already belongs to the **doppler.firehose** group.
-To use the existing **opentsdb-firehose-nozzle** account shipped with Cloud Foundry(CF):
-
-1. Log in to the **OPS Manager** and select the **TAS** tile.
-1. Navigate to **Credentials > UAA > Opentsdb Nozzle Credentials**.
-1. Copy the username and password.
-
-(or)
-
-* Create a new account in the **doppler.firehose group** with the correct permissions.
-For more information, see [UAA Client](https://github.com/cf-platform-eng/firehose-nozzle#option-2-uaa-client).
 
 ### <a id='dashboard configuration'></a> AppDynamics Dashboard Configuration
 
@@ -230,7 +189,10 @@ to report the metric the filter entry will be
 * **Nozzle Node Name**: Enter a name for the Nozzle Node that corresponds to the Nozzle Application Name, such as **_test-app-node_**.
 * **Nozzle Tier ID**: Enter the component ID of the GoLang SDK tier.
 * **AppDynamics Nozzle Log Level**: Select the nozzle logging. Level Info is set by default.
+* **Reverse Log Proxy Address**: Enter this to override reverse log proxy address that is derived automatically by the tile following the bosh link for rlp deployment.
+* **Nozzle Shard ID**: Unique shard id for the nozzle. By default `appd-firehose-nozzle-v2` is set. Can be overridden  
 
+   
 #### <a id='44x Controllers'></a> 4.4.x Controllers
 
 For 4.4.x controller, please create an applicaiton on the AppDynamics Controller and create a `Go SDK` tier associated with that application and record the tier-id.
