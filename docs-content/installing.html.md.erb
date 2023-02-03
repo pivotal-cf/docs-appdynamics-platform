@@ -49,7 +49,7 @@ to the same AppDynamics controller, as indicated in the diagram.
 1. If the AppDynamics Platform Monitoring tile does not appear in the <strong>Ops Manager</strong> Installation Dashboard,
    click **Import a Product** in the left-side menu to import the AppDynamics Platform Monitoring tile.
 
-1. Doubleclick the **AppDynamics Platform Monitoring for VMware Tanzu** tile in the Installation Dashboard.
+1. Double-click the **AppDynamics Platform Monitoring for VMware Tanzu** tile in the Installation Dashboard.
    A <strong>Settings</strong> tab is displayed.
 
 1. In the <strong>Settings</strong> tab, fill in the details for the forms on the tile.
@@ -63,13 +63,13 @@ Depending on the version of the AppDynamics Platform Monitoring for VMware Tanzu
 
 #### v5.x Nozzle Configuration
 In Platform Tile version 5.x there are two added fields: <strong>UAA User</strong> and <strong>UAA Secret</strong>.
-These two fields, replace the previous 4.x fields <strong>Doppler Logging Endpoint, Nozzle Username</strong>, and <strong>Nozzle Password</strong>.
+These two fields replace the previous 4.x fields <strong>Doppler Logging Endpoint, Nozzle Username</strong>, and <strong>Nozzle Password</strong>.
 
 This **AppDynamics Nozzle Configuration** form takes in information to establish a connection with the Cloud Foundry Loggregator and AppDynamics Controller.
 
 ![v5.x Settings tab for AppDynamics Nozzle Configuration](./images/nozzle-config-v5.png)
 
-* **UAA User**: (Only for tiles with version < v5.0.457)Username of the UAA account with access to log data. The account must belong to `logs.admin` authority. Please refer these [instructions] (https://github.com/cf-platform-eng/firehose-nozzle-v2#authentication--testing) to create a UAA account.
+* **UAA User**: (Only for tiles with version < v5.0.457)Username of the UAA account with access to log data. The account must belong to `logs.admin` authority. Please refer to these [instructions](https://github.com/cf-platform-eng/firehose-nozzle-v2#authentication--testing) to create a UAA account.
 * **UAA Secret**: (Only for tiles with version < v5.0.457) The secret key of the UAA User account.
 * **Controller Account Name**: The name of the account in the AppDynamics Controller.
     Access the account name in the AppDynamics Controller UI by navigating to the **settings icon > License > Account**.
@@ -105,7 +105,7 @@ To create a UAA User that can access the data, use the [UAA CLI](https://docs.cl
 
 ### <a id='dashboard configuration'></a> AppDynamics Dashboard Configuration
 
-This form receives information to create a Dashboard and associated health rules on the AppDynamics Controller
+This form receives information to create a Dashboard and associated health rules on the AppDynamics Controller.
 
 ![Settings tab for AppDynamics Dashboard Configuration](./images/dashboard_config.png)
 
@@ -118,15 +118,15 @@ Refer this section for setting up a [controller account with required permission
 
 The Multi-foundation Dashboard Configuration supports creating a single dashboard that displays the health and performance of multiple foundations. Each foundation that is included must have the platform tile installed and the Nozzle configured to report to the same Controller.
 
-One Multi-foundation Dashboard is created for each configuration added in the Multi-foundation Dashboard Configurations section. In the example below, ‘all-foundations’ is the name of the new configuration, and will be prepended to the name of the dashboard created in the Controller, which uses the format &lt;config name&gt;-PCF Multi-foundation Dashboard.
+One Multi-foundation Dashboard is created for each configuration added in the Multi-foundation Dashboard Configurations section. In the example below, "all-foundations" is the name of the new configuration, and will be prepended to the name of the dashboard created in the Controller, which uses the format &lt;config name&gt;-PCF Multi-foundation Dashboard.
 
-![](./images/08multidashboardconfig.png)
+![alt-text=""](./images/08multidashboardconfig.png)
 
-The ‘Application regex’ and ‘Tier regex’ should match one or more app/tier combinations where AppDynamics Nozzles are reporting. Based on the default app and tier, the example uses ‘appd-nozzle-v2’ as the app regex, and sys.* as the tier regex, which will match any system domain.
+The "Application regex" and "Tier regex" should match one or more app/tier combinations where AppDynamics Nozzles are reporting. Based on the default app and tier, the example uses "appd-nozzle-v2" as the app regex, and sys.* as the tier regex, which will match any system domain.
 
-The ‘Dashboard layout selection’ defaults to ‘Auto select layout’ where the Dashboard App selects a layout with the appropriate number of foundations per row based on the total number of foundations discovered. Or a specific layout can be chosen to control the density of the created dashboard.
+The "Dashboard layout selection" defaults to "Auto select layout" where the Dashboard App selects a layout with the appropriate number of foundations per row based on the total number of foundations discovered. Or a specific layout can be chosen to control the density of the created dashboard.
 
-Below are examples of the ‘Two foundations per row’ and ‘Four foundations per row’ layouts.
+Below are examples of the "Two foundations per row" and "Four foundations per row" layouts.
 
 ![Four foundations per row layout](./images/09fourfoundation.png)
 
@@ -141,16 +141,16 @@ the default standard KPI metrics that are collected by AppDynamics Nozzle.
 
 * **Collect Container Metrics**: Check this box to collect Container metrics for the applications.
 
-* **Periodic Clearing of Nozzle Cache**: Enable this if nozzle's cache holding container meta data needs to be cleared. Nozzle collects this meta data from CAPI. 
-Enabling this option forces nozzle to clear and collect the CAPI data periodically. 
-       
+* **Periodic Clearing of Nozzle Cache**: Enable this if nozzle's cache holding container meta data needs to be cleared. Nozzle collects this meta data from CAPI.
+Enabling this option forces nozzle to clear and collect the CAPI data periodically.
 
-* **Nozzle Cache clearing Interval (in Minutes)**: Set Cache clearing interval (in minutes). Default is set to 1 day (1440). This input is used along with the above 
-flag to clear the meta data cache 
+
+* **Nozzle Cache clearing Interval (in Minutes)**: Set Cache clearing interval (in minutes). Default is set to 1 day (1440). This input is used along with the above
+flag to clear the meta data cache
 
 <p class="note"><strong>Enabling this feature will increase traffic to CAPI. Enable this only if required</strong></p>
 
-       
+
 * **Extended Metrics JSON Filter**: AppDynamics Nozzle aplies a filter to limit the number of metrics that are processed. This JSON configures
 the filter. It is a simple JSON dictionary with metrics `origin` tag used as keys and the list of `names` of metrics that belong to the `origin` that are to be collected as value.
 Additionally, a wildcard `"*"` can also be used inside the list to collect all metrics under the `origin`.
@@ -190,9 +190,9 @@ to report the metric the filter entry will be
 * **Nozzle Tier ID**: Enter the component ID of the GoLang SDK tier.
 * **AppDynamics Nozzle Log Level**: Select the nozzle logging. Level Info is set by default.
 * **Reverse Log Proxy Address**: Enter this to override reverse log proxy address that is derived automatically by the tile following the bosh link for rlp deployment.
-* **Nozzle Shard ID**: Unique shard id for the nozzle. By default `appd-firehose-nozzle-v2` is set. Can be overridden  
+* **Nozzle Shard ID**: Unique shard id for the nozzle. By default `appd-firehose-nozzle-v2` is set. Can be overridden
 
-   
+
 #### <a id='44x Controllers'></a> 4.4.x Controllers
 
 For 4.4.x controller, please create an applicaiton on the AppDynamics Controller and create a `Go SDK` tier associated with that application and record the tier-id.
@@ -207,33 +207,33 @@ metrics to the Controller by navigating to the appd-nozzle-v2 app and opening th
 the Nozzle is successfully reporting metrics, it creates the path `Application Infrastructure
 Performance|<tier>|Custom Metrics|PCF Firehose Monitor`, where the tier corresponds to the system
 domain of the VMware Tanzu foundation. Navigate to a specific metric such as Diego Cell
-Metrics|rep|cf|diego_cell|<guid>|rep. CapacityRemainingMemory as shown below. Doubleclick it to
+Metrics|rep|cf|diego_cell|<guid>|rep. CapacityRemainingMemory as shown below. Double-click it to
 add it to the time series graph and confirm metrics are reporting in the last 5 minutes.
 
-![](./images/pcf-foundation-05.png)
+![alt-text=""](./images/pcf-foundation-05.png)
 
-If the metrics don’t appear, use the Apps Manager to tail the logs for the Nozzle `appdnozzle-
+If the metrics don't appear, use the Apps Manager to tail the logs for the Nozzle `appdnozzle-
 <version>` under appdynamics-org/appdynamics-space. Tailing the logs from the Apps Manager will
-ensure getting the startup logs for the Nozzle, which are typically lost when using `cf logs. Follow this
+ensure getting the startup logs for the Nozzle, which are typically lost when using cf logs. Follow this
 procedure:
 
 1. Set APPD_DEBUG to **true** in the Apps Manager under Settings/User Provided Environment
 Variables.
 
-    ![](./images/pcf-foundation-06.png)
+    ![alt-text=""](./images/pcf-foundation-06.png)
 
     This will cause the agent logs to be forwarded to standard err rather than written to the container file
-    system, so they’ll be visible in the app logs.
+    system, so they'll be visible in the app logs.
 
 2. Restage the Nozzle in the Apps Manager.
 
 3. In the Apps Manager, go to Logs and press the play button to tail the logs as the Nozzle
 restages. You should see some [ERR] log messages in red that are specific to the SDK agent and
 would indicate any problems communicating with the Controller. The [OUT] log messages should
-show ‘Handling x events’ where x is non-zero and would indicate successful communication with the
+show "Handling x events" where x is non-zero and would indicate successful communication with the
 Loggregator Firehose.
 
-    ![](./images/pcf-foundation-07.png)
+    ![alt-text=""](./images/pcf-foundation-07.png)
 
 ### <a id='Nozzle Credentials'></a> Validating the Dashboard App
 
@@ -275,5 +275,5 @@ See the [official cloud foundry recommendation](https://docs.cloudfoundry.org/lo
 ## <a id='deploy-multiple-tiles-on-multiple-instances'></a> Multiple VMware Tanzu Foundations
 
 Multiple AppDynamics Platform Monitoring tiles can be deployed on multiple VMware Tanzu foundations using a single AppDynamics Controller.
-The metrics corresponding to each of the foundations are recorded under tier names that default to the system domain’s value of the Cloud Foundry deployment, for example: `sys.pie-multi-az-blue.cfplatformeng.com`
+The metrics corresponding to each of the foundations are recorded under tier names that default to the system domain's value of the Cloud Foundry deployment, for example: `sys.pie-multi-az-blue.cfplatformeng.com`
 Optionally, the tier names can be customized by setting the `Nozzle Tier Name` field in the **Overriding Defaults** form.
