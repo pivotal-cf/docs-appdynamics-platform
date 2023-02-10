@@ -148,7 +148,7 @@ Enabling this option forces nozzle to clear and collect the CAPI data periodical
 * **Nozzle Cache clearing Interval (in Minutes)**: Set Cache clearing interval (in minutes). Default is set to 1 day (1440). This input is used along with the above
 flag to clear the meta data cache
 
-<p class="note"><strong>Enabling this feature will increase traffic to CAPI. Enable this only if required</strong></p>
+    <p class="note"><strong>Enabling this feature will increase traffic to CAPI. Enable this only if required</strong></p>
 
 
 * **Extended Metrics JSON Filter**: AppDynamics Nozzle aplies a filter to limit the number of metrics that are processed. This JSON configures
@@ -214,7 +214,7 @@ add it to the time series graph and confirm metrics are reporting in the last 5 
 
 If the metrics don't appear, use the Apps Manager to tail the logs for the Nozzle `appdnozzle-
 <version>` under appdynamics-org/appdynamics-space. Tailing the logs from the Apps Manager will
-ensure getting the startup logs for the Nozzle, which are typically lost when using cf logs. Follow this
+ensure getting the startup logs for the Nozzle, which are typically lost when using `cf logs`. Follow this
 procedure:
 
 1. Set APPD_DEBUG to **true** in the Apps Manager under Settings/User Provided Environment

@@ -7,7 +7,7 @@ owner: Partners
 
 The Dashboard App deployed by the platform tile creates a set of KPI health rules that
 implement the Pivotal best practices for platform monitoring and proactively alert you when
-there’s an issue with a foundation that may impact application performance. These alerts can
+there's an issue with a foundation that may impact application performance. These alerts can
 be associated with actions such as opening a support ticket using [AppDynamics Policies](https://docs.appdynamics.com/display/LATEST/Configure+Policies).
 
 The Dashboard App also creates a Single Foundation Dashboard and Multi-Foundation
@@ -18,13 +18,13 @@ or multiple foundations and are appropriate for displaying in an operations cent
 
 The AppDynamics Nozzle reads metrics from the Loggregator Firehose and publishes them as
 custom metrics to the controller configured in the tile. You can view the metrics in the Metrics
-Browser under the app and tier assigned in the tile. The app and tier names are ‘appd-nozzle-
-v2’ and the name of the VMware Tanzu system domain, respectively, unless they were overridden in the
+Browser under the app and tier assigned in the tile. The app and tier names are "appd-nozzle-
+v2" and the name of the VMware Tanzu system domain, respectively, unless they were overridden in the
 tile.
 
 The metric path is `Application Infrastructure Performance|<tier>|Custom Metrics|PCF
-Firehose Monitor`. By default, the metrics from the ‘rep’ origin are displayed. In the example
-below, ‘sys.pcf.com’ is the tier name, and the subcategories of rep metrics are displayed,
+Firehose Monitor`. By default, the metrics from the "rep" origin are displayed. In the example
+below, "sys.pcf.com" is the tier name, and the subcategories of rep metrics are displayed,
 including the capacity metrics for Diego Cells. Additional metrics sources, for example origins, can also
 be configured. For more information, see the AppDynamics Advanced Metrics section of the
 tile.
@@ -38,27 +38,27 @@ defined by Pivotal, as listed below. Each indicator includes context information
 and what to do if the threshold is breached. The KPI health rules are named as they appear in
 the Pivotal KPI documentation, and prefixed with the tier name.
 
-- [Key Performance Indicators (KPIs)](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html) for monitoring Pivotal Cloud Foundry:
-     - [Diego Auctioneer Metrics](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#auctioneer)
-     - [Diego BBS Metrics](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#bbs)
-     - [Diego Cell Metrics](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#cell)
-     - [Diego Locket Metrics](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#locket)
-     - [Diego Route Emitter Metrics](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#route_emitter)
-     - [TAS MySQL KPIs](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL)
-     - [Gorouter Metrics](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#gorouter)
-     - [UAA Metrics](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#uaa)
-     - [Firehose Metrics](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#doppler-server)
-     - [System (BOSH) Metrics](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#bosh)
+- [Key Performance Indicators (KPIs)](https://docs.pivotal.io/application-service/operating/monitoring/kpi.html) for monitoring Pivotal Cloud Foundry:
+     - [Diego Auctioneer Metrics](https://docs.pivotal.io/application-service/operating/monitoring/kpi.html#auctioneer)
+     - [Diego BBS Metrics](https://docs.pivotal.io/application-service/operating/monitoring/kpi.html#bbs)
+     - [Diego Cell Metrics](https://docs.pivotal.io/application-service/operating/monitoring/kpi.html#Cell)
+     - [Diego Locket Metrics](https://docs.pivotal.io/application-service/operating/monitoring/kpi.html#locket)
+     - [Diego Route Emitter Metrics](https://docs.pivotal.io/application-service/operating/monitoring/kpi.html#route_emitter)
+     - [TAS MySQL KPIs](https://docs.pivotal.io/application-service/operating/monitoring/kpi.html#kpi4MySQL)
+     - [Gorouter Metrics](https://docs.pivotal.io/application-service/operating/monitoring/kpi.html#gorouter)
+     - [UAA Metrics](https://docs.pivotal.io/application-service/operating/monitoring/kpi.html#uaa)
+     - [Firehose Metrics](https://docs.pivotal.io/application-service/operating/monitoring/kpi.html#doppler-server)
+     - [System (BOSH) Metrics](https://docs.pivotal.io/application-service/operating/monitoring/kpi.html#bosh)
 
-- [Key Capacity Scaling Indicators](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html):
-     - [Diego Cell Capacity Scaling Indicators](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html#cell)
-     - [Firehose Performance Scaling Indicators](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html#doppler-server)
-     - [CF Syslog Drain Performance Scaling Indicators](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html#scalable-syslog)
-     - [Router Performance Scaling Indicators](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html#Router)
-     - [UAA Performance Scaling Indicators](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html#UAA)
+- [Key Capacity Scaling Indicators](https://docs.pivotal.io/application-service/operating/monitoring/key-cap-scaling.html):
+     - [Diego Cell Capacity Scaling Indicators](https://docs.pivotal.io/application-service/operating/monitoring/key-cap-scaling.html#cell)
+     - [Firehose Performance Scaling Indicators](https://docs.pivotal.io/application-service/operating/monitoring/key-cap-scaling.html#doppler-server)
+     - [CF Syslog Drain Performance Scaling Indicators](https://docs.pivotal.io/application-service/operating/monitoring/key-cap-scaling.html#scalable-syslog)
+     - [Router Performance Scaling Indicators](https://docs.pivotal.io/application-service/operating/monitoring/key-cap-scaling.html#router)
+     - [UAA Performance Scaling Indicators](https://docs.pivotal.io/application-service/operating/monitoring/key-cap-scaling.html#UAA)
 
      Below is an example of a KPI health rule created for the indicator Diego Cell Memory Capacity,
-     named ‘sys.pcf.com-Diego Cell Memory Capacity’.
+     named "sys.pcf.com-Diego Cell Memory Capacity".
 
 ![KPI health rule created for the indicator Diego Cell Memory Capacity](./images/02memorycapacity.png)
 
@@ -112,9 +112,9 @@ value of the KPI metric causing the violation.
 
 Multi-foundation Dashboards support visualizing the health and performance of multiple
 foundations on a single dashboard. Below is an example Multi-foundation Dashboard that
-displays the status of six foundations, one per row. It includes a single ‘Capacity Indicators’
-widget to display the aggregate health of the capacity related health rules as well as an ‘Overall
-(Tier) Indicators’ widget that displays the aggregate status of all the KPI health rules associated
+displays the status of six foundations, one per row. It includes a single "Capacity Indicators"
+widget to display the aggregate health of the capacity related health rules as well as an "Overall
+(Tier) Indicators" widget that displays the aggregate status of all the KPI health rules associated
 with the foundation. Depending on the layout, the dashboard may contain gauge widgets for
 current capacity, a health rule violation widget, and current router requests.
 
@@ -132,35 +132,32 @@ them immediately).
 
 ## <a id='dashboard-app'></a> Setting up Account to create Dashboards
 
-The ‘Username for reporting Dashboard’ and ‘Password’ fields from the platform tile
+The "Username for reporting Dashboard" and "Password" fields from the platform tile
 determine the credentials used by the Dashboard App for creating the KPI health rules and
 the Single Foundation and Multi-Foundation Dashboards via the REST API. The following
 screenshots show the minimum permissions required and assume a distinct user is created as
 well as a role that is assigned to the user.
 
-1. Create a ‘PCF KPI Role’ and under Dashboards assign it ‘Can Create Dashboards’ and View and Edit
+1. Create a "PCF KPI Role" and under Dashboards assign it "Can Create Dashboards" and View and Edit
 permission on the Default dashboard.
 
     ![Dashboard App Permissions Can Create Dashboards](./images/11dashapppermissions.png)
 
-2. Under Applications, assign the role ‘Custom’ and ‘View’ permissions for the app that the
+2. Under Applications, assign the role "Custom" and "View" permissions for the app that the
 AppDynamics Nozzle reports. The default is appd-nozzle-v2, unless it was overridden under
 Advanced Configuration of the platform tile.
 
     ![Dashboard App Permissions Custom and View](./images/12pcfkpirole.png)
 
-3. Edit the permissions for the application and select only ‘Configure Health Rules’
+3. Edit the permissions for the application and select only "Configure Health Rules".
 
     ![Dashboard App Permissions Configure Health Rules](./images/13configurehealthrules.png)
 
-4. Create a user and assign it the PCF KPI Role as well as the 'Applications & Dashboards Viewer (Default)' role.
-The user and password should match the ‘Username for reporting Dashboard’ and ‘Password’ fields from the platform
+4. Create a user and assign it the PCF KPI Role as well as the "Applications & Dashboards Viewer (Default)" role.
+The user and password should match the "Username for reporting Dashboard" and "Password" fields from the platform
 tile.
 
     ![Dashboard App Permissions Create User](./images/14pcfkpiuser.png)
 
 
 
-<!--
-TBD -- Need more info or links re last point....
--->
